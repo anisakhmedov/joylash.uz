@@ -6,7 +6,7 @@
                 <p>Greetings, you're now in PropDown</p>
                 <div class="title">Bringing Your Dream <br> Home Vision to Life.</div>
                 <div class="disc">Lorem ipsum dolor sit amet consectetur. <br> Est quisque elementum aliquam a.</div>
-                <NuxtLink class="btn" to="">Publish a Property</NuxtLink>
+                <NuxtLink class="btn orange" to="">Publish a Property</NuxtLink>
             </div>
         </div>
         <div class="appereance container">
@@ -36,27 +36,28 @@
             </ul>
         </div>
         <div class="productView">
-            <div class="title">
+            <div class="_title" style="padding: 0 100px;">
                 <p>Featured Property</p>
                 <nav>
                     <span>Recommended Place to Live for You</span>
-                    <div class="arrows">
-                        <div class="left">
-                            <img @click="scrollCarousel(1)" src="~/public/icons/arrow-orange.svg" alt="">
-                        </div>
-                        <div class="right">
-                            <img @click="scrollCarousel(2)" src="~/public/icons/arrow-orange.svg" alt="">
-                        </div>
-                    </div>
                 </nav>
             </div>
-        </div>
-
-        <!-- Карусель -->
-        <div class="carousel-container">
-            <div class="carousel">
-                <Items ref="carouselInner" />
+            <div class="carousel-container">
+                <div class="carousel">
+                    <Items ref="carouselInner" />
+                </div>
             </div>
+            <NuxtLink class="btn orange" to="">Show all Property</NuxtLink>
+        </div>
+        <div class="map"></div>
+        <div class="products">
+            <div class="_title">
+                <p>Recent Additions</p>
+                <nav>
+                    <span>Find Properties that Suits You</span>
+                </nav>
+            </div>
+            <Items ref="ItemsProd" />
         </div>
     </div>
 </template>
@@ -66,6 +67,7 @@ import { ref, onMounted } from 'vue'
 import Items from '~/components/Items.vue'
 
 const carouselInner = ref(null)
+const ItemsProd = ref(null)
 
 const scrollCarousel = (direction) => {
     let el = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.carousel-container')
@@ -81,7 +83,7 @@ onMounted(() => {
     console.log(wrap);
     let num = 1
     for (let item of wrap) {
-        
+
         console.log(item);
         el.scrollTo()
     }
