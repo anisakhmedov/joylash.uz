@@ -2,6 +2,7 @@
   <div id="defaultView">
     <Header />
     <slot />
+    <Form />
     <Footer />
   </div>
 </template>
