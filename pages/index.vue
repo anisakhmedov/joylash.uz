@@ -49,7 +49,8 @@
             </div>
             <NuxtLink class="btn orange" to="">Show all Property</NuxtLink>
         </div>
-        <div class="map"></div>
+        <Map ref="Map"/>
+
         <div class="products">
             <div class="_title">
                 <p>Recent Additions</p>
@@ -65,29 +66,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Items from '~/components/Items.vue'
-
-const carouselInner = ref(null)
-const ItemsProd = ref(null)
-
-const scrollCarousel = (direction) => {
-    let el = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.carousel-container')
-
-
-
-}
-
-onMounted(() => {
-    console.log(123);
-    let el = document.querySelector('.carousel-container')
-    let wrap = el.firstChild.firstChild.children
-    console.log(wrap);
-    let num = 1
-    for (let item of wrap) {
-
-        console.log(item);
-        el.scrollTo()
-    }
-})
+import Map from '~/components/Map.vue'
 </script>
 
 <style></style>
