@@ -1,6 +1,6 @@
 <template>
     <div ref="scrollWrapper" class="items-wrapper">
-        <div class="item" v-for="n in 10" :key="n" ref="scrollWrapper">
+        <div class="item" @click="routeOnPage(n)" v-for="n in 10" :key="n" ref="scrollWrapper">
             <!-- Карточка -->
             <div class="bg"></div>
             <div class="info">
@@ -32,9 +32,15 @@
 
 <script setup>
 import { ref, defineExpose } from 'vue'
+const router = useRouter()
 
 const scrollWrapper = ref(null)
+
 defineExpose({ scrollWrapper })
+
+let routeOnPage = function (prop) {
+    router.push(`/products/${prop}`)
+}
 </script>
 
 <style scoped></style>

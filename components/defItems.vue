@@ -1,6 +1,7 @@
 <template>
     <div ref="scrollWrapper" id="Items">
-        <div class="item" v-for="n in 10" :key="n" ref="scrollWrapper">
+        <div class="item" @click="routeOnPage(n)" v-for="n in 10" :key="n" ref="scrollWrapper">
+
             <!-- Карточка -->
             <div class="img">
                 <img src="~/public/images/bg_product.png" alt="">
@@ -38,6 +39,10 @@ import { ref, defineExpose } from 'vue'
 
 const scrollWrapper = ref(null)
 defineExpose({ scrollWrapper })
+
+let routeOnPage = function (prop) {
+    console.log(prop);
+}
 </script>
 
 <style scoped></style>

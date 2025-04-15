@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 * {
     margin: 0;
@@ -594,22 +594,22 @@ body {
             flex-direction: column;
             justify-content: space-between;
             font-weight: bold;
-            .title{
+            .title {
                 display: flex;
-                .left{
+                .left {
                     display: flex;
                     flex-direction: column;
                     gap: 7px;
-                    .price{
-                        color: #E98800;
+                    .price {
+                        color: #e98800;
                         font-size: 18px;
                     }
-                    p{
+                    p {
                         font-size: 25px;
                         font-weight: bold;
                     }
                 }
-                .right{
+                .right {
                     padding: 10px;
                     display: flex;
                     cursor: pointer;
@@ -617,29 +617,29 @@ body {
                     justify-content: center;
                     height: fit-content;
                     border-radius: 50%;
-                    border: 1px solid #E98800;
+                    border: 1px solid #e98800;
                 }
             }
             .options {
                 ul {
                     display: flex;
                     gap: 15px;
-                    li{
+                    li {
                         width: fit-content;
                         gap: 6px;
                         display: flex;
                         align-items: center;
-                        p{
+                        p {
                             width: fit-content;
                         }
-                        img{
+                        img {
                             position: relative;
                             z-index: 1;
                             display: block;
                             height: 100%;
-                            &::after{
+                            &::after {
                                 position: absolute;
-                                content: '';
+                                content: "";
                                 top: 0;
                                 z-index: 2;
                                 right: 0;
@@ -652,6 +652,74 @@ body {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+#prod {
+    padding: 0 60px;
+    .item {
+        display: flex;
+        gap: 30px;
+        height: 450px;
+        .left {
+            width: 35%;
+            img {
+                border-radius: 17px;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .right {
+            width: 65%;
+            .title {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                .main {
+                    gap: 11px;
+                    h2 {
+                        font-size: 28px;
+                        font-weight: 800;
+                    }
+                    p {
+                        font-size: 18px;
+                        color: #b9bbbf;
+                    }
+                }
+                .nav {
+                    display: flex;
+                    gap: 13px;
+                    div {
+                        padding: 7px 10px;
+                        border-radius: 10px;
+                        display: flex;
+                        align-items: center;
+                        height: 34px;
+                        justify-content: center;
+                        &.like {
+                            color: #d46f77;
+                            background-color: #fff0f0;
+                            display: flex;
+                            gap: 7px;
+                            font-weight: 600;
+                        }
+                        &.save,
+                        &.share {
+                            background-color: #edf0f8;
+                        }
+                    }
+                }
+            }
+            hr {
+                margin: 30px 0;
+            }
+            .price {
+                font-size: 40px;
+                color: #e98800;
+                font-weight: bold;
             }
         }
     }
