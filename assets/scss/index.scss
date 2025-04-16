@@ -714,12 +714,56 @@ body {
                 }
             }
             hr {
+                opacity: 50%;
                 margin: 30px 0;
             }
             .price {
                 font-size: 40px;
                 color: #e98800;
                 font-weight: bold;
+            }
+            .btns {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 30px;
+                div {
+                    width: fit-content;
+                    height: 60px;
+                    cursor: pointer;
+                    border-radius: 30px;
+                    gap: 15px;
+                    padding: 19px 50px;
+                    background-color: #ffba5a;
+                    display: flex;
+                    color: white;
+                    font-weight: 600;
+                    align-items: center;
+                    justify-content: center;
+                    &:first-child {
+                        background-color: #e98800;
+                    }
+                }
+            }
+            .carousel-prod {
+                display: flex;
+                height: 115px;
+                justify-content: space-between;
+                .ar {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .images {
+                    display: flex;
+                    gap: 20px;
+                    width: 100%;
+                    overflow-x: scroll;
+                    img {
+                        width: 115px;
+                        height: 115px;
+                    }
+                }
             }
         }
     }

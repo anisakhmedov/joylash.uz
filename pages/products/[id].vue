@@ -45,6 +45,20 @@
             <p>Message</p>
           </div>
         </div>
+        <div class="carousel-prod">
+          <div class="ar">
+            <img class="arrow" style="transform: rotate(90deg);" src="~/public/icons/arrow.svg" alt="">
+          </div>
+          <div class="images">
+            <div class="img" v-for="i of 10" :key="i">
+              <img src="~/public/images/bg_product.png" alt="">
+            </div>
+          </div>
+          <div class="ar">
+            <img class="arrow" style="transform: rotate(-90deg);" src="~/public/icons/arrow.svg" alt="">
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
