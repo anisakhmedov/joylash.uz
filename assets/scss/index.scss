@@ -960,3 +960,117 @@ body {
         }
     }
 }
+
+#register {
+    display: grid;
+    overflow: hidden;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    .smth {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+    }
+    form {
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #d9d9d9;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 400px;
+            margin-bottom: 20px;
+            background-color: transparent;
+        }
+        p {
+            text-align: center;
+            margin: 10px 0;
+        }
+        button {
+            width: 100%;
+            border-radius: 10px;
+            background-color: #e98800;
+            color: white;
+            font-size: 16px;
+            border: none;
+            font-weight: 600;
+            padding: 10px;
+            outline: none;
+        }
+        span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            p {
+                color: blue;
+                cursor: pointer;
+            }
+        }
+        .password {
+            display: flex;
+            height: fit-content;
+            justify-content: space-between;
+            p {
+                margin: 0 !important;
+            }
+        }
+        .check{
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            cursor: pointer;
+            gap: 10px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            .box{
+                width: 20px;
+                height: 20px;
+                border: 1px solid #9a9a9a;
+                border-radius: 5px;
+            }
+            p{
+                text-align: left;
+                width: fit-content;
+            }
+            &.active{
+                .box{
+                    background-color: #ffba5a;
+                    border-color: #e98800;
+                    border-width: 2px;
+                }
+                img{
+                    filter: brightness(3);
+                    display: block;
+                }
+            }
+            img{
+                display: none;
+            }
+        }
+    }
+    .bg {
+        img {
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+    }
+}
