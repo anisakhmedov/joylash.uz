@@ -50,7 +50,7 @@
                 </ul>
             </div>
         </div>
-        <Items />
+        <Items id="Items"/>
     </div>
 </template>
 
