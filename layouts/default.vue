@@ -11,22 +11,14 @@
 export default {
   data() {
     return {
-      type: true
+      type: true,
     }
   },
   methods: {
   },
   created() {
     if (process.client) {
-      if (window.location.href.includes('register') || window.location.href.includes('signIn')) {
-        this.type = false
-        console.log('reg or sign in');
-
-      } else {
-        this.type = true
-        console.log('default');
-
-      }
+      window.location.href.includes('register') || window.location.href.includes('signIn') ? this.type = false : this.type = true
     }
   }
 }
