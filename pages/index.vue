@@ -49,7 +49,9 @@
             </div>
             <NuxtLink class="btn orange" to="">Show all Property</NuxtLink>
         </div>
-        <Map ref="Map"/>
+        <client-only>
+            <Map class="map-def" :center="[41.311081, 69.240562]" />
+        </client-only>
 
         <div class="products">
             <div class="_title">

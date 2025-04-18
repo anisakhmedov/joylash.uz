@@ -81,19 +81,26 @@
       </div>
     </div>
     <!-- <div class="" style="height: 50px; "></div> -->
-    <Map style="border-radius: 20px; margin-top: 50px;" />
+    <client-only>
+      <Map :center="[41.311081, 69.240562]" />
+    </client-only>
     <div class="discItem">
       <ul class="listItems">
         <li class="top">
           <h2>Product Description</h2>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi fugit, nesciunt minima natus incidunt exercitationem nulla et neque corrupti accusantium quidem dolorum deleniti vitae commodi quod repudiandae sint placeat explicabo tempore non sit nobis officia! Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde provident, nulla fugiat consectetur reiciendis hic ipsam voluptates ab maxime! Ipsam incidunt saepe officia molestiae distinctio ipsa. Sint in dolorem nam!</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi fugit, nesciunt minima natus incidunt
+            exercitationem nulla et neque corrupti accusantium quidem dolorum deleniti vitae commodi quod repudiandae
+            sint placeat explicabo tempore non sit nobis officia! Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Unde provident, nulla fugiat consectetur reiciendis hic ipsam voluptates ab maxime! Ipsam incidunt
+            saepe officia molestiae distinctio ipsa. Sint in dolorem nam!</p>
         </li>
         <li>
           <h2>Benefits</h2>
           <ul>
             <li v-for="i of 7" :key="i">
               <img src="~/public/icons/check.svg" alt="">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!
+              </p>
             </li>
           </ul>
         </li>
@@ -102,7 +109,8 @@
           <ul>
             <li v-for="i of 7" :key="i">
               <img src="~/public/icons/check.svg" alt="">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!
+              </p>
             </li>
           </ul>
         </li>
@@ -111,7 +119,8 @@
           <ul>
             <li v-for="i of 7" :key="i">
               <img src="~/public/icons/check.svg" alt="">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!
+              </p>
             </li>
           </ul>
         </li>

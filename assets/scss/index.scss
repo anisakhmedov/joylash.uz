@@ -29,8 +29,10 @@ body {
     margin: 0 auto;
 }
 
-#map {
-    padding: 0 100px;
+.map-def {
+    // padding: 0 100px;
+    max-width: calc(100% - 200px);
+    margin: 0 auto;
     height: 70vh;
     background-color: black;
 }
@@ -1031,7 +1033,7 @@ body {
                 margin: 0 !important;
             }
         }
-        .check{
+        .check {
             display: flex;
             flex-direction: row;
             justify-content: start;
@@ -1040,28 +1042,28 @@ body {
             gap: 10px;
             margin-top: -10px;
             margin-bottom: 10px;
-            .box{
+            .box {
                 width: 20px;
                 height: 20px;
                 border: 1px solid #9a9a9a;
                 border-radius: 5px;
             }
-            p{
+            p {
                 text-align: left;
                 width: fit-content;
             }
-            &.active{
-                .box{
+            &.active {
+                .box {
                     background-color: #ffba5a;
                     border-color: #e98800;
                     border-width: 2px;
                 }
-                img{
+                img {
                     filter: brightness(3);
                     display: block;
                 }
             }
-            img{
+            img {
                 display: none;
             }
         }
@@ -1075,61 +1077,61 @@ body {
     }
 }
 
-#profile{
-    .info{
+#profile {
+    .info {
         max-width: 1200px;
         margin: 0 auto;
         overflow: hidden;
         border-radius: 35px;
         border: 3px solid #e9880050;
-        .colorGrd{
+        .colorGrd {
             height: 100px;
             border-top-right-radius: 20px;
             border-top-left-radius: 20px;
-            background: linear-gradient(270deg,rgba(233, 136, 0, 1) 0%, rgba(255, 186, 90, 1) 100%);
+            background: linear-gradient(270deg, rgba(233, 136, 0, 1) 0%, rgba(255, 186, 90, 1) 100%);
         }
-        .main{
+        .main {
             width: 100%;
             padding: 32px;
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            .infoMain{
+            .infoMain {
                 display: flex;
                 align-items: center;
                 gap: 20px;
-                .infoUser{
-                    .mail{
+                .infoUser {
+                    .mail {
                         color: #616161;
                     }
-                    .name{
+                    .name {
                         font-size: 25px;
                         font-weight: 600;
                     }
                 }
-                img{
+                img {
                     width: 100px;
                     height: 100px;
                     object-fit: cover;
                     border-radius: 50%;
                 }
             }
-            form{
+            form {
                 margin-top: 20px;
-                .inputs{
+                .inputs {
                     display: grid;
                     grid-template-columns: 1fr 1fr 1fr;
                     gap: 20px;
                     margin-bottom: 20px;
-                    .inp{
+                    .inp {
                         display: flex;
                         flex-direction: column;
-                        label{
+                        label {
                             font-size: 20px;
                             margin-bottom: 10px;
                         }
-                        input{
+                        input {
                             background-color: #f5f5f5;
                             border: #616161 1px solid;
                             border-radius: 10px;
@@ -1138,7 +1140,7 @@ body {
                         }
                     }
                 }
-                button{
+                button {
                     background-color: #e98800;
                     padding: 15px;
                     border-radius: 10px;

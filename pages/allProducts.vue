@@ -9,7 +9,9 @@
             <p id="numberOfAvaible"></p>
         </nav>
 
-        <Map ref="Map" />
+        <client-only>
+            <Map :center="[41.311081, 69.240562]" />
+        </client-only>
 
         <div class="filterBlock">
             <div class="search">
