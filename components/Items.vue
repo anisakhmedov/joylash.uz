@@ -1,11 +1,11 @@
 <template>
     <div ref="scrollWrapper" class="items-wrapper">
-        <div class="item" @click="routeOnPage(n)" v-for="n in 10" :key="n" ref="scrollWrapper">
+        <div class="item" @click="routeOnPage(house._id)" v-for="house in houses" :key="house._id" ref="scrollWrapper">
             <!-- Карточка -->
             <div class="bg"></div>
             <div class="info">
                 <div class="title">
-                    <p>ParadisePoint Villa</p>
+                    <p>{{house.title}}</p>
                 </div>
                 <div class="options">
                     <ul>
@@ -18,11 +18,10 @@
                 <div class="locationAndPrice">
                     <div class="location">
                         <img src="~/public/icons/location.svg" alt="">
-                        <span>550 Hudson Hills</span>
+                        <span>{{ house.locationText }}</span>
                     </div>
                     <div class="price">
-                        <span class="mainPrice">$1.980</span>
-                        <span class="duration">/month</span>
+                        <span class="mainPrice">{{house.price}}</span>
                     </div>
                 </div>
             </div>
@@ -40,7 +39,16 @@ defineExpose({ scrollWrapper })
 
 let routeOnPage = function (prop) {
     router.push(`/products/${prop}`)
+    console.log(prop);
+    
 }
+
+defineProps({
+    houses: {
+        type: Array,
+        required: true
+    }
+})
 </script>
 
 <style scoped></style>

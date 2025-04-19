@@ -82,7 +82,7 @@
     </div>
     <!-- <div class="" style="height: 50px; "></div> -->
     <client-only>
-      <Map :center="[41.311081, 69.240562]" />
+      <Map style="max-width: none; margin-top: 30px;" :zoom="16" :locations="[locationObj]" />
     </client-only>
     <div class="discItem">
       <ul class="listItems">
@@ -127,14 +127,22 @@
       </ul>
     </div>
     <p style="font-size: 30px; margin: 60px 0 30px 0; font-weight: 600;">Similar Items You Might Also Like</p>
-    <Items />
+    <Items :houses="houses" />
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import { useRoute } from 'vue-router'
+import Map from '~/components/Map.vue'
+import { houses } from '~/data/houses.js'
 
-}
+const route = useRoute()
+const house = houses.find(h => h._id === route.params.id) || {}
+
+const [lat, lng] = house.locationMap
+  ? house.locationMap.split(',').map(n => parseFloat(n.trim()))
+  : [0, 0]
+const locationObj = { lat, lng }
 </script>
 
 <style></style>

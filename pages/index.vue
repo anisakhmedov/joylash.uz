@@ -44,13 +44,13 @@
             </div>
             <div class="carousel-container">
                 <div class="carousel">
-                    <Items ref="carouselInner" />
+                    <Items ref="carouselInner" :houses="houses" />
                 </div>
             </div>
             <NuxtLink class="btn orange" to="">Show all Property</NuxtLink>
         </div>
         <client-only>
-            <Map class="map-def" :center="[41.311081, 69.240562]" />
+            <Map :locations="allLocations" :zoom="12" />
         </client-only>
 
         <div class="products">
@@ -60,15 +60,20 @@
                     <span>Find Properties that Suits You</span>
                 </nav>
             </div>
-            <Items ref="ItemsProd" />
+            <Items ref="ItemsProd" :houses="houses" />
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import Items from '~/components/Items.vue'
 import Map from '~/components/Map.vue'
+import Items from '~/components/Items.vue'
+import { houses } from '~/data/houses.js'  // или откуда вы импортируете
+
+const allLocations = houses.map(h => {
+  const [lat, lng] = h.locationMap.split(',').map(n => parseFloat(n.trim()))
+  return { lat, lng }
+})
 </script>
 
 <style></style>
