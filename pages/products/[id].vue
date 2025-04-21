@@ -22,8 +22,8 @@
       <div class="right">
         <div class="title">
           <div class="main">
-            <h2>Embrace Sideboard</h2>
-            <p>Teixeira Design Studio</p>
+            <h2>{{ house.title }}</h2>
+            <p>{{ house.disc }}</p>
           </div>
           <div class="nav">
             <div class="like">
@@ -41,7 +41,7 @@
         <hr>
         <div class="price">
           <div class="main">
-            <p id="price">$500.000</p>
+            <p id="price">{{ house.price }}</p>
             <div class="btns">
               <div class="add">
                 <img src="~/public/icons/bag.svg" alt="">
@@ -64,7 +64,7 @@
           <div class="itemOpt" v-for="i of 10" :key="i">
             <img src="~/public/icons/scale-org.svg" alt="">
             <p>
-              100m<sup>2</sup>
+              {{ house.scale }}
             </p>
           </div>
         </div>
@@ -133,6 +133,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
 import Map from '~/components/Map.vue'
 import { houses } from '~/data/houses.js'
 

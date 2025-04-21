@@ -2,7 +2,9 @@
     <div ref="scrollWrapper" class="items-wrapper">
         <div class="item" @click="routeOnPage(house._id)" v-for="house in houses" :key="house._id" ref="scrollWrapper">
             <!-- Карточка -->
-            <div class="bg"></div>
+            <div class="bg">
+                
+            </div>
             <div class="info">
                 <div class="title">
                     <p>{{house.title}}</p>

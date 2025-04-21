@@ -6,35 +6,29 @@
                 <p>Greetings, you're now in PropDown</p>
                 <div class="title">Bringing Your Dream <br> Home Vision to Life.</div>
                 <div class="disc">Lorem ipsum dolor sit amet consectetur. <br> Est quisque elementum aliquam a.</div>
-                <NuxtLink class="btn orange" to="">Publish a Property</NuxtLink>
+                <NuxtLink class="btn orange" to="/allProducts">Publish a Property</NuxtLink>
             </div>
         </div>
-        <div class="appereance container">
+        <div class="appereance container" ref="menuRef">
             <ul>
-                <div class="title">
-                    <div>
-                        <p>Location</p><img src="~/public/icons/arrow.svg" alt="">
+                <div v-for="(item, index) in items" :key="index" class="title"
+                    :class="{ active: activeIndex === index }">
+                    <div class="toggle" @click="toggleMenu(index)">
+                        <p>{{ item.label }}</p>
+                        <img src="~/public/icons/arrow.svg" alt="">
                     </div>
-                    <li></li>
+                    <ul class="submenu">
+                        <NuxtLink to="/allProducts" v-for="(option, idx) in item.options" :key="idx">{{ option }}</NuxtLink>
+                    </ul>
                 </div>
-                <div class="title">
-                    <div>
-                        <p>Category</p> <img src="~/public/icons/arrow.svg" alt="">
-                    </div>
-                    <li></li>
-                </div>
-                <div class="title">
-                    <div>
-                        <p>Type</p> <img src="~/public/icons/arrow.svg" alt="">
-                    </div>
-                    <li></li>
-                </div>
+
                 <div class="search title">
-                    <input type="text" placeholder="Search a Property">
-                    <img src="~/public/icons/search.svg" alt="">
+                    <input type="text" placeholder="Search a Property" />
+                    <img src="~/public/icons/search.svg" alt="" />
                 </div>
             </ul>
         </div>
+        <!-- <div class="_margin"></div> -->
         <div class="productView">
             <div class="_title" style="padding: 0 100px;">
                 <p>Featured Property</p>
@@ -47,10 +41,10 @@
                     <Items ref="carouselInner" :houses="houses" />
                 </div>
             </div>
-            <NuxtLink class="btn orange" to="">Show all Property</NuxtLink>
+            <NuxtLink class="btn orange" to="allProducts">Show all Property</NuxtLink>
         </div>
         <client-only>
-            <Map :locations="allLocations" :zoom="12" />
+            <Map :locations="allLocations" style="margin-top: 30px;" :zoom="12" />
         </client-only>
 
         <div class="products">
@@ -69,10 +63,58 @@
 import Map from '~/components/Map.vue'
 import Items from '~/components/Items.vue'
 import { houses } from '~/data/houses.js'  // или откуда вы импортируете
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const allLocations = houses.map(h => {
-  const [lat, lng] = h.locationMap.split(',').map(n => parseFloat(n.trim()))
-  return { lat, lng }
+    const [lat, lng] = h.locationMap.split(',').map(n => parseFloat(n.trim()))
+    return { lat, lng }
+})
+
+const changeClass = function () {
+    let el = event.target.parentNode.querySelector('ul')
+    console.log(el);
+
+    if (el.getAttribute('class') == null || el.getAttribute('class')) {
+        for (let item of el.parentNode.parentNode.querySelectorAll('ul')) {
+            item.classList.remove('active')
+        }
+        el.classList.add('active')
+    } else {
+        for (let item of el.parentNode.parentNode.querySelectorAll('ul')) {
+            item.classList.remove('active')
+        }
+        el.classList.remove('active')
+    }
+
+}
+
+
+const activeIndex = ref(null)
+const menuRef = ref(null)
+
+const items = [
+    { label: 'Location', options: ['Option 1', 'Option 2', 'Option 3'] },
+    { label: 'Category', options: ['Option A', 'Option B', 'Option C'] },
+    { label: 'Type', options: ['Option X', 'Option Y', 'Option Z'] },
+]
+
+function toggleMenu(index) {
+    activeIndex.value = activeIndex.value === index ? null : index
+}
+
+function handleClickOutside(event) {
+    if (menuRef.value && !menuRef.value.contains(event.target)) {
+        activeIndex.value = null
+    }
+
+}
+
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+    document.removeEventListener('click', handleClickOutside)
 })
 </script>
 

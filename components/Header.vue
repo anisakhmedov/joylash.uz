@@ -1,12 +1,16 @@
 <template>
     <header id="header">
-        <div class="left">Joylash</div>
+        <div class="left">
+            <NuxtLink style="color: white;" to="/">
+                Joylash
+            </NuxtLink>
+        </div>
         <div class="mid">
             <ul>
-                <li>Home</li>
-                <li>Categories</li>
-                <li>Catalogue</li>
-                <li>Wishlist</li>
+                <li><NuxtLink to="/">Home</NuxtLink></li>
+                <li><NuxtLink to="/allProducts">Categories</NuxtLink></li>
+                <li><NuxtLink to="/allProducts">Catalogue</NuxtLink></li>
+                <li><NuxtLink to="/allProducts">Wishlist</NuxtLink></li>
             </ul>
         </div>
         <div class="right">

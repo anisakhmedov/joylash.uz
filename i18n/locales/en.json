@@ -1,0 +1,58 @@
+{
+    "mainPage": {
+        "1ViewText": {
+            "p1": "Greetings, you're now in PropDown",
+            "h1": "Bringing Your Dream Home Vision to Life.",
+            "disc": "Lorem ipsum dolor sit amet consectetur. Est quisque elementum aliquam a."
+        },
+        "filterBar": {
+            "inp1": "Location",
+            "inp2": "Category",
+            "inp3": "Type",
+            "inp4": "Search a Property"
+        },
+        "items": {
+            "label": "Featured Property",
+            "title": "Recommended Place to Live for You",
+            "showAll": "Show all Property"
+        },
+        "items2": {
+            "label": "Recent Additions",
+            "title": "Find Properties that Suits You"
+        }
+    },
+    "def": {
+        "footer": {
+            "mid": {
+                "home": "",
+                "blog": "",
+                "categories": "",
+                "contact": "",
+                "packages": "",
+                "licensing": ""
+            },
+            "right": {
+                "house": "House",
+                "apartment": "Apartment",
+                "office": "Office",
+                "warehouse": "Warehouse"
+            }
+        },
+        "form": {
+            "top": "Join Us",
+            "title": "Get Property Insights and Listings Directly to Your Email",
+            "label": "Subscribe us to get newsleter about property information.",
+            "inpPla": "Insert your email here",
+            "subscribe": "Subscribe"
+        },
+        "header": {
+            "house": "House",
+            "cate": "Categories",
+            "catalogue": "Catalogue",
+            "wishlist": "Wishlist"
+        }
+    },
+    "allProd": {
+         
+    }
+}
