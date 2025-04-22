@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="nav-images profile">
-                <NuxtLink to="">
+                <NuxtLink to="/profile">
                     <img src="~/public/icons/profile.svg" alt="">
                 </NuxtLink>
             </div>
