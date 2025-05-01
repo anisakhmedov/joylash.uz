@@ -18,7 +18,8 @@
                         <img src="~/public/icons/arrow.svg" alt="">
                     </div>
                     <ul class="submenu">
-                        <NuxtLink to="/allProducts" v-for="(option, idx) in item.options" :key="idx">{{ option }}</NuxtLink>
+                        <NuxtLink to="/allProducts" v-for="(option, idx) in item.options" :key="idx">{{ option }}
+                        </NuxtLink>
                     </ul>
                 </div>
 
@@ -70,25 +71,6 @@ const allLocations = houses.map(h => {
     return { lat, lng }
 })
 
-const changeClass = function () {
-    let el = event.target.parentNode.querySelector('ul')
-    console.log(el);
-
-    if (el.getAttribute('class') == null || el.getAttribute('class')) {
-        for (let item of el.parentNode.parentNode.querySelectorAll('ul')) {
-            item.classList.remove('active')
-        }
-        el.classList.add('active')
-    } else {
-        for (let item of el.parentNode.parentNode.querySelectorAll('ul')) {
-            item.classList.remove('active')
-        }
-        el.classList.remove('active')
-    }
-
-}
-
-
 const activeIndex = ref(null)
 const menuRef = ref(null)
 
@@ -116,6 +98,17 @@ onMounted(() => {
 onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
 })
+
+const { $axios } = useNuxtApp();
+
+const { data, error } = await useAsyncData('checkAuth', () =>
+    $axios.get('/auth/check')
+);
+
+if (error.value) {
+    console.log('Not authorized');
+    await navigateTo('/login');
+}
 </script>
 
 <style></style>

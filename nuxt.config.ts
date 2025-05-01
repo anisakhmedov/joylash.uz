@@ -17,6 +17,12 @@ export default defineNuxtConfig({
     }
   },
   modules: ['@nuxtjs/i18n'],
+  plugins: ['~/plugins/axios.ts'],
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:6000/',
+    }
+  },
   i18n: {
     defaultLocale: 'en',
     locales: [
