@@ -69,7 +69,7 @@ onMounted(async () => {
         .catch((err) => console.log(err))
 
     // await console.log(allUsers);
-        // router.push('/')
+    // router.push('/')
 })
 
 const onSubmit = async () => {
@@ -77,22 +77,21 @@ const onSubmit = async () => {
         name: name.value,
         email: email.value,
         password: password.value,
+        phone: JSON.stringify(Math.random())
     }
-    console.log(obj);
 
     axios.post(api, obj)
-        .then((res) => console.log(res))
-        .then((err) => console.log(err))
-    // error.value = '';
-    // try {
-    //     const response = await axios.post('https://joylash-778750a705b4.herokuapp.com/usersJoy', {
-    //         email: email.value,
-    //         password: password.value
-    //     });
-    //     await router.push('/');
-    // } catch (err: any) {
-    //     error.value = err.response?.data?.message || 'Ошибка входа';
-    // }
+        .then((res) => {
+            if (res.data.ok) {
+                localStorage.setItem('user', res.data.element._id)
+                router.push('/')
+
+            } else {
+                console.log(res.data);
+            }
+
+        })
+        .catch((err) => console.log(err))
 };
 </script>
 

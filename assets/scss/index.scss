@@ -1259,11 +1259,29 @@ body {
                             padding: 15px;
                             font-size: 18px;
                         }
+                        .err{
+                            font-size: 14px;
+                            margin-top: 5px;
+                            color: red;
+                            display: none;
+                            &.active{
+                                display: block;
+                            }
+                        }
+                    }
+                }
+                .btns{
+                    display: flex;
+                    gap: 10px;
+                    button{
+                        &:first-child{
+                            background-color: #1c51ff;
+                        }
                     }
                 }
                 button {
                     background-color: #e98800;
-                    padding: 15px;
+                    padding: 15px 30px;
                     border-radius: 10px;
                     font-size: 18px;
                     font-weight: 600;

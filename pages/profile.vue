@@ -9,38 +9,50 @@
                         <img src="~/public/images/face.webp" alt="">
                     </div>
                     <div class="infoUser">
-                        <div class="name">Alex Adams</div>
-                        <div class="mail">alexadams@mail.com</div>
+                        <div class="name">{{ userInfo.name }}</div>
+                        <div class="mail">{{ userInfo.email }}</div>
                     </div>
                 </div>
-                <form action="" >
+                <form action="">
                     <div class="inputs">
                         <div class="inp">
                             <label>Full Name</label>
-                            <input type="text" placeholder="Your First Name">
+                            <input data-inp="name" name="name" type="text" :disabled="btnsActive" :value="userInfo.name"
+                                placeholder="Your First Name">
+                            <label class="err">You must fill this form!</label>
                         </div>
                         <div class="inp">
                             <label>Nickname</label>
-                            <input type="text" placeholder="Your Nuckname">
+                            <input data-inp="nickname" name="nickname" type="text" placeholder="Your Nuckname">
+                            <label class="err">You must fill this form!</label>
                         </div>
                         <div class="inp">
                             <label>Email</label>
-                            <input type="text" placeholder="Your Email">
+                            <input data-inp="email" name="email" type="text" :disabled="btnsActive"
+                                :value="userInfo.email" placeholder="Your Email">
+                            <label class="err">You must fill this form!</label>
                         </div>
                         <div class="inp">
                             <label>Phone Number</label>
-                            <input type="text" placeholder="Your Phone Number">
+                            <input data-inp="phone" name="phone" type="text" placeholder="Your Phone Number">
+                            <label class="err">You must fill this form!</label>
                         </div>
                         <div class="inp">
                             <label>Password</label>
-                            <input type="text" placeholder="**********">
+                            <input type="text" disabled :value="userInfo.password" placeholder="**********">
                         </div>
                         <div class="inp">
                             <label>Reset Your Password</label>
-                            <input type="text" placeholder="New Password">
+                            <input name="password" type="text" placeholder="New Password">
                         </div>
                     </div>
-                    <button>Submit New Information</button>
+                    <div class="btns">
+                        <button @click="btnsActive = !btnsActive" :disabled="!btnsActive"
+                            :style="!btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'">Edit</button>
+                        <button :disabled="btnsActive"
+                            :style="btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'"
+                            @click="sendNewInfo()">Submit New Information</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -48,8 +60,70 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios'
 
+export default {
+    data() {
+        return {
+            api: 'https://joylash-778750a705b4.herokuapp.com/',
+            userInfo: '',
+            btnsActive: true
+        }
+    },
+    mounted() {
+        let userId = localStorage.getItem('user')
+        axios.get(`${this.api}usersJoy/${userId}`)
+            .then((res) => {
+                this.userInfo = res.data.data
+
+            })
+    },
+    methods: {
+        sendNewInfo() {
+            event.preventDefault()
+            let allItems = event.target.parentNode.parentNode.querySelectorAll('input[data-inp]')
+
+            let counter = 0
+            let obj = {}
+            let fm = new FormData(event.target.parentNode.parentNode)
+
+            fm.forEach((val, key) => {
+                obj[key] = val
+            })
+
+            if(obj.password == ''){
+                obj.password = this.userInfo.password    
+            }
+
+            let checkFunc = (param) => {
+                for (let item of allItems) {
+                    if (item.getAttribute('data-inp') == param) {
+                        item.parentNode.querySelector('.err').classList.add('active')
+                    } else if (item.value.length >= 1) {
+                        item.parentNode.querySelector('.err').classList.remove('active')
+                    }
+                    
+                    
+                    // console.log(counter);
+                    if (counter == 0) {
+                        console.log(obj);
+                        
+                        // axios.patch(this.api + this.userInfo._id, )
+                    }
+
+                }
+            }
+
+
+            for (let item in obj) {
+                if (obj[item] == '') {
+                    checkFunc(item)
+                    counter++
+                }
+            }
+
+        }
+    }
 }
 </script>
 

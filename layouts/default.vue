@@ -1,27 +1,18 @@
 <template>
   <div id="defaultView">
-    <Header v-show="type" />
+    <Header v-show="!isRegisterPage" />
     <slot />
-    <Form v-show="type" />
-    <Footer v-show="type" />
+    <Form v-show="!isRegisterPage" />
+    <Footer v-show="!isRegisterPage" />
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      type: true,
-    }
-  },
-  methods: {
-  },
-  created() {
-    if (process.client) {
-      window.location.href.includes('register') || window.location.href.includes('test') ? this.type = false : this.type = true
-    }
-  }
-}
+<script setup>
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const isRegisterPage = computed(() => route.path === '/register')
 </script>
 
 <style></style>
