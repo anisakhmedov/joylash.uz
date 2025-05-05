@@ -18,7 +18,7 @@ export default {
   },
   created() {
     if (process.client) {
-      window.location.href.includes('register') || window.location.href.includes('signIn') || window.location.href.includes('test') ? this.type = false : this.type = true
+      window.location.href.includes('register') || window.location.href.includes('test') ? this.type = false : this.type = true
     }
   }
 }

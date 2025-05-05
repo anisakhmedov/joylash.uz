@@ -101,14 +101,14 @@ onBeforeUnmount(() => {
 
 const { $axios } = useNuxtApp();
 
-const { data, error } = await useAsyncData('checkAuth', () =>
-    $axios.get('/auth/check')
-);
+// const { data, error } = await useAsyncData('checkAuth', () =>
+//     $axios.get('/auth/check')
+// );
 
-if (error.value) {
-    console.log('Not authorized');
-    await navigateTo('/login');
-}
+// if (error.value) {
+//     console.log('Not authorized');
+//     await navigateTo('/login');
+// }
 </script>
 
 <style></style>

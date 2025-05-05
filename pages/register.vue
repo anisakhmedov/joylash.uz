@@ -48,7 +48,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios'
@@ -68,8 +68,8 @@ onMounted(async () => {
         .then((res) => allUsers = res.data.body)
         .catch((err) => console.log(err))
 
-    await console.log(allUsers);
-        
+    // await console.log(allUsers);
+        // router.push('/')
 })
 
 const onSubmit = async () => {
