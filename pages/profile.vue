@@ -59,6 +59,19 @@
             </div>
         </div>
     </div>
+    <div class="allProductsCreated">
+        <h3>Ваши объявления!</h3>
+        <div class="wrapper">
+            
+        </div>
+    </div>
+    <div class="modalWindowProfile" v-show="isShow">
+        <div class="wind">
+            <img :src="allCorrect ? '/icons/correct.png' : '/icons/remove.png'" alt="">
+            <h2>{{ allCorrect ? 'Профиль был успешно изменен!' : 'Возникли проблемы с изменением профиля' }}</h2>
+            <button @click="isShow = false">Закрыть окно</button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -69,7 +82,9 @@ export default {
         return {
             api: 'https://joylash-778750a705b4.herokuapp.com/',
             userInfo: '',
-            btnsActive: true
+            btnsActive: true,
+            allCorrect: true,
+            isShow: false
         }
     },
     mounted() {
@@ -104,17 +119,13 @@ export default {
                     } else if (item.value.length >= 1) {
                         item.parentNode.querySelector('.err').classList.remove('active')
                     }
-
-
                 }
             }
 
             for (let item in obj) {
                 if (obj[item] == '') {
                     counter++
-
                     checkFunc(item)
-                    console.log(counter);
                 }
             }
 
@@ -125,8 +136,14 @@ export default {
                         for (let item of allItems) {
                             item.parentNode.querySelector('.err').classList.remove('active')
                         }
+
+                        this.allCorrect = true
+
+                        if(process.client){
+                            this.isShow = true
+                        }
                     })
-                    .catch((err) => console.log(err))
+                    .catch((err) => this.allCorrect = false)
             }
 
         },

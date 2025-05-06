@@ -94,15 +94,16 @@
                         </div>
                     </div>
                 </div>
+                <input type="text" hidden value="">
             </div>
             <button>Отправить</button>
         </form>
-    </div>
-    <div v-if="modalVisible" class="modal-overlay">
-        <div class="modal-content">
-            <h2>Успешно!</h2>
-            <p>Дом успешно отправлен и находится на модерации.</p>
-            <button @click="modalVisible = false">OK</button>
+        <div class="modalWindowProfile" v-show="isShow">
+            <div class="wind">
+                <img :src="allCorrect ? '/icons/correct.png' : '/icons/remove.png'" alt="">
+                <h2>{{ isCorrect ? 'Профиль был успешно изменен!' : 'Возникли проблемы с созданием товара' }}</h2>
+                <button @click="isShow = false">Закрыть окно</button>
+            </div>
         </div>
     </div>
 </template>
@@ -116,6 +117,8 @@ export default {
             api: 'https://joylash-778750a705b4.herokuapp.com/houses',
             floorSwitch: true,
             typeOfBuilding: 1,
+            isCorrect: true,
+            isShow: true,
             obj: {
                 pluses: [],
                 coords: [],
@@ -124,6 +127,7 @@ export default {
             },
             map: null,
             marker: null,
+            userInfo: Object,
             form: {
                 title: '',
                 price: '',
@@ -136,7 +140,7 @@ export default {
                 cilingHeight: '',
                 floor: ''
             },
-            modalVisible: false,
+            modalVisible: true,
             showErrors: false,
             mainImageFile: null,
             additionalImageFiles: []
@@ -293,7 +297,7 @@ export default {
             });
 
             console.log(formData);
-            
+
 
             axios.post(this.api, formData, {
                 headers: {
@@ -301,11 +305,14 @@ export default {
                 }
             })
                 .then(res => {
-                    this.modalVisible = true;
+                    this.isShow = true;
+                    this.isCorrect = true;
                     this.resetForm();
                     console.log('Форма отправлена:', res.data);
                 })
                 .catch(err => {
+                    this.isCorrect = true;
+                    this.isShow = true;
                     console.error('Ошибка при отправке:', err);
                 });
         }
@@ -313,72 +320,4 @@ export default {
 }
 </script>
 
-<style scoped>
-/* Скрываем инпуты с фотографиями */
-.file-input {
-    display: none;
-}
-
-/* Стили для блока, который кликабельный */
-.image-block {
-    cursor: pointer;
-    padding: 10px;
-    border: 1px dashed #ccc;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.image-block p {
-    font-size: 16px;
-    color: #555;
-}
-
-.delete-icon {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 50%;
-    padding: 2px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.delete-icon:hover {
-    background-color: red;
-}
-
-@media (max-width: 600px) {
-    input[type="file"] {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-    }
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-}
-
-.modal-content {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.modal-content h2 {
-    margin-bottom: 10px;
-}
-</style>
+<style scoped></style>
