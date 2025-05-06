@@ -67,9 +67,6 @@ onMounted(async () => {
     await axios.get(api)
         .then((res) => allUsers = res.data.body)
         .catch((err) => console.log(err))
-
-    // await console.log(allUsers);
-    // router.push('/')
 })
 
 const onSubmit = async () => {

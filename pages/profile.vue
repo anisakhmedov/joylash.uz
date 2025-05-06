@@ -6,7 +6,7 @@
             <div class="main">
                 <div class="infoMain">
                     <div class="photo">
-                        <img src="~/public/images/face.webp" alt="">
+                        <img :src="userInfo.image" alt="">
                     </div>
                     <div class="infoUser">
                         <div class="name">{{ userInfo.name }}</div>
@@ -23,7 +23,8 @@
                         </div>
                         <div class="inp">
                             <label>Nickname</label>
-                            <input data-inp="nickname" name="nickname" type="text" placeholder="Your Nuckname">
+                            <input data-inp="nickname" :value="userInfo.nickname == '' ? '' : userInfo.nickname"
+                                name="nickname" type="text" :disabled="btnsActive" placeholder="Your Nuckname">
                             <label class="err">You must fill this form!</label>
                         </div>
                         <div class="inp">
@@ -34,7 +35,8 @@
                         </div>
                         <div class="inp">
                             <label>Phone Number</label>
-                            <input data-inp="phone" name="phone" type="text" placeholder="Your Phone Number">
+                            <input :value="userInfo.phone == '' ? '' : userInfo.phone" data-inp="phone" name="phone"
+                                type="text" :disabled="btnsActive" placeholder="Your Phone Number">
                             <label class="err">You must fill this form!</label>
                         </div>
                         <div class="inp">
@@ -43,7 +45,7 @@
                         </div>
                         <div class="inp">
                             <label>Reset Your Password</label>
-                            <input name="password" type="text" placeholder="New Password">
+                            <input name="password" type="text" :disabled="btnsActive" placeholder="New Password">
                         </div>
                     </div>
                     <div class="btns">
@@ -91,8 +93,8 @@ export default {
                 obj[key] = val
             })
 
-            if(obj.password == ''){
-                obj.password = this.userInfo.password    
+            if (obj.password == '') {
+                obj.password = this.userInfo.password
             }
 
             let checkFunc = (param) => {
@@ -102,27 +104,32 @@ export default {
                     } else if (item.value.length >= 1) {
                         item.parentNode.querySelector('.err').classList.remove('active')
                     }
-                    
-                    
-                    // console.log(counter);
-                    if (counter == 0) {
-                        console.log(obj);
-                        
-                        // axios.patch(this.api + this.userInfo._id, )
-                    }
+
 
                 }
             }
-
 
             for (let item in obj) {
                 if (obj[item] == '') {
-                    checkFunc(item)
                     counter++
+
+                    checkFunc(item)
+                    console.log(counter);
                 }
             }
 
-        }
+            if (counter == 0) {
+                console.log(counter);
+                axios.patch(this.api + 'usersJoy/' + this.userInfo._id, obj)
+                    .then((res) => {
+                        for (let item of allItems) {
+                            item.parentNode.querySelector('.err').classList.remove('active')
+                        }
+                    })
+                    .catch((err) => console.log(err))
+            }
+
+        },
     }
 }
 </script>
