@@ -44,106 +44,124 @@
     </div>
 </template>
 
-<script setup>
-import { ref, computed, onBeforeMount } from 'vue'
+<script>
 import Map from '~/components/Map.vue'
 import Items from '~/components/Items.vue'
+import axios from 'axios'
 
-const { data: houses } = await useAsyncData('houses', () => Promise.resolve([
-    {
-        title: 'Test House',
-        locationMap: '41.3111, 69.2797',
-        locationText: 'Tashkent, Uzbekistan',
-        quality: 'High',
-        roomsNumber: 3,
-        status: 'rent',
-        typeOfHouse: 'Apartment'
+export default {
+    components: { Map, Items },
+
+    data() {
+        return {
+            houses: [],
+            qualityArr: { title: "Quality", arr: [] },
+            locationFind: { title: "Location", arr: [] },
+            typeSell: { title: "Rent or Sell", arr: ['rent', 'sell'] },
+            roomsNum: { title: "Number of Rooms", arr: [] },
+            typeOfBuild: { title: "Type of Building", arr: [] },
+            allHouse: [],
+
+            selectedQuality: '',
+            selectedLocation: '',
+            selectedRooms: '',
+            selectedType: '',
+            selectedBuilding: '',
+            searchTitle: '',
+        }
+    },
+
+    computed: {
+        filteredHouses() {
+            return this.houses.filter(house => {
+                const matchTitle = this.searchTitle
+                    ? house.title.toLowerCase().includes(this.searchTitle.toLowerCase())
+                    : true
+
+                const matchQuality = this.selectedQuality
+                    ? house.quality === this.selectedQuality
+                    : true
+
+                const matchLocation = this.selectedLocation
+                    ? house.street === this.selectedLocation
+                    : true
+
+                const matchRooms = this.selectedRooms
+                    ? String(house.roomsNumber) === String(this.selectedRooms)
+                    : true
+
+                const matchType = this.selectedType
+                    ? house.status === this.selectedType
+                    : true
+
+                const matchBuilding = this.selectedBuilding
+                    ? house.typeOfHouse === this.selectedBuilding
+                    : true
+
+                return matchTitle && matchQuality && matchLocation && matchRooms && matchType && matchBuilding
+            })
+        },
+
+        allLocations() {
+            return this.allHouse
+                .map(h => {
+                    if (Array.isArray(h.coords) && h.coords.length === 2 && h.id) { // Проверка на координаты и id
+                        return {
+                            lat: h.coords[0], // Широта
+                            lng: h.coords[1], // Долгота
+                            id: h.id,         // ID товара
+                            title: h.title || '' // Заголовок для отображения
+                        }
+                    }
+                    return null;
+                })
+                .filter(Boolean); // Убираем null
+        }
+    },
+
+    mounted() {
+        if (process.client) {
+            document.addEventListener('click', this.handleClickOutside);
+
+            axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+                .then(res => {
+                    this.allHouse = res.data.body;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+    beforeUnmount() {
+        document.removeEventListener('click', this.handleClickOutside);
+    },
+
+    watch: {
+        houses: {
+            immediate: true,
+            handler(val) {
+                if (!val) return
+                this.initFilters()
+            }
+        }
+    },
+
+    methods: {
+        initFilters() {
+            const unique = arr => [...new Set(arr)]
+
+            this.qualityArr.arr = unique(this.houses.map(h => h.quality))
+            this.locationFind.arr = unique(this.houses.map(h => h.street))
+            this.roomsNum.arr = unique(this.houses.map(h => h.roomsNumber))
+            this.typeOfBuild.arr = unique(this.houses.map(h => h.typeOfHouse))
+        },
+        handleClickOutside(event) {
+            if (this.$refs.menuRef && !this.$refs.menuRef.contains(event.target)) {
+                this.activeIndex = null;
+            }
+        }
     }
-]))
-
-// 👇 Старый формат объектов с title и arr
-const qualityArr = ref({ title: "Quality", arr: [] })
-const locationFind = ref({ title: "Location", arr: [] })
-const typeSell = ref({ title: "Rent or Sell", arr: ['rent', 'sell'] })
-const roomsNum = ref({ title: "Number of Rooms", arr: [] })
-const typeOfBuild = ref({ title: "Type of Building", arr: [] })
-
-let selectedQuality = ref('')
-let selectedLocation = ref('')
-let selectedRooms = ref('')
-let selectedType = ref('')
-let selectedBuilding = ref('')
-let searchTitle = ref('')
-
-const allLocations = computed(() => {
-    return (houses.value || []).map(h => {
-        const [lat, lng] = h.locationMap.split(',').map(n => parseFloat(n.trim()))
-        return { lat, lng }
-    })
-})
-
-onBeforeMount(() => {
-    if (!houses.value) return
-
-    const unique = arr => [...new Set(arr)]
-
-    qualityArr.value.arr = unique(houses.value.map(h => h.quality))
-    locationFind.value.arr = unique(houses.value.map(h => h.locationText.split(',')[0]))
-    roomsNum.value.arr = unique(houses.value.map(h => h.roomsNumber))
-    typeOfBuild.value.arr = unique(houses.value.map(h => h.typeOfHouse))
-
-
-    selectedQuality = qualityArr.title
-    selectedLocation = locationFind.title
-    selectedType = typeSell.title
-    selectedRooms = roomsNum.title
-    // selectedBuilding = typeOfBuild.title
-})
-
-const filteredHouses = computed(() => {
-    console.log(houses.value);
-    
-    return (houses.value || []).filter(house => {
-        const matchTitle = searchTitle.value
-            ? house.title.toLowerCase().includes(searchTitle.value.toLowerCase())
-            : true
-
-        const matchQuality = selectedQuality.value
-            ? house.quality === selectedQuality.value
-            : true
-
-        const matchLocation = selectedLocation.value
-            ? house.locationText.split(',')[0] === selectedLocation.value
-            : true
-
-        const matchRooms = selectedRooms.value
-            ? String(house.roomsNumber) === String(selectedRooms.value)
-            : true
-
-        const matchType = selectedType.value
-            ? house.status === selectedType.value
-            : true
-
-        // const matchBuilding = selectedBuilding.value
-        //     ? house.typeOfHouse === selectedBuilding.value
-        //     : true
-
-        return matchTitle && matchQuality && matchLocation && matchRooms && matchType 
-    })
-})
-
-watch(houses, (val) => {
-    if (!val) return
-    const unique = (arr) => [...new Set(arr)]
-
-    qualityArr.value.arr = unique(val.map(h => h.quality))
-    locationFind.value.arr = unique(val.map(h => h.locationText.split(',')[0]))
-    roomsNum.value.arr = unique(val.map(h => h.roomsNumber))
-    typeOfBuild.value.arr = unique(val.map(h => h.typeOfHouse))
-
-
-}, { immediate: true })
-
+}
 </script>
 
 <style></style>

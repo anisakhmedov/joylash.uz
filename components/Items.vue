@@ -1,29 +1,31 @@
 <template>
     <div ref="scrollWrapper" class="items-wrapper">
-        <div class="item" @click="routeOnPage(house._id)" v-for="house in houses" :key="house._id" ref="scrollWrapper">
-            <!-- Карточка -->
-            <div class="bg">
-                
+        <div class="item" v-for="house of allHouses" :key="house._id">
+            <div class="bg" @click="switchOnIDPage(house._id)"
+                :style="`background-image:url(${api}uploads/${house.mainImage});`">
+
             </div>
-            <div class="info">
+            <div class="info" @click="switchOnIDPage(house._id)">
                 <div class="title">
-                    <p>{{house.title}}</p>
+                    <p>{{ house.title }}</p>
                 </div>
                 <div class="options">
                     <ul>
-                        <li><img src="~/public/icons/beds.svg" alt=""><span>2 Beds</span></li>
-                        <li><img src="~/public/icons/shower.svg" alt=""><span>2 Baths</span></li>
-                        <li><img src="~/public/icons/size.svg" alt=""><span>200m<sup>2</sup></span></li>
-                        <li><img src="~/public/icons/garage.svg" alt=""><span>2 Parking Lot</span></li>
+                        <li v-for="item of house.pluses" :key="item"><img src="~/public/icons/beds.svg" alt=""><span>2
+                                Beds</span></li>
                     </ul>
                 </div>
                 <div class="locationAndPrice">
                     <div class="location">
                         <img src="~/public/icons/location.svg" alt="">
-                        <span>{{ house.locationText }}</span>
+                        <span>
+                            <NuxtLink
+                                :to="`https://yandex.com/maps/?pt=${house.coords[1]},${house.coords[0]}&z=16&l=map`"
+                                target="_blank">Открыть карту</NuxtLink>
+                        </span>
                     </div>
                     <div class="price">
-                        <span class="mainPrice">{{house.price}}</span>
+                        <span class="mainPrice">${{ house.price }}</span>
                     </div>
                 </div>
             </div>
@@ -31,26 +33,36 @@
     </div>
 </template>
 
-<script setup>
-import { ref, defineExpose } from 'vue'
-const router = useRouter()
+<script>
+import { ref, defineExpose, } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router';
 
-const scrollWrapper = ref(null)
+export default {
+    data() {
+        return {
+            api: 'https://joylash-778750a705b4.herokuapp.com/',
+            allHouses: [],
+            router: useRouter()
+        }
+    },
+    mounted() {
+        axios.get(this.api + 'houses')
+            .then((res) => {
+                this.allHouses = res.data.body
+                for (let item of this.allHouses) item.pluses = item.pluses.splice(0, 4)
+            })
+            .catch((err) => {
+                console.log(err);
 
-defineExpose({ scrollWrapper })
-
-let routeOnPage = function (prop) {
-    router.push(`/products/${prop}`)
-    console.log(prop);
-    
-}
-
-defineProps({
-    houses: {
-        type: Array,
-        required: true
+            })
+    },
+    methods: {
+        switchOnIDPage(param) {
+            this.router.push('/products/' + param)
+        }
     }
-})
+}
 </script>
 
 <style scoped></style>

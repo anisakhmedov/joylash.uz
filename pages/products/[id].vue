@@ -16,14 +16,13 @@
           <div class="ar">
             <img class="arrow" style="transform: rotate(-90deg);" src="~/public/icons/arrow.svg" alt="">
           </div>
-
         </div>
       </div>
       <div class="right">
         <div class="title">
           <div class="main">
             <h2>{{ house.title }}</h2>
-            <p>{{ house.disc }}</p>
+            <p>{{ house.description }}</p>
           </div>
           <div class="nav">
             <div class="like">
@@ -41,7 +40,7 @@
         <hr>
         <div class="price">
           <div class="main">
-            <p id="price">{{ house.price }}</p>
+            <p id="price">${{ house.price }}</p>
             <div class="btns">
               <div class="add">
                 <img src="~/public/icons/bag.svg" alt="">
@@ -59,16 +58,11 @@
           </div>
         </div>
         <hr>
-
         <div class="options">
-          <div class="itemOpt" v-for="i of 10" :key="i">
-            <img src="~/public/icons/scale-org.svg" alt="">
-            <p>
-              {{ house.scale }}
-            </p>
+          <div class="itemOpt" v-for="i of house.pluses" :key="i">
+            <p>{{ i }}</p>
           </div>
         </div>
-
         <div class="agency">
           <div class="logoAgen">
             <img src="~/public/images/logo.png" alt="">
@@ -80,70 +74,87 @@
         </div>
       </div>
     </div>
-    <!-- <div class="" style="height: 50px; "></div> -->
+
     <client-only>
-      <Map style="max-width: none; margin-top: 30px;" :zoom="16" :locations="[locationObj]" />
+      <Map v-if="locationObj" style="max-width: none; margin-top: 30px;" :zoom="16" :locations="[locationObj]"
+        :center="locationObj" />
     </client-only>
+
     <div class="discItem">
       <ul class="listItems">
         <li class="top">
           <h2>Product Description</h2>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi fugit, nesciunt minima natus incidunt
-            exercitationem nulla et neque corrupti accusantium quidem dolorum deleniti vitae commodi quod repudiandae
-            sint placeat explicabo tempore non sit nobis officia! Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Unde provident, nulla fugiat consectetur reiciendis hic ipsam voluptates ab maxime! Ipsam incidunt
-            saepe officia molestiae distinctio ipsa. Sint in dolorem nam!</p>
+          <p>{{ house.description }}</p>
         </li>
         <li>
           <h2>Benefits</h2>
           <ul>
-            <li v-for="i of 7" :key="i">
+            <li v-for="(plus, i) in house.pluses || []" :key="i">
               <img src="~/public/icons/check.svg" alt="">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!
-              </p>
+              <p>{{ plus }}</p>
             </li>
           </ul>
         </li>
         <li>
           <h2>House Details</h2>
           <ul>
-            <li v-for="i of 7" :key="i">
+            <li>
               <img src="~/public/icons/check.svg" alt="">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!
-              </p>
+              <p>Floor: {{ house.floor }}</p>
             </li>
-          </ul>
-        </li>
-        <li>
-          <h2>More Details</h2>
-          <ul>
-            <li v-for="i of 7" :key="i">
+            <li>
               <img src="~/public/icons/check.svg" alt="">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem laboriosam deserunt necessitatibus!
-              </p>
+              <p>Rooms: {{ house.roomsNumber }}</p>
             </li>
           </ul>
         </li>
       </ul>
     </div>
+
     <p style="font-size: 30px; margin: 60px 0 30px 0; font-weight: 600;">Similar Items You Might Also Like</p>
-    <Items :houses="houses" />
+    <Items :houses="similarHouses" />
   </div>
 </template>
 
-<script setup>
-import { useRoute } from 'vue-router'
-import { onMounted } from 'vue'
+<script>
 import Map from '~/components/Map.vue'
-import { houses } from '~/data/houses.js'
+import Items from '~/components/Items.vue'
+import axios from 'axios'
 
-const route = useRoute()
-const house = houses.find(h => h._id === route.params.id) || {}
+export default {
+  components: { Map, Items },
+  data() {
+    return {
+      house: {},
+      locationObj: null,
+      similarHouses: []
+    }
+  },
+  mounted() {
+    let id;
+    if (process.client) {
+      id = window.location.href.split('products/')[1]
+    }
 
-const [lat, lng] = house.locationMap
-  ? house.locationMap.split(',').map(n => parseFloat(n.trim()))
-  : [0, 0]
-const locationObj = { lat, lng }
+    axios.get(`https://joylash-778750a705b4.herokuapp.com/houses/${id}`)
+      .then((res) => {
+        this.house = res.data.data
+        console.log(this.house);
+        
+      })
+
+    if (Array.isArray(this.house.coords) && this.house.coords.length === 2) {
+      const [lat, lng] = this.house.coords
+      this.locationObj = { lat, lng }
+    } else {
+      // Самарканд (по умолчанию)
+      this.locationObj = { lat: 39.6542, lng: 66.9597 }
+    }
+    // Если ошибка — тоже fallback на Самарканд
+    this.locationObj = { lat: 39.6542, lng: 66.9597 }
+    // Похожие объекты
+    const response = axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+    // this.similarHouses = response.data.filter(h => h._id !== id) || []
+  }
+}
 </script>
-
-<style></style>

@@ -34,15 +34,8 @@
     </div>
 </template>
 
-<script setup>
-import { ref, defineExpose } from 'vue'
+<script>
 
-const scrollWrapper = ref(null)
-defineExpose({ scrollWrapper })
-
-let routeOnPage = function (prop) {
-    console.log(prop);
-}
 </script>
 
 <style scoped></style>

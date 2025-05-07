@@ -1,63 +1,48 @@
 <template>
-  <div ref="mapContainer" class="map-container"></div>
+  <div id="map" style="width: 100%; height: 500px;"></div>
 </template>
 
-<script setup>
-import { ref, onMounted, watch } from 'vue'
-import L from 'leaflet'
-
-const props = defineProps({
-  locations: {
-    type: Array,
-    required: true
+<script>
+export default {
+  props: {
+    locations: {
+      type: Array,
+      required: true
+    },
+    zoom: {
+      type: Number,
+      default: 12
+    }
   },
-  zoom: {
-    type: Number,
-    default: 13
+
+  async mounted() {
+    // Импортируем leaflet только на клиенте
+    if (process.client) {
+      const L = await import('leaflet');
+      await import('leaflet/dist/leaflet.css');
+
+      const map = L.map('map').setView([39.6542, 66.9597], this.zoom)
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      this.locations.forEach(loc => {
+        if (loc.lat && loc.lng) {
+          const marker = L.marker([loc.lat, loc.lng]).addTo(map);
+          marker.on('click', () => {
+            window.location.href = `/products/${loc.id}`;
+          });
+        }
+      });
+    }
   }
-})
-
-const mapContainer = ref(null)
-let mapInstance
-
-function addMarkers(locs) {
-  locs.forEach(loc => {
-    L.marker([loc.lat, loc.lng]).addTo(mapInstance)
-  })
 }
-
-function initMap() {
-  if (!props.locations.length || !mapContainer.value) return
-  const first = props.locations[0]
-  mapInstance = L.map(mapContainer.value).setView([first.lat, first.lng], props.zoom)
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(mapInstance)
-  addMarkers(props.locations)
-}
-
-onMounted(() => {
-  initMap()
-})
-
-watch(
-  () => [props.locations, props.zoom],
-  ([newLocs, newZoom]) => {
-    if (!mapInstance || !newLocs.length) return
-    const first = newLocs[0]
-    mapInstance.setView([first.lat, first.lng], newZoom)
-    // можно почистить старые маркеры, но для простоты добавим новые
-    addMarkers(newLocs)
-  },
-  { deep: true }
-)
 </script>
 
 <style scoped>
-.map-container {
-  max-width: calc(100% - 200px);
-  margin: 0 auto;
-  height: 700px;
+#map {
+  width: 100%;
+  height: 100%;
 }
-@import "leaflet/dist/leaflet.css";
 </style>

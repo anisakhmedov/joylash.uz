@@ -29,7 +29,6 @@
                 </div>
             </ul>
         </div>
-        <!-- <div class="_margin"></div> -->
         <div class="productView">
             <div class="_title" style="padding: 0 100px;">
                 <p>Featured Property</p>
@@ -45,9 +44,9 @@
             <NuxtLink class="btn orange" to="allProducts">Show all Property</NuxtLink>
         </div>
         <client-only>
-            <Map :locations="allLocations" style="margin-top: 30px;" :zoom="12" />
+            <Map class="map-def" v-if="isLoaded && allLocations.length" :locations="allLocations" :zoom="12" />
         </client-only>
-
+        
         <div class="products">
             <div class="_title">
                 <p>Recent Additions</p>
@@ -60,55 +59,75 @@
     </div>
 </template>
 
-<script setup>
+<script>
 import Map from '~/components/Map.vue'
 import Items from '~/components/Items.vue'
-import { houses } from '~/data/houses.js'  // или откуда вы импортируете
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import axios from 'axios'
 
-const allLocations = houses.map(h => {
-    const [lat, lng] = h.locationMap.split(',').map(n => parseFloat(n.trim()))
-    return { lat, lng }
-})
+export default {
+    components: {
+        Map,
+        Items
+    },
+    data() {
+        return {
+            allHouse: [],
+            activeIndex: null,
+            isLoaded: false,
+            menuRef: null,
+            items: [
+                { label: 'Location', options: ['Option 1', 'Option 2', 'Option 3'] },
+                { label: 'Category', options: ['Option A', 'Option B', 'Option C'] },
+                { label: 'Type', options: ['Option X', 'Option Y', 'Option Z'] }
+            ]
+        }
+    },
+    computed: {
+        allLocations() {
+            return this.allHouse
+                .map(h => {
+                    if (Array.isArray(h.coords) && h.coords.length === 2 && h._id) {
+                        return {
+                            lat: h.coords[0],
+                            lng: h.coords[1],
+                            id: h._id,
+                            title: h.title || ''
+                        }
+                    }
+                    return null;
+                })
+                .filter(Boolean)
+        }
+    },
 
-const activeIndex = ref(null)
-const menuRef = ref(null)
+    methods: {
+        toggleMenu(index) {
+            this.activeIndex = this.activeIndex === index ? null : index;
+        },
+        handleClickOutside(event) {
+            if (this.$refs.menuRef && !this.$refs.menuRef.contains(event.target)) {
+                this.activeIndex = null;
+            }
+        }
+    },
+    mounted() {
+        if (process.client) {
+            document.addEventListener('click', this.handleClickOutside);
 
-const items = [
-    { label: 'Location', options: ['Option 1', 'Option 2', 'Option 3'] },
-    { label: 'Category', options: ['Option A', 'Option B', 'Option C'] },
-    { label: 'Type', options: ['Option X', 'Option Y', 'Option Z'] },
-]
-
-function toggleMenu(index) {
-    activeIndex.value = activeIndex.value === index ? null : index
-}
-
-function handleClickOutside(event) {
-    if (menuRef.value && !menuRef.value.contains(event.target)) {
-        activeIndex.value = null
+            axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+                .then(res => {
+                    this.allHouse = res.data.body;
+                    this.isLoaded = true
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+    beforeUnmount() {
+        document.removeEventListener('click', this.handleClickOutside);
     }
-
 }
-
-onMounted(() => {
-    document.addEventListener('click', handleClickOutside)
-})
-
-onBeforeUnmount(() => {
-    document.removeEventListener('click', handleClickOutside)
-})
-
-const { $axios } = useNuxtApp();
-
-// const { data, error } = await useAsyncData('checkAuth', () =>
-//     $axios.get('/auth/check')
-// );
-
-// if (error.value) {
-//     console.log('Not authorized');
-//     await navigateTo('/login');
-// }
 </script>
 
 <style></style>

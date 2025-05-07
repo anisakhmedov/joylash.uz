@@ -5,39 +5,40 @@
             <div class="baseInfo">
                 <h1>Create New House</h1>
                 <input type="text" v-model="form.title" placeholder="Название" name="title" id="">
-                <label for="err" :class="{ active: showErrors && !form.title }"
+                <label for="title" :class="{ active: showErrors && !form.title }"
                     v-show="showErrors && !form.title">Пропущено поле!</label>
 
-                <input type="number" v-model="form.price" placeholder="Цена" />
-                <label for="err" :class="{ active: showErrors && !form.price }"
+                <input type="number" v-model="form.price" name="price" placeholder="Цена" />
+                <label for="price" :class="{ active: showErrors && !form.price }"
                     v-show="showErrors && !form.price">Пропущено поле!</label>
 
                 <input type="text" v-model="form.description" placeholder="Описание" name="description" id="">
-                <label for="err" :class="{ active: showErrors && !form.description }"
+                <label for="description" :class="{ active: showErrors && !form.description }"
                     v-show="showErrors && !form.description">Пропущено поле!</label>
 
-                <input type="number" v-model="form.scale" placeholder="Масштаб" />
-                <label for="err" :class="{ active: showErrors && !form.scale }"
+                <input type="number" v-model="form.scale" name="scale" placeholder="Масштаб" />
+                <label for="scale" :class="{ active: showErrors && !form.scale }"
                     v-show="showErrors && !form.scale">Пропущено поле!</label>
 
-                <input type="number" v-model="form.roomsNumber" placeholder="Кол-во комнат" />
-                <label for="err" :class="{ active: showErrors && !form.roomsNumber }"
+                <input type="number" v-model="form.roomsNumber" name="roomsNumber" placeholder="Кол-во комнат" />
+                <label for="roomsNumber" :class="{ active: showErrors && !form.roomsNumber }"
                     v-show="showErrors && !form.roomsNumber">Пропущено поле!</label>
 
                 <input type="text" v-model="form.typeOfHouse" placeholder="Тип стен" name="typeOfHouse" id="">
-                <label for="err" :class="{ active: showErrors && !form.typeOfHouse }"
+                <label for="typeOfHouse" :class="{ active: showErrors && !form.typeOfHouse }"
                     v-show="showErrors && !form.typeOfHouse">Пропущено поле!</label>
 
                 <input type="text" v-model="form.street" placeholder="Улица и Номер дома" name="street" id="">
-                <label for="err" :class="{ active: showErrors && !form.street }"
+                <label for="street" :class="{ active: showErrors && !form.street }"
                     v-show="showErrors && !form.street">Пропущено поле!</label>
 
-                <input type="text" v-model="form.quality" placeholder="Качество" name="quality" id="">
-                <label for="err" :class="{ active: showErrors && !form.quality }"
-                    v-show="showErrors && !form.quality">Пропущено поле!</label>
+                <select v-model="qualitySelect" name="qualitySelect" id="">
+                    <option selected value="1">Новый</option>
+                    <option value="2">Б/У</option>
+                </select>
 
-                <input type="number" v-model="form.cilingHeight" placeholder="Высота стен" />
-                <label for="err" :class="{ active: showErrors && !form.cilingHeight }"
+                <input type="number" v-model="form.cilingHeight" name="cilingHeight" placeholder="Высота стен" />
+                <label for="cilingHeight" :class="{ active: showErrors && !form.cilingHeight }"
                     v-show="showErrors && !form.cilingHeight">Пропущено поле!</label>
 
                 <select @change="realseNew()" v-model="typeOfBuilding" name="typeOfBuilding" id="">
@@ -47,8 +48,8 @@
                     <option value="3">Участок</option>
                 </select>
 
-                <input type="number" v-model="form.floor" placeholder="Этаж" />
-                <label for="err" :class="{ active: showErrors && !form.floor }">Пропущено
+                <input type="number" name="floor" v-model="form.floor" placeholder="Этаж" />
+                <label for="floor" :class="{ active: showErrors && !form.floor }">Пропущено
                     поле!</label>
 
                 <div class="addPluses">
@@ -100,9 +101,9 @@
         </form>
         <div class="modalWindowProfile" v-show="isShow">
             <div class="wind">
-                <img :src="allCorrect ? '/icons/correct.png' : '/icons/remove.png'" alt="">
-                <h2>{{ isCorrect ? 'Профиль был успешно изменен!' : 'Возникли проблемы с созданием товара' }}</h2>
-                <button @click="isShow = false">Закрыть окно</button>
+                <img :src="isCorrect ? '/icons/correct.png' : '/icons/remove.png'" alt="">
+                <h2>{{ isCorrect ? 'Товар был успешно изменен!' : 'Возникли проблемы с созданием товара' }}</h2>
+                <button type="submit" @click="isShow = false">Закрыть окно</button>
             </div>
         </div>
     </div>
@@ -117,8 +118,9 @@ export default {
             api: 'https://joylash-778750a705b4.herokuapp.com/houses',
             floorSwitch: true,
             typeOfBuilding: 1,
+            qualitySelect: 1,
             isCorrect: true,
-            isShow: true,
+            isShow: false,
             obj: {
                 pluses: [],
                 coords: [],
@@ -136,7 +138,6 @@ export default {
                 roomsNumber: '',
                 typeOfHouse: '',
                 street: '',
-                quality: '',
                 cilingHeight: '',
                 floor: ''
             },
@@ -275,15 +276,18 @@ export default {
         },
 
         sendForm() {
+
             this.showErrors = true;
-            const isValid = Object.values(this.form).every(value => value && value.toString().trim() !== '');
-            if (!isValid) return;
+            const isValid = Object.values(this.form).every(value => value !== null && value !== undefined && value.toString().trim() !== '');
+            // if (!isValid) return;
+            console.log(123);
 
             const formData = new FormData();
             Object.entries(this.form).forEach(([key, value]) => {
                 formData.append(key, value);
             });
 
+            formData.append('quality', this.qualitySelect);
             formData.append('typeOfBuilding', this.typeOfBuilding);
             formData.append('coords', JSON.stringify(this.obj.coords));
             formData.append('pluses', JSON.stringify(this.obj.pluses));
@@ -311,7 +315,7 @@ export default {
                     console.log('Форма отправлена:', res.data);
                 })
                 .catch(err => {
-                    this.isCorrect = true;
+                    this.isCorrect = false;
                     this.isShow = true;
                     console.error('Ошибка при отправке:', err);
                 });
