@@ -52,6 +52,21 @@
                 <label for="floor" :class="{ active: showErrors && !form.floor }">Пропущено
                     поле!</label>
 
+
+
+                <input type="text" v-model="form.phoneNumberUser" placeholder="Номер телефона" name="phoneNumberUser"
+                    id="">
+                <label for="phoneNumberUser" :class="{ active: showErrors && !form.phoneNumberUser }"
+                    v-show="showErrors && !form.phoneNumberUser">Пропущено поле!</label>
+
+                <input type="text" v-model="form.sms" placeholder="Ссылка на соц.сети для связи" name="sms" id="">
+                <label for="sms" :class="{ active: showErrors && !form.sms }" v-show="showErrors && !form.sms">Пропущено
+                    поле!</label>
+
+
+
+
+
                 <div class="addPluses">
                     <input type="text" placeholder="Название преимущества">
                     <div class="add" @click="newPluses()"><img src="/icons/plus.svg" alt=""></div>
@@ -139,7 +154,9 @@ export default {
                 typeOfHouse: '',
                 street: '',
                 cilingHeight: '',
-                floor: ''
+                floor: '',
+                phoneNumberUser: '',
+                sms: ''
             },
             modalVisible: true,
             showErrors: false,
@@ -185,7 +202,9 @@ export default {
                 street: '',
                 quality: '',
                 cilingHeight: '',
-                floor: ''
+                floor: '',
+                phoneNumberUser: '',
+                sms: '',
             }
             this.obj = {
                 pluses: [],

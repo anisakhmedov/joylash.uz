@@ -553,6 +553,40 @@ body {
     }
 }
 
+.items-wrapper{
+    .locationAndPrice{
+        .location{
+            display: flex;
+            align-items: center;
+            img{
+                height: 30px;
+                width: 30px;
+            }
+            a{
+                color: #e98800 !important;
+            }
+            span{
+                font-size: 20px !important;
+            }
+        }
+    }
+    .options{
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+            height: 0px; /* ширина scrollbar */
+        }
+        ul{
+            gap: 5px !important;
+        }
+        li{
+            background-color: #e98800;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+    }
+}
+
 #allProd {
     padding: 0 15px;
     nav {

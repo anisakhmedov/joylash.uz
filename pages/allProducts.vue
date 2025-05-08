@@ -3,7 +3,7 @@
         <div class="_margin"></div>
 
         <client-only>
-            <Map :locations="allLocations" style="max-height: 500px;" class="active" :zoom="12" />
+            <Map :locations="allLocations" style="max-height: 600px;" class="active" :zoom="12" />
         </client-only>
 
         <client-only>
@@ -105,17 +105,17 @@ export default {
         allLocations() {
             return this.allHouse
                 .map(h => {
-                    if (Array.isArray(h.coords) && h.coords.length === 2 && h.id) { // Проверка на координаты и id
+                    if (Array.isArray(h.coords) && h.coords.length === 2 && h._id) {
                         return {
-                            lat: h.coords[0], // Широта
-                            lng: h.coords[1], // Долгота
-                            id: h.id,         // ID товара
-                            title: h.title || '' // Заголовок для отображения
+                            lat: h.coords[0],
+                            lng: h.coords[1],
+                            id: h._id,
+                            title: h.title || ''
                         }
                     }
                     return null;
                 })
-                .filter(Boolean); // Убираем null
+                .filter(Boolean)
         }
     },
 

@@ -3,14 +3,14 @@
     <div class="_margin"></div>
     <div class="item">
       <div class="left">
-        <img class="mainImg" src="~/public/images/bg_product.png" alt="">
+        <img class="mainImg" :src="house.mainImage" alt="">
         <div class="carousel-prod">
           <div class="ar">
             <img class="arrow" style="transform: rotate(90deg);" src="~/public/icons/arrow.svg" alt="">
           </div>
           <div class="images">
-            <div class="img" v-for="i of 10" :key="i">
-              <img src="~/public/images/bg_product.png" alt="">
+            <div class="img" v-for="i of house.additionalImages" :key="i">
+              <img :src="i" alt="">
             </div>
           </div>
           <div class="ar">
@@ -25,10 +25,6 @@
             <p>{{ house.description }}</p>
           </div>
           <div class="nav">
-            <div class="like">
-              <img src="~/public/icons/like-prod.svg" alt="">
-              <p>109</p>
-            </div>
             <div class="save">
               <img src="~/public/icons/save.svg" alt="">
             </div>
@@ -42,7 +38,7 @@
           <div class="main">
             <p id="price">${{ house.price }}</p>
             <div class="btns">
-              <div class="add">
+              <div class="add" @click="addToWhishlist()">
                 <img src="~/public/icons/bag.svg" alt="">
                 <p>Add To Wishlist</p>
               </div>
@@ -75,10 +71,14 @@
       </div>
     </div>
 
+
     <client-only>
-      <Map v-if="locationObj" style="max-width: none; margin-top: 30px;" :zoom="16" :locations="[locationObj]"
-        :center="locationObj" />
+      <NuxtLink target="_blank" :to="`https://yandex.com/maps/?pt=${coordsSpc[1]},${coordsSpc[0]}&z=16&l=map`">
+        <Map style="margin-top: 50px;" v-if="locationObj && allLocations.length" :zoom="16" :locations="allLocations"
+          :center="locationObj" />
+      </NuxtLink>
     </client-only>
+
 
     <div class="discItem">
       <ul class="listItems">
@@ -120,6 +120,7 @@
 import Map from '~/components/Map.vue'
 import Items from '~/components/Items.vue'
 import axios from 'axios'
+import { defineComponent } from 'vue'
 
 export default {
   components: { Map, Items },
@@ -127,7 +128,10 @@ export default {
     return {
       house: {},
       locationObj: null,
-      similarHouses: []
+      similarHouses: [],
+      allHouse: [],
+      coordsSpc: [],
+      alreadyLiked: []
     }
   },
   mounted() {
@@ -136,25 +140,92 @@ export default {
       id = window.location.href.split('products/')[1]
     }
 
+    axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
+      .then((res) => {
+        this.alreadyLiked = res.data.data.likedHouses
+
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+
+
     axios.get(`https://joylash-778750a705b4.herokuapp.com/houses/${id}`)
       .then((res) => {
         this.house = res.data.data
-        console.log(this.house);
-        
-      })
+        this.coordsSpc = this.house.coords
 
-    if (Array.isArray(this.house.coords) && this.house.coords.length === 2) {
-      const [lat, lng] = this.house.coords
-      this.locationObj = { lat, lng }
-    } else {
-      // Самарканд (по умолчанию)
-      this.locationObj = { lat: 39.6542, lng: 66.9597 }
+        this.locationObj = {
+          lat: this.house.coords[0],
+          lng: this.house.coords[1]
+        }
+
+        this.allHouse = [{
+          lat: this.house.coords[0],
+          lng: this.house.coords[1],
+          id: this.house._id,
+          title: this.house.title
+        }]
+      })
+  },
+
+  computed: {
+    allLocations() {
+      return this.allHouse
+        .map(h => {
+          if (h.lat && h.lng && h.id) {
+            return {
+              lat: h.lat,
+              lng: h.lng,
+              id: h.id,
+              title: h.title || ''
+            }
+          }
+          return null;
+        })
+        .filter(Boolean)
     }
-    // Если ошибка — тоже fallback на Самарканд
-    this.locationObj = { lat: 39.6542, lng: 66.9597 }
-    // Похожие объекты
-    const response = axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
-    // this.similarHouses = response.data.filter(h => h._id !== id) || []
+  },
+  methods: {
+    addToWhishlist() {
+      if (process.client) {
+
+        let id = window.location.href.split('products/')[1]
+
+        if (this.alreadyLiked.length == 0) {
+          this.alreadyLiked.push(id)
+
+          axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+
+            })
+
+        } else {
+
+
+          if (this.alreadyLiked.includes(id)) {
+            alert('Уже добавлен')
+          } else {
+            this.alreadyLiked.push(id)
+            axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+
+              })
+          }
+        }
+      }
+    },
+    addNewLike() {
+    }
   }
 }
 </script>
