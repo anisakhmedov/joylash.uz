@@ -1,3 +1,170 @@
 {
-    
+    "mainPage": {
+        "1ViewText": {
+            "p1": "Приветствуем, вы находитесь в PropDown",
+            "h1": "Воплощаем в жизнь ваше представление о доме мечты.",
+            "disc": "Lorem ipsum dolor sit amet consectetur. Est quisque elementum aliquam a."
+        },
+        "filterBar": {
+            "inp1": "Местоположение",
+            "inp2": "Категория",
+            "inp3": "Тип",
+            "inp4": "Поиск недвижимости"
+        },
+        "items": {
+            "label": "Рекомендуемая недвижимость",
+            "title": "Рекомендуемое жилье для вас",
+            "showAll": "Показать всю недвижимость"
+        },
+        "items2": {
+            "label": "Недавние добавления",
+            "title": "Найдите недвижимость, подходящую вам",
+            "smth": "Опубликовать недвижимость"
+        }
+    },
+    "def": {
+        "footer": {
+            "left": {
+                "main": "Откройте комфорт вашей жизни"
+            },
+            "mid": {
+                "home": "Главная",
+                "blog": "Блог",
+                "categories": "Категории",
+                "contact": "Контакты",
+                "packages": "Пакеты",
+                "licensing": "Лицензии"
+            },
+            "right": {
+                "house": "Дом",
+                "apartment": "Квартира",
+                "office": "Офис",
+                "warehouse": "Склад"
+            }
+        },
+        "form": {
+            "top": "Присоединяйтесь к нам",
+            "title": "Получайте информацию и объявления о недвижимости на вашу почту",
+            "label": "Подпишитесь на рассылку, чтобы получать новости о недвижимости.",
+            "inpPla": "Введите вашу почту",
+            "subscribe": "Подписаться"
+        },
+        "header": {
+            "house": "Дом",
+            "cate": "Категории",
+            "catalogue": "Каталог",
+            "wishlist": "Избранное"
+        }
+    },
+    "allProd": {},
+    "profile": {
+        "form": {
+            "fullName": "Полное имя",
+            "nickname": "Никнейм",
+            "email": "Электронная почта",
+            "phone": "Номер телефона",
+            "password": "Пароль",
+            "passwordRes": "Сброс пароля",
+            "mustFill": "Вы должны заполнить эту форму!",
+            "btn": "Отправить новую информацию",
+            "btnEdit": "Редактировать",
+            "close": "Закрыть окно",
+            "correct": "Профиль успешно изменён!",
+            "inCorrect": "Возникли проблемы с изменением профиля"
+        },
+        "formPla": {
+            "fullName": "Ваше имя",
+            "nickname": "Ваш никнейм",
+            "email": "Ваш email",
+            "phone": "Ваш номер телефона",
+            "passwordRes": "Новый пароль"
+        }
+    },
+    "register": {
+        "get_started_now": "Начать сейчас",
+        "email_or_phone_number": "Email или номер телефона",
+        "enter_email_or_phone_number": "Введите email или номер телефона",
+        "user_already_exists": "Такой пользователь уже существует",
+        "password": "Пароль",
+        "enter_password": "Введите пароль",
+        "field_required": "Это поле обязательно",
+        "sign_up": "Зарегистрироваться",
+        "or": "или",
+        "have_account": "Уже есть аккаунт?",
+        "sign_in": "Войти",
+        "welcome_back": "С возвращением!",
+        "email": "Email",
+        "invalid_login_or_password": "Неверный логин или пароль",
+        "forgot_password": "забыли пароль",
+        "remember_7_days": "Запомнить на 7 дней",
+        "dont_have_account": "Нет аккаунта?"
+    },
+    "create_item": {
+        "create_new_house": "Добавить новый дом",
+        "title": "Заголовок",
+        "missing_field": "Это поле обязательно",
+        "price": "Цена",
+        "description": "Описание",
+        "scale": "Площадь",
+        "rooms_number": "Количество комнат",
+        "wall_type": "Материал стен",
+        "street_and_number": "Улица и номер дома",
+        "new": "Новое",
+        "used": "Б/у",
+        "ceiling_height": "Высота потолков",
+        "apartment": "Квартира",
+        "office": "Офис",
+        "house": "Дом",
+        "plot": "Участок",
+        "sell": "Продажа",
+        "rent": "Аренда",
+        "floor": "Этаж",
+        "phone_number": "Номер телефона",
+        "social_link": "Ссылка на соцсети",
+        "advantage_name": "Введите преимущество",
+        "main_image": "Главное фото объекта",
+        "choose_image": "Нажмите, чтобы выбрать изображение",
+        "additional_images": "Дополнительные фото",
+        "images_selected": "изображений выбрано",
+        "additional_photos": "Дополнительные фото",
+        "submit": "Отправить",
+        "success": "Успешно",
+        "failure": "Ошибка",
+        "close": "Закрыть"
+    },
+    "items": {
+        "openMap": "Открыть на карте"
+    },
+    "allProducts": {
+        "search_placeholder": "Поиск недвижимости",
+        "quality_placeholder": "Состояние",
+        "type_placeholder": "Аренда или продажа",
+        "building_placeholder": "Тип недвижимости",
+        "clear_filters": "Сбросить фильтры",
+        "buildings": {
+            "flat": "Квартира",
+            "office": "Офис",
+            "house": "Дом",
+            "land": "Земля"
+        },
+        "types": {
+            "rent": "Аренда",
+            "sale": "Продажа"
+        },
+        "qualities": {
+            "used": "Б/у",
+            "new": "Новое"
+        }
+    },
+    "product": {
+        "add_to_wishlist": "Добавить в избранное",
+        "call": "Позвонить",
+        "message": "Сообщение",
+        "product_description": "Описание объекта",
+        "benefits": "Преимущества",
+        "house_details": "Детали недвижимости",
+        "similar_items": "Похожие предложения",
+        "estate_agency": "Агентство недвижимости",
+        "agency_name": "Агентство Joylash Uzbekistan"
+    }
 }

@@ -20,7 +20,7 @@
                         <span>
                             <NuxtLink
                                 :to="`https://yandex.com/maps/?pt=${house.coords[1]},${house.coords[0]}&z=16&l=map`"
-                                target="_blank">Открыть карту</NuxtLink>
+                                target="_blank">{{ $t('items.openMap') }}</NuxtLink>
                         </span>
                     </div>
                     <div class="price">

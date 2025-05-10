@@ -9,34 +9,31 @@
         <client-only>
             <div class="filterBlock">
                 <div class="search">
-                    <input type="text" v-model="searchTitle" placeholder="Search a Property" />
+                    <input type="text" v-model="searchTitle" :placeholder="$t('allProducts.search_placeholder')" />
                     <img src="~/public/icons/search.svg" alt="">
                 </div>
 
                 <select v-model="selectedQuality">
-                    <option selected>{{ qualityArr.title }}</option>
-                    <option v-for="k in qualityArr.arr" :key="k" :value="k">{{ k }}</option>
-                </select>
-
-                <select v-model="selectedLocation">
-                    <option selected>{{ locationFind.title }}</option>
-                    <option v-for="k in locationFind.arr" :key="k" :value="k">{{ k }}</option>
+                    <option disabled value="">{{ $t('allProducts.quality_placeholder') }}</option>
+                    <option v-for="opt in qualityOptions" :key="opt.value" :value="opt.value">
+                        {{ $t(opt.label) }}
+                    </option>
                 </select>
 
                 <select v-model="selectedType">
-                    <option selected>{{ typeSell.title }}</option>
-                    <option v-for="k in typeSell.arr" :key="k" :value="k">{{ k }}</option>
-                </select>
-
-                <select v-model="selectedRooms">
-                    <option selected>{{ roomsNum.title }}</option>
-                    <option v-for="k in roomsNum.arr" :key="k" :value="k">{{ k }}</option>
+                    <option disabled value="">{{ $t('allProducts.type_placeholder') }}</option>
+                    <option v-for="opt in typeOptions" :key="opt.value" :value="opt.value">
+                        {{ $t(opt.label) }}
+                    </option>
                 </select>
 
                 <select v-model="selectedBuilding">
-                    <option selected>{{ typeOfBuild.title }}</option>
-                    <option v-for="k in typeOfBuild.arr" :key="k" :value="k">{{ k }}</option>
+                    <option disabled value="">{{ $t('allProducts.building_placeholder') }}</option>
+                    <option v-for="opt in buildingOptions" :key="opt.value" :value="opt.value">
+                        {{ $t(opt.label) }}
+                    </option>
                 </select>
+                <button @click="clearFilters">{{ $t('allProducts.clear_filters') }}</button>
             </div>
         </client-only>
 
@@ -55,51 +52,53 @@ export default {
     data() {
         return {
             houses: [],
-            qualityArr: { title: "Quality", arr: [] },
-            locationFind: { title: "Location", arr: [] },
-            typeSell: { title: "Rent or Sell", arr: ['rent', 'sell'] },
-            roomsNum: { title: "Number of Rooms", arr: [] },
-            typeOfBuild: { title: "Type of Building", arr: [] },
             allHouse: [],
 
-            selectedQuality: '',
-            selectedLocation: '',
-            selectedRooms: '',
-            selectedType: '',
             selectedBuilding: '',
+            selectedType: '',
+            selectedQuality: '',
             searchTitle: '',
+
+            buildingOptions: [
+                { value: "1", label: "allProducts.buildings.flat" },
+                { value: "2", label: "allProducts.buildings.office" },
+                { value: "3", label: "allProducts.buildings.house" },
+                { value: "4", label: "allProducts.buildings.land" },
+            ],
+
+            typeOptions: [
+                { value: 1, label: "allProducts.types.rent" },
+                { value: 2, label: "allProducts.types.sale" },
+            ],
+
+            qualityOptions: [
+                { value: "1", label: "allProducts.qualities.used" },
+                { value: "2", label: "allProducts.qualities.new" }
+            ]
         }
     },
 
     computed: {
         filteredHouses() {
-            return this.houses.filter(house => {
+            return this.allHouse.filter(house => {
                 const matchTitle = this.searchTitle
-                    ? house.title.toLowerCase().includes(this.searchTitle.toLowerCase())
-                    : true
+                    ? house.title?.toLowerCase().includes(this.searchTitle.toLowerCase())
+                    : true;
 
                 const matchQuality = this.selectedQuality
-                    ? house.quality === this.selectedQuality
-                    : true
-
-                const matchLocation = this.selectedLocation
-                    ? house.street === this.selectedLocation
-                    : true
-
-                const matchRooms = this.selectedRooms
-                    ? String(house.roomsNumber) === String(this.selectedRooms)
-                    : true
+                    ? String(house.quality) === String(this.selectedQuality)
+                    : true;
 
                 const matchType = this.selectedType
-                    ? house.status === this.selectedType
-                    : true
+                    ? String(house.RentOrSell) === String(this.selectedType)
+                    : true;
 
                 const matchBuilding = this.selectedBuilding
-                    ? house.typeOfHouse === this.selectedBuilding
-                    : true
+                    ? String(house.typeOfBuilding) === String(this.selectedBuilding)
+                    : true;
 
-                return matchTitle && matchQuality && matchLocation && matchRooms && matchType && matchBuilding
-            })
+                return matchTitle && matchQuality && matchType && matchBuilding;
+            });
         },
 
         allLocations() {
@@ -125,7 +124,8 @@ export default {
 
             axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
                 .then(res => {
-                    this.allHouse = res.data.body;
+                    console.log('Response:', res.data); // <--- добавь это
+                    this.allHouse = res.data.body || []; // защитное присваивание
                 })
                 .catch(err => {
                     console.log(err);
@@ -137,28 +137,21 @@ export default {
     },
 
     watch: {
-        houses: {
+        allHouse: {
             immediate: true,
-            handler(val) {
-                if (!val) return
-                this.initFilters()
+            handler(newVal) {
+                if (Array.isArray(newVal)) {
+                    this.houses = [...newVal];
+                }
             }
         }
     },
-
     methods: {
-        initFilters() {
-            const unique = arr => [...new Set(arr)]
-
-            this.qualityArr.arr = unique(this.houses.map(h => h.quality))
-            this.locationFind.arr = unique(this.houses.map(h => h.street))
-            this.roomsNum.arr = unique(this.houses.map(h => h.roomsNumber))
-            this.typeOfBuild.arr = unique(this.houses.map(h => h.typeOfHouse))
-        },
-        handleClickOutside(event) {
-            if (this.$refs.menuRef && !this.$refs.menuRef.contains(event.target)) {
-                this.activeIndex = null;
-            }
+        clearFilters() {
+            this.selectedBuilding = '';
+            this.selectedType = '';
+            this.selectedQuality = '';
+            this.searchTitle = '';
         }
     }
 }

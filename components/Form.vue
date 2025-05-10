@@ -1,14 +1,14 @@
 <template>
   <div id="formFeedback">
     <div class="left">
-        <p>Join Us</p>
-        <h2>Get Property Insights and <br> Listings Directly to Your Email</h2>
-        <span>Subscribe us to get newsleter about property information.</span>
+        <p>{{ $t('def.form.top') }}</p>
+        <h2>{{ $t('def.form.title') }}</h2>
+        <span>{{ $t('def.form.label') }}</span>
     </div>
     <div class="right">
         <form action="post">
-            <input type="text" placeholder="Insert your email here" name="feedback" id="">
-            <button class="btn">Subscribe</button>
+            <input type="text" :placeholder="$t('def.form.inpPla')" name="feedback" id="">
+            <button class="btn">{{ $t('def.form.subscribe') }}</button>
         </form>
     </div>
   </div>

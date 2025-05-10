@@ -3,126 +3,108 @@
     <div id="createItem">
         <form @submit.prevent="sendForm()" action="">
             <div class="baseInfo">
-                <h1>Create New House</h1>
-                <input type="text" v-model="form.title" placeholder="Название" name="title" id="">
-                <label for="title" :class="{ active: showErrors && !form.title }"
-                    v-show="showErrors && !form.title">Пропущено поле!</label>
+                <h1>{{ $t('create_item.create_new_house') }}</h1>
 
-                <input type="number" v-model="form.price" name="price" placeholder="Цена" />
-                <label for="price" :class="{ active: showErrors && !form.price }"
-                    v-show="showErrors && !form.price">Пропущено поле!</label>
+                <input type="text" v-model="form.title" :placeholder="$t('create_item.title')" name="title">
+                <label for="title" :class="{ active: showErrors && !form.title }" v-show="showErrors && !form.title">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="text" v-model="form.discription" placeholder="Описание" name="discription" id="">
-                <label for="discription" :class="{ active: showErrors && !form.discription }"
-                    v-show="showErrors && !form.discription">Пропущено поле!</label>
+                <input type="number" v-model="form.price" name="price" :placeholder="$t('create_item.price')" />
+                <label for="price" :class="{ active: showErrors && !form.price }" v-show="showErrors && !form.price">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="number" v-model="form.scale" name="scale" placeholder="Масштаб" />
-                <label for="scale" :class="{ active: showErrors && !form.scale }"
-                    v-show="showErrors && !form.scale">Пропущено поле!</label>
+                <input type="text" v-model="form.discription" :placeholder="$t('create_item.description')" name="discription">
+                <label for="discription" :class="{ active: showErrors && !form.discription }" v-show="showErrors && !form.discription">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="number" v-model="form.roomsNumber" name="roomsNumber" placeholder="Кол-во комнат" />
-                <label for="roomsNumber" :class="{ active: showErrors && !form.roomsNumber }"
-                    v-show="showErrors && !form.roomsNumber">Пропущено поле!</label>
+                <input type="number" v-model="form.scale" name="scale" :placeholder="$t('create_item.scale')" />
+                <label for="scale" :class="{ active: showErrors && !form.scale }" v-show="showErrors && !form.scale">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="text" v-model="form.typeOfHouse" placeholder="Тип стен" name="typeOfHouse" id="">
-                <label for="typeOfHouse" :class="{ active: showErrors && !form.typeOfHouse }"
-                    v-show="showErrors && !form.typeOfHouse">Пропущено поле!</label>
+                <input type="number" v-model="form.roomsNumber" name="roomsNumber" :placeholder="$t('create_item.rooms_number')" />
+                <label for="roomsNumber" :class="{ active: showErrors && !form.roomsNumber }" v-show="showErrors && !form.roomsNumber">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="text" v-model="form.street" placeholder="Улица и Номер дома" name="street" id="">
-                <label for="street" :class="{ active: showErrors && !form.street }"
-                    v-show="showErrors && !form.street">Пропущено поле!</label>
+                <input type="text" v-model="form.typeOfHouse" :placeholder="$t('create_item.wall_type')" name="typeOfHouse">
+                <label for="typeOfHouse" :class="{ active: showErrors && !form.typeOfHouse }" v-show="showErrors && !form.typeOfHouse">{{ $t('create_item.missing_field') }}</label>
 
-                <select v-model="qualitySelect" name="qualitySelect" id="">
-                    <option selected value="1">Новый</option>
-                    <option value="2">Б/У</option>
+                <input type="text" v-model="form.street" :placeholder="$t('create_item.street_and_number')" name="street">
+                <label for="street" :class="{ active: showErrors && !form.street }" v-show="showErrors && !form.street">{{ $t('create_item.missing_field') }}</label>
+
+                <select v-model="qualitySelect" name="qualitySelect">
+                    <option selected value="1">{{ $t('create_item.new') }}</option>
+                    <option value="2">{{ $t('create_item.used') }}</option>
                 </select>
 
-                <input type="number" v-model="form.cilingHeight" name="cilingHeight" placeholder="Высота стен" />
-                <label for="cilingHeight" :class="{ active: showErrors && !form.cilingHeight }"
-                    v-show="showErrors && !form.cilingHeight">Пропущено поле!</label>
+                <input type="number" v-model="form.cilingHeight" name="cilingHeight" :placeholder="$t('create_item.ceiling_height')" />
+                <label for="cilingHeight" :class="{ active: showErrors && !form.cilingHeight }" v-show="showErrors && !form.cilingHeight">{{ $t('create_item.missing_field') }}</label>
 
-                <select @change="realseNew()" v-model="typeOfBuilding" name="typeOfBuilding" id="">
-                    <option selected value="1">Квартира</option>
-                    <option value="4">Офис</option>
-                    <option value="2">Дом</option>
-                    <option value="3">Участок</option>
+                <select v-model="typeOfBuilding" name="typeOfBuilding">
+                    <option selected value="1">{{ $t('create_item.apartment') }}</option>
+                    <option value="4">{{ $t('create_item.office') }}</option>
+                    <option value="2">{{ $t('create_item.house') }}</option>
+                    <option value="3">{{ $t('create_item.plot') }}</option>
                 </select>
 
-                <input type="number" name="floor" v-model="form.floor" placeholder="Этаж" />
-                <label for="floor" :class="{ active: showErrors && !form.floor }">Пропущено
-                    поле!</label>
+                <select v-model="RentOrSell" name="RentOrSell">
+                    <option selected value="1">{{ $t('create_item.sell') }}</option>
+                    <option value="2">{{ $t('create_item.rent') }}</option>
+                </select>
 
+                <input type="number" name="floor" v-model="form.floor" :placeholder="$t('create_item.floor')" />
+                <label for="floor" :class="{ active: showErrors && !form.floor }">{{ $t('create_item.missing_field') }}</label>
 
+                <input type="text" v-model="form.phoneNumberUser" :placeholder="$t('create_item.phone_number')" name="phoneNumberUser">
+                <label for="phoneNumberUser" :class="{ active: showErrors && !form.phoneNumberUser }" v-show="showErrors && !form.phoneNumberUser">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="text" v-model="form.phoneNumberUser" placeholder="Номер телефона" name="phoneNumberUser"
-                    id="">
-                <label for="phoneNumberUser" :class="{ active: showErrors && !form.phoneNumberUser }"
-                    v-show="showErrors && !form.phoneNumberUser">Пропущено поле!</label>
-
-                <input type="text" v-model="form.sms" placeholder="Ссылка на соц.сети для связи" name="sms" id="">
-                <label for="sms" :class="{ active: showErrors && !form.sms }" v-show="showErrors && !form.sms">Пропущено
-                    поле!</label>
-
-
-
-
+                <input type="text" v-model="form.sms" :placeholder="$t('create_item.social_link')" name="sms">
+                <label for="sms" :class="{ active: showErrors && !form.sms }" v-show="showErrors && !form.sms">{{ $t('create_item.missing_field') }}</label>
 
                 <div class="addPluses">
-                    <input type="text" placeholder="Название преимущества">
+                    <input type="text" :placeholder="$t('create_item.advantage_name')" />
                     <div class="add" @click="newPluses()"><img src="/icons/plus.svg" alt=""></div>
                 </div>
 
-                <div class="allpluses">
-                </div>
+                <div class="allpluses"></div>
                 <div id="map" style="height: 400px; width: 100%;"></div>
 
-                <!-- Главное фото -->
-                <label for="mainImage" class="image-label"
-                    style="display: block; margin-top: 10px; color: black; font-size: 20px;">Главное фото</label>
+                <label for="mainImage" class="image-label">{{ $t('create_item.main_image') }}</label>
                 <div class="image-block" @click="triggerFileInput('mainImage')">
                     <div v-if="obj.mainImage">
-                        <img :src="obj.mainImage" alt="Главное фото" style="max-width: 200px; margin-bottom: 10px;">
+                        <img :src="obj.mainImage" alt="" style="max-width: 200px; margin-bottom: 10px;">
                     </div>
-                    <p v-if="!obj.mainImage">Выберите фото</p>
+                    <p v-if="!obj.mainImage">{{ $t('create_item.choose_image') }}</p>
                 </div>
                 <input type="file" id="mainImage" @change="handleMainImageChange" accept="image/*" class="file-input">
 
-                <!-- Дополнительные фото -->
-                <label for="additionalImages" class="image-label"
-                    style="display: block; margin-top: 10px; color: black; font-size: 20px;">Дополнительные фото</label>
+                <label for="additionalImages" class="image-label">{{ $t('create_item.additional_images') }}</label>
                 <div class="image-block" @click="triggerFileInput('additionalImages')">
                     <div v-if="obj.additionalImages.length > 0">
-                        <p>{{ obj.additionalImages.length }} фото выбрано</p>
+                        <p>{{ obj.additionalImages.length }} {{ $t('create_item.images_selected') }}</p>
                     </div>
-                    <p v-if="obj.additionalImages.length === 0">Выберите фото</p>
+                    <p v-if="obj.additionalImages.length === 0">{{ $t('create_item.choose_image') }}</p>
                 </div>
-                <input type="file" id="additionalImages" @change="handleAdditionalImagesChange" multiple
-                    accept="image/*" class="file-input">
+                <input type="file" id="additionalImages" @change="handleAdditionalImagesChange" multiple accept="image/*" class="file-input">
 
-                <!-- Отображение дополнительных фото -->
                 <div v-if="obj.additionalImages.length > 0">
-                    <h3>Дополнительные фотографии:</h3>
+                    <h3>{{ $t('create_item.additional_photos') }}</h3>
                     <div class="otherPhotos">
                         <div v-for="(image, index) in obj.additionalImages" :key="index" class="image-container">
-                            <img :src="image" alt="Дополнительное фото" style="max-width: 200px; margin-bottom: 10px;">
-                            <img class="delete-icon" src="~/public/icons/x-circle.svg" alt="Удалить"
-                                @click="removeAdditionalImage(index)">
+                            <img :src="image" style="max-width: 200px; margin-bottom: 10px;">
+                            <img class="delete-icon" src="~/public/icons/x-circle.svg" alt="Удалить" @click="removeAdditionalImage(index)">
                         </div>
                     </div>
                 </div>
                 <input type="text" hidden value="">
             </div>
-            <button>Отправить</button>
+            <button>{{ $t('create_item.submit') }}</button>
         </form>
+
         <div class="modalWindowProfile" v-show="isShow">
             <div class="wind">
                 <img :src="isCorrect ? '/icons/correct.png' : '/icons/remove.png'" alt="">
-                <h2>{{ isCorrect ? 'Товар был успешно изменен!' : 'Возникли проблемы с созданием товара' }}</h2>
-                <button type="submit" @click="isShow = false">Закрыть окно</button>
+                <h2>{{ isCorrect ? $t('create_item.success') : $t('create_item.failure') }}</h2>
+                <button type="submit" @click="isShow = false">{{ $t('create_item.close') }}</button>
             </div>
         </div>
     </div>
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -134,6 +116,7 @@ export default {
             floorSwitch: true,
             typeOfBuilding: 1,
             qualitySelect: 1,
+            RentOrSell: 1,
             isCorrect: true,
             isShow: false,
             obj: {
@@ -191,8 +174,6 @@ export default {
         axios.get(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`)
             .then((res) => {
                 this.userPluses = res.data.data.codeHouses
-                console.log(this.userPluses);
-                
             })
             .catch((err) => {
                 console.log(err);
@@ -299,10 +280,6 @@ export default {
             this.additionalImageFiles.splice(index, 1);
         },
 
-        realseNew() {
-            this.floorSwitch = this.typeOfBuilding == '1' || this.typeOfBuilding == '4';
-        },
-
         sendForm() {
             this.showErrors = true;
             const isValid = Object.values(this.form).every(value => value !== null && value !== undefined && value.toString().trim() !== '');
@@ -314,6 +291,7 @@ export default {
 
             formData.append('userCreated', localStorage.getItem('user'))
             formData.append('quality', this.qualitySelect);
+            formData.append('RentOrSell', this.RentOrSell);
             formData.append('typeOfBuilding', this.typeOfBuilding);
             formData.append('coords', JSON.stringify(this.obj.coords));
             formData.append('pluses', JSON.stringify(this.obj.pluses));

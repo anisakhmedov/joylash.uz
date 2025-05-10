@@ -16,60 +16,62 @@
                 <form action="">
                     <div class="inputs">
                         <div class="inp">
-                            <label>Full Name</label>
+                            <label>{{ $t('profile.form.fullName') }}</label>
                             <input data-inp="name" name="name" type="text" :disabled="btnsActive" :value="userInfo.name"
-                                placeholder="Your First Name">
-                            <label class="err">You must fill this form!</label>
+                                :placeholder="$t('profile.formPla.fullName')">
+                            <label class="err">{{ $t('profile.form.mustFill') }}</label>
                         </div>
+
                         <div class="inp">
-                            <label>Nickname</label>
+                            <label>{{ $t('profile.form.nickname') }}</label>
                             <input data-inp="nickname" :value="userInfo.nickname == '' ? '' : userInfo.nickname"
-                                name="nickname" type="text" :disabled="btnsActive" placeholder="Your Nuckname">
-                            <label class="err">You must fill this form!</label>
+                                name="nickname" type="text" :disabled="btnsActive"
+                                :placeholder="$t('profile.formPla.nickname')">
+                            <label class="err">{{ $t('profile.form.mustFill') }}</label>
                         </div>
+
                         <div class="inp">
-                            <label>Email</label>
+                            <label>{{ $t('profile.form.email') }}</label>
                             <input data-inp="email" name="email" type="text" :disabled="btnsActive"
-                                :value="userInfo.email" placeholder="Your Email">
-                            <label class="err">You must fill this form!</label>
+                                :value="userInfo.email" :placeholder="$t('profile.formPla.email')">
+                            <label class="err">{{ $t('profile.form.mustFill') }}</label>
                         </div>
+
                         <div class="inp">
-                            <label>Phone Number</label>
+                            <label>{{ $t('profile.form.phone') }}</label>
                             <input :value="userInfo.phone == '' ? '' : userInfo.phone" data-inp="phone" name="phone"
-                                type="text" :disabled="btnsActive" placeholder="Your Phone Number">
-                            <label class="err">You must fill this form!</label>
+                                type="text" :disabled="btnsActive" :placeholder="$t('profile.formPla.phone')">
+                            <label class="err">{{ $t('profile.form.mustFill') }}</label>
                         </div>
+
                         <div class="inp">
-                            <label>Password</label>
+                            <label>{{ $t('profile.form.password') }}</label>
                             <input type="text" disabled :value="userInfo.password" placeholder="**********">
                         </div>
+
                         <div class="inp">
-                            <label>Reset Your Password</label>
-                            <input name="password" type="text" :disabled="btnsActive" placeholder="New Password">
+                            <label>{{ $t('profile.form.passwordRes') }}</label>
+                            <input name="password" type="text" :disabled="btnsActive"
+                                :placeholder="$t('profile.formPla.passwordRes')">
                         </div>
                     </div>
                     <div class="btns">
                         <button @click="btnsActive = !btnsActive" :disabled="!btnsActive"
-                            :style="!btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'">Edit</button>
+                            :style="!btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'">{{ $t('profile.form.btnEdit') }}</button>
                         <button :disabled="btnsActive"
                             :style="btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'"
-                            @click="sendNewInfo()">Submit New Information</button>
+                            @click="sendNewInfo()">{{ $t('profile.form.btn') }}</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="allProductsCreated">
-        <h3>Ваши объявления!</h3>
-        <div class="wrapper">
-            <div class="item"></div>
-        </div>
-    </div>
+
     <div class="modalWindowProfile" v-show="isShow">
         <div class="wind">
             <img :src="allCorrect ? '/icons/correct.png' : '/icons/remove.png'" alt="">
-            <h2>{{ allCorrect ? 'Профиль был успешно изменен!' : 'Возникли проблемы с изменением профиля' }}</h2>
-            <button @click="isShow = false">Закрыть окно</button>
+            <h2>{{ allCorrect ? $t('profile.form.correct') : $t('profile.form.inCorrect') }}</h2>
+            <button @click="isShow = false">{{ $t('profile.form.close') }}</button>
         </div>
     </div>
 </template>
@@ -97,7 +99,7 @@ export default {
             })
         axios.get(`${this.api}houses`)
             .then((res) => {
-                for(let item of res.data.body){
+                for (let item of res.data.body) {
                     // for(let userHome of this.userInfo.)
                     // if(item._id == )
                 }
@@ -148,7 +150,7 @@ export default {
 
                         this.allCorrect = true
 
-                        if(process.client){
+                        if (process.client) {
                             this.isShow = true
                         }
                     })

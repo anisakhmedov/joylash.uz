@@ -7,19 +7,39 @@
         </div>
         <div class="mid">
             <ul>
-                <li><NuxtLink to="/">Home</NuxtLink></li>
-                <li><NuxtLink to="/allProducts">Categories</NuxtLink></li>
-                <li><NuxtLink to="/allProducts">Catalogue</NuxtLink></li>
-                <li><NuxtLink to="/allProducts">Wishlist</NuxtLink></li>
+                <li>
+                    <NuxtLink to="/">{{ $t("def.header.house") }}</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/allProducts">{{ $t("def.header.cate") }}</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/allProducts">{{ $t("def.header.catalogue") }}</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/allProducts">{{ $t("def.header.wishlist") }}</NuxtLink>
+                </li>
             </ul>
         </div>
         <div class="right">
             <div class="nav-images language">
-                <img src="~/public/icons/languages.svg" alt="">
-                <div class="block-lang">
-                    <div class="rus">RU</div>
-                    <div class="uz">UZ</div>
-                    <div class="eng">ENG</div>
+                <img @click="isActive = !isActive" src="~/public/icons/languages.svg" alt="">
+                <div class="block-lang" :class="isActive ? 'active' : ''">
+                    <div class="rus">
+                        <NuxtLink :to="$switchLocalePath('ru')">
+                            RU
+                        </NuxtLink>
+                    </div>
+                    <div class="uz">
+                        <NuxtLink :to="$switchLocalePath('uz')">
+                            UZ
+                        </NuxtLink>
+                    </div>
+                    <div class="eng">
+                        <NuxtLink :to="$switchLocalePath('en')">
+                            ENG
+                        </NuxtLink>
+                    </div>
                 </div>
             </div>
             <div class="nav-images profile">
@@ -33,7 +53,11 @@
 
 <script>
 export default {
-
+    data() {
+        return {
+            isActive: false
+        }
+    },
 }
 </script>
 

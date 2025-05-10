@@ -3,22 +3,25 @@
         <div id="mainView">
             <div class="bg"></div>
             <div class="text">
-                <p>Greetings, you're now in PropDown</p>
-                <div class="title">Bringing Your Dream <br> Home Vision to Life.</div>
-                <div class="disc">Lorem ipsum dolor sit amet consectetur. <br> Est quisque elementum aliquam a.</div>
-                <NuxtLink class="btn orange" to="/allProducts">Publish a Property</NuxtLink>
+                <p>{{ $t('mainPage.1ViewText.p1') }}</p>
+                <div class="title">{{ $t('mainPage.1ViewText.h1') }}</div>
+                <div class="disc">{{ $t('mainPage.1ViewText.disc') }}<br></div>
+                <NuxtLink class="btn orange" to="/allProducts">{{ $t('mainPage.items2.smth') }}</NuxtLink>
             </div>
         </div>
+
         <div class="appereance container" ref="menuRef">
             <ul>
                 <div v-for="(item, index) in items" :key="index" class="title"
                     :class="{ active: activeIndex === index }">
                     <div class="toggle" @click="toggleMenu(index)">
-                        <p>{{ item.label }}</p>
+                        <p>{{ item[this.$i18n.locale]?.label }}</p>
                         <img src="~/public/icons/arrow.svg" alt="">
                     </div>
                     <ul class="submenu">
-                        <NuxtLink to="/allProducts" v-for="(option, idx) in item.options" :key="idx">{{ option }}
+                        <NuxtLink to="/allProducts" v-for="(option, idx) in item[this.$i18n.locale]?.options"
+                            :key="idx">
+                            {{ option }}
                         </NuxtLink>
                     </ul>
                 </div>
@@ -29,11 +32,12 @@
                 </div>
             </ul>
         </div>
+
         <div class="productView">
             <div class="_title" style="padding: 0 100px;">
-                <p>Featured Property</p>
+                <p>{{ $t('mainPage.items.label') }}</p>
                 <nav>
-                    <span>Recommended Place to Live for You</span>
+                    <span>{{ $t('mainPage.items.title') }}</span>
                 </nav>
             </div>
             <div class="carousel-container">
@@ -41,18 +45,17 @@
                     <Items ref="carouselInner" :houses="houses" />
                 </div>
             </div>
-            <NuxtLink class="btn orange" to="allProducts">Show all Property</NuxtLink>
+            <NuxtLink class="btn orange" to="allProducts">{{ $t('mainPage.items.showAll') }}</NuxtLink>
         </div>
         <client-only>
             <Map class="map-def" v-if="isLoaded && allLocations.length" :locations="allLocations" :zoom="12" />
         </client-only>
-        
 
         <div class="products">
             <div class="_title">
-                <p>Recent Additions</p>
+                <p>{{ $t('mainPage.items2.label') }}</p>
                 <nav>
-                    <span>Find Properties that Suits You</span>
+                    <span>{{ $t('mainPage.items2.title') }}</span>
                 </nav>
             </div>
             <Items ref="ItemsProd" :houses="houses" />
@@ -65,6 +68,7 @@ import Map from '~/components/Map.vue'
 import Items from '~/components/Items.vue'
 import axios from 'axios'
 
+
 export default {
     components: {
         Map,
@@ -76,11 +80,52 @@ export default {
             activeIndex: null,
             isLoaded: false,
             menuRef: null,
+            locationLang: '',
             items: [
-                { label: 'Location', options: ['Option 1', 'Option 2', 'Option 3'] },
-                { label: 'Category', options: ['Option A', 'Option B', 'Option C'] },
-                { label: 'Type', options: ['Option X', 'Option Y', 'Option Z'] }
+                {
+                    "uz": {
+                        "label": "Uy holati",
+                        "options": ["Yangi", "Ishlatilgan"]
+                    },
+                    "ru": {
+                        "label": "Состояние дома",
+                        "options": ["Новое", "Б/У"]
+                    },
+                    "en": {
+                        "label": "House condition",
+                        "options": ["New", "Used"]
+                    }
+                },
+                {
+                    "uz": {
+                        "label": "Toifa",
+                        "options": ["Ijaraga", "Sotuvga"]
+                    },
+                    "ru": {
+                        "label": "Категория",
+                        "options": ["Аренда", "Продажа"]
+                    },
+                    "en": {
+                        "label": "Category",
+                        "options": ["Rent", "Sale"]
+                    }
+                },
+                {
+                    "uz": {
+                        "label": "Turi",
+                        "options": ["Uy", "Kvartira", "Ofis", "Yer uchastkasi"]
+                    },
+                    "ru": {
+                        "label": "Тип недвижимости",
+                        "options": ["Дом", "Квартира", "Офис", "Участок"]
+                    },
+                    "en": {
+                        "label": "Property type",
+                        "options": ["House", "Apartment", "Office", "Land plot"]
+                    }
+                }
             ]
+
         }
     },
     computed: {

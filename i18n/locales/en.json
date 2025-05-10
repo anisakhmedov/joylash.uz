@@ -18,18 +18,22 @@
         },
         "items2": {
             "label": "Recent Additions",
-            "title": "Find Properties that Suits You"
+            "title": "Find Properties that Suits You",
+            "smth": "Publish a Property"
         }
     },
     "def": {
         "footer": {
+            "left": {
+                "main": "Discover the Comfort of Your Life"
+            },
             "mid": {
-                "home": "",
-                "blog": "",
-                "categories": "",
-                "contact": "",
-                "packages": "",
-                "licensing": ""
+                "home": "Home",
+                "blog": "Blog",
+                "categories": "Categories",
+                "contact": "Contact ",
+                "packages": "Packages",
+                "licensing": "Licensing"
             },
             "right": {
                 "house": "House",
@@ -52,7 +56,115 @@
             "wishlist": "Wishlist"
         }
     },
-    "allProd": {
-         
+    "allProd": {},
+    "profile": {
+        "form": {
+            "fullName": "Full Name",
+            "nickname": "Nickname",
+            "email": "Email",
+            "phone": "Phone Number",
+            "password": "Password",
+            "passwordRes": "Reset Your Password",
+            "mustFill": "You must fill this form!",
+            "btn": "Submit New Information",
+            "btnEdit": "Edit",
+            "close": "Закрыть окно",
+            "correct": "Профиль был успешно изменен!",
+            "inCorrect": "Возникли проблемы с изменением профиля"
+        },
+        "formPla": {
+            "fullName": "Your First Name",
+            "nickname": "Your Nuckname",
+            "email": "Your Email",
+            "phone": "Your Phone Number",
+            "passwordRes": "New Password"
+        }
+    },
+    "register": {
+        "get_started_now": "Get Started Now",
+        "email_or_phone_number": "Email or Phone Number",
+        "enter_email_or_phone_number": "Enter your email or phone number",
+        "user_already_exists": "This user already exists",
+        "password": "Password",
+        "enter_password": "Enter your password",
+        "field_required": "This field is required",
+        "sign_up": "Sign Up",
+        "or": "or",
+        "have_account": "Have an Account?",
+        "sign_in": "Sign In",
+        "welcome_back": "Welcome Back!",
+        "email": "Email",
+        "invalid_login_or_password": "Invalid login or password",
+        "forgot_password": "forgot password",
+        "remember_7_days": "Remember for 7 days",
+        "dont_have_account": "Don't have an account?"
+    },
+    "create_item": {
+        "create_new_house": "Create a new house",
+        "title": "Title",
+        "missing_field": "This field is required",
+        "price": "Price",
+        "description": "Description",
+        "scale": "Scale",
+        "rooms_number": "Number of rooms",
+        "wall_type": "Wall material",
+        "street_and_number": "Street and house number",
+        "new": "New",
+        "used": "Used",
+        "ceiling_height": "Ceiling height",
+        "apartment": "Apartment",
+        "office": "Office",
+        "house": "House",
+        "plot": "Plot",
+        "sell": "Sell",
+        "rent": "Rent",
+        "floor": "Floor",
+        "phone_number": "Phone number",
+        "social_link": "Social media link",
+        "advantage_name": "Enter the name of the advantage",
+        "main_image": "Main photo of the object",
+        "choose_image": "Click to select image",
+        "additional_images": "Additional photos",
+        "images_selected": "images selected",
+        "additional_photos": "Additional photos",
+        "submit": "Submit",
+        "success": "Success",
+        "failure": "Failure",
+        "close": "Close"
+    },
+    "items": {
+        "openMap": "Open location"
+    },
+    "allProducts": {
+        "search_placeholder": "Search a Property",
+        "quality_placeholder": "Condition",
+        "type_placeholder": "Rent or Sale",
+        "building_placeholder": "Property Type",
+        "clear_filters": "Clear Filters",
+        "buildings": {
+            "flat": "Apartment",
+            "office": "Office",
+            "house": "House",
+            "land": "Land"
+        },
+        "types": {
+            "rent": "Rent",
+            "sale": "Sale"
+        },
+        "qualities": {
+            "used": "Used",
+            "new": "New"
+        }
+    },
+    "product": {
+        "add_to_wishlist": "Add to Wishlist",
+        "call": "Call",
+        "message": "Message",
+        "product_description": "Product Description",
+        "benefits": "Benefits",
+        "house_details": "House Details",
+        "similar_items": "Similar Items You Might Also Like",
+        "estate_agency": "Estate Agency",
+        "agency_name": "Joylash Agency Uzbekistan"
     }
 }

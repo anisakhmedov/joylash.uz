@@ -40,15 +40,15 @@
             <div class="btns">
               <div class="add" @click="addToWhishlist()">
                 <img src="~/public/icons/bag.svg" alt="">
-                <p>Add To Wishlist</p>
+                <p>{{ t('product.add_to_wishlist') }}</p>
               </div>
               <a class="call" :href="`tel:${house.phoneNumberUser}`" style="display: flex;">
                 <img src="~/public/icons/phone.svg" alt="">
-                <p style="color: white;">Call</p>
+                <p style="color: white;">{{ t('product.call') }}</p>
               </a>
               <a :href="house.sms" class="message">
                 <img src="~/public/icons/message.svg" alt="">
-                <p>Message</p>
+                <p>{{ t('product.message') }}</p>
               </a>
             </div>
           </div>
@@ -83,11 +83,11 @@
     <div class="discItem">
       <ul class="listItems">
         <li class="top">
-          <h2>Product Description</h2>
-          <p>{{ house.description }}</p>
+          <h2>{{ t('product.product_description') }}</h2>
+          <p>{{ house.discription }}</p>
         </li>
         <li>
-          <h2>Benefits</h2>
+          <h2>{{ t('product.benefits') }}</h2>
           <ul>
             <li v-for="(plus, i) in house.pluses || []" :key="i">
               <img src="~/public/icons/check.svg" alt="">
@@ -96,7 +96,7 @@
           </ul>
         </li>
         <li>
-          <h2>House Details</h2>
+          <h2>{{ t('product.house_details') }}</h2>
           <ul>
             <li>
               <img src="~/public/icons/check.svg" alt="">
@@ -111,7 +111,7 @@
       </ul>
     </div>
 
-    <p style="font-size: 30px; margin: 60px 0 30px 0; font-weight: 600;">Similar Items You Might Also Like</p>
+    <p style="font-size: 30px; margin: 60px 0 30px 0; font-weight: 600;">{{ t('product.similar_items') }}</p>
     <Items :houses="similarHouses" />
   </div>
 </template>
@@ -133,6 +133,10 @@ export default {
       coordsSpc: [],
       alreadyLiked: []
     }
+  },
+  setup() {
+    const { t } = useI18n()
+    return { t }
   },
   mounted() {
     let id;

@@ -1,7 +1,7 @@
 <template>
     <div id="footer">
         <div class="title">
-            <p>Discover the Comfort of Your Life</p>
+            <p>{{ $t('def.footer.left.main') }}</p>
         </div>
         <div class="mainBox">
             <ul class="logo">
@@ -10,21 +10,21 @@
             <ul class="categories">
                 <li>
                     <NuxtLink to="/">
-                        Home
+                        {{ $t('def.footer.mid.home') }}
                     </NuxtLink>
                 </li>
-                <li>Categories</li>
-                <li>Packages</li>
-                <li>Blog</li>
-                <li>Contact</li>
-                <li>Licensing</li>
+                <li>{{ $t('def.footer.mid.blog') }}</li>
+                <li>{{ $t('def.footer.mid.categories') }}</li>
+                <li>{{ $t('def.footer.mid.contact') }}</li>
+                <li>{{ $t('def.footer.mid.packages') }}</li>
+                <li>{{ $t('def.footer.mid.licensing') }}</li>
             </ul>
             <div class="line"></div>
             <ul class="categories two">
-                <li>House</li>
-                <li>Apartment</li>
-                <li>Office</li>
-                <li>Warehouse</li>
+                <li>{{ $t('def.footer.right.house') }}</li>
+                <li>{{ $t('def.footer.right.apartment') }}</li>
+                <li>{{ $t('def.footer.right.office') }}</li>
+                <li>{{ $t('def.footer.right.warehouse') }}</li>
             </ul>
         </div>
         <div class="social">
