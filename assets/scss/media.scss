@@ -1,0 +1,159 @@
+@media only screen and (max-width: 1800px) {
+    #mainPage .products .items-wrapper {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    #mainPage #mainView .text .title {
+        font-size: 54px !important;
+    }
+    #mainPage .appereance {
+        width: 95% !important;
+        padding: 25px !important;
+        ul {
+            grid-template-columns: repeat(4, 1fr) !important;
+        }
+        ul .title {
+            padding: 10px 10px !important;
+            div {
+                gap: 0px !important;
+            }
+        }
+    }
+    #mainPage #mainView {
+        height: 650px !important;
+    }
+
+    #mainPage .appereance ul .title.search {
+        grid-column-end: auto !important;
+        grid-column-start: auto !important;
+    }
+    #mainPage {
+        .productView {
+            padding: 100px 0 30px !important;
+        }
+        .carousel-container {
+            margin: 35px 0 !important;
+            .item {
+                width: 400px !important;
+                height: 400px !important;
+            }
+        }
+        .products {
+            padding: 0 30px !important;
+            margin-top: 30px !important;
+        }
+        .map-def {
+            max-width: calc(100% - 60px) !important;
+        }
+    }
+    #formFeedback {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #mainPage .products .items-wrapper {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+    #footer {
+        padding: 45px 35px !important;
+        .title {
+            font-size: 30px !important;
+            margin-bottom: 36px !important;
+        }
+        .mainBox ul.categories {
+            gap: 15px 15px !important;
+        }
+        .social {
+            margin-top: 36px !important;
+        }
+    }
+    #mainPage .products .items-wrapper {
+        grid-auto-rows: 175px !important;
+        .item {
+            align-items: end !important;
+            justify-content: right !important;
+            .bg {
+                right: 70% !important;
+            }
+            .info {
+                background-color: white !important;
+                background-image: none !important;
+                width: 70% !important;
+                height: 100% !important;
+                display: flex;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+            }
+        }
+    }
+    ._title nav span {
+        font-size: 28px !important;
+    }
+    .productView{
+        ._title{
+            padding: 0px 30px !important;
+        }
+    }
+    #map {
+        height: 300px !important;
+        margin-top: 30px !important;
+    }
+    #mainPage #mainView .text {
+        padding: 130px 20px !important;
+        .disc {
+            width: 60% !important;
+            font-size: 14px !important;
+        }
+        .btn {
+            font-size: 15px !important;
+            padding: 12px 14px !important;
+        }
+        .title {
+            width: 80% !important;
+            font-size: 36px !important;
+        }
+    }
+    #mainPage #mainView {
+        height: 485px !important;
+    }
+
+    #mainPage .carousel-container {
+        .btn {
+            font-size: 15px !important;
+            padding: 12px 14px !important;
+        }   
+        .item {
+            width: 250px !important;
+            height: 250px !important;
+            .bg {
+                bottom: 85px !important;
+            }
+            .info {
+                padding: 5px !important;
+                .options ul li {
+                    font-size: 14px !important;
+                }
+                .locationAndPrice .price .mainPrice {
+                    font-size: 20px !important;
+                }
+                .location {
+                    img {
+                        width: 20px !important;
+                        height: 20px !important;
+                    }
+                    span {
+                        font-size: 13px !important;
+                    }
+                }
+            }
+        }
+    }
+    #footer {
+        .logo {
+            display: none !important;
+        }
+    }
+}
