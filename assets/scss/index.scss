@@ -553,32 +553,32 @@ body {
     }
 }
 
-.items-wrapper{
-    .locationAndPrice{
-        .location{
+.items-wrapper {
+    .locationAndPrice {
+        .location {
             display: flex;
             align-items: center;
-            img{
+            img {
                 height: 30px;
                 width: 30px;
             }
-            a{
+            a {
                 color: #e98800 !important;
             }
-            span{
+            span {
                 font-size: 20px !important;
             }
         }
     }
-    .options{
+    .options {
         overflow-x: scroll;
         &::-webkit-scrollbar {
             height: 0px; /* ширина scrollbar */
         }
-        ul{
+        ul {
             gap: 5px !important;
         }
-        li{
+        li {
             background-color: #e98800;
             color: white;
             padding: 5px 10px;
@@ -921,7 +921,7 @@ body {
                 .btns {
                     display: flex;
                     gap: 10px;
-                    div {
+                    a, div {
                         width: fit-content;
                         height: 60px;
                         cursor: pointer;
@@ -1331,6 +1331,13 @@ body {
         }
     }
 }
+
+.allProductsCreated {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
 .modalWindowProfile {
     position: fixed;
     top: 0;

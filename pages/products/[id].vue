@@ -42,14 +42,14 @@
                 <img src="~/public/icons/bag.svg" alt="">
                 <p>Add To Wishlist</p>
               </div>
-              <div class="call">
+              <a class="call" :href="`tel:${house.phoneNumberUser}`" style="display: flex;">
                 <img src="~/public/icons/phone.svg" alt="">
-                <p>Call</p>
-              </div>
-              <div class="message">
+                <p style="color: white;">Call</p>
+              </a>
+              <a :href="house.sms" class="message">
                 <img src="~/public/icons/message.svg" alt="">
                 <p>Message</p>
-              </div>
+              </a>
             </div>
           </div>
         </div>

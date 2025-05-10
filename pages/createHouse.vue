@@ -12,9 +12,9 @@
                 <label for="price" :class="{ active: showErrors && !form.price }"
                     v-show="showErrors && !form.price">Пропущено поле!</label>
 
-                <input type="text" v-model="form.description" placeholder="Описание" name="description" id="">
-                <label for="description" :class="{ active: showErrors && !form.description }"
-                    v-show="showErrors && !form.description">Пропущено поле!</label>
+                <input type="text" v-model="form.discription" placeholder="Описание" name="discription" id="">
+                <label for="discription" :class="{ active: showErrors && !form.discription }"
+                    v-show="showErrors && !form.discription">Пропущено поле!</label>
 
                 <input type="number" v-model="form.scale" name="scale" placeholder="Масштаб" />
                 <label for="scale" :class="{ active: showErrors && !form.scale }"
@@ -148,7 +148,7 @@ export default {
             form: {
                 title: '',
                 price: '',
-                description: '',
+                discription: '',
                 scale: '',
                 roomsNumber: '',
                 typeOfHouse: '',
@@ -161,7 +161,8 @@ export default {
             modalVisible: true,
             showErrors: false,
             mainImageFile: null,
-            additionalImageFiles: []
+            additionalImageFiles: [],
+            userPluses: []
         }
     },
 
@@ -185,9 +186,19 @@ export default {
                 }
 
                 this.obj.coords = [lat, lng]
-                console.log('Координаты:', this.obj.coords)
             })
         }
+        axios.get(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`)
+            .then((res) => {
+                this.userPluses = res.data.data.codeHouses
+                console.log(this.userPluses);
+                
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+
     },
 
     methods: {
@@ -227,8 +238,6 @@ export default {
         newPluses() {
             if (process.client) {
                 let input = event.target.parentNode.parentNode.querySelector('input[placeholder="Название преимущества"]');
-                console.log(input);
-
                 let text = input.value;
 
                 if (text.length >= 5) {
@@ -295,17 +304,15 @@ export default {
         },
 
         sendForm() {
-
             this.showErrors = true;
             const isValid = Object.values(this.form).every(value => value !== null && value !== undefined && value.toString().trim() !== '');
-            // if (!isValid) return;
-            console.log(123);
 
             const formData = new FormData();
             Object.entries(this.form).forEach(([key, value]) => {
                 formData.append(key, value);
             });
 
+            formData.append('userCreated', localStorage.getItem('user'))
             formData.append('quality', this.qualitySelect);
             formData.append('typeOfBuilding', this.typeOfBuilding);
             formData.append('coords', JSON.stringify(this.obj.coords));
@@ -319,8 +326,20 @@ export default {
                 formData.append('additionalImages', file);
             });
 
-            console.log(formData);
 
+            //         let newAddForUser = (param) => {
+            //                 .then((res) => {
+            //             let addForPush = res.data.codeHouses
+            //             addForPush.push(param)
+            //             axios.patch(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
+            //                 .then((res) => {
+            //                     console.log(res);
+            //                 })
+            //                 .catch((err) => console.log(err))
+            //         })
+            //         .catch((err) => console.log(err))
+
+            // }
 
             axios.post(this.api, formData, {
                 headers: {
@@ -331,12 +350,17 @@ export default {
                     this.isShow = true;
                     this.isCorrect = true;
                     this.resetForm();
-                    console.log('Форма отправлена:', res.data);
+                    newAddForUser(res.data._id)
+
+                    axios.patch(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
+                        .then((res) => {
+                            console.log(res);
+                        })
+                        .catch((err) => console.log(err))
                 })
                 .catch(err => {
                     this.isCorrect = false;
                     this.isShow = true;
-                    console.error('Ошибка при отправке:', err);
                 });
         }
     }

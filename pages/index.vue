@@ -47,7 +47,6 @@
             <Map class="map-def" v-if="isLoaded && allLocations.length" :locations="allLocations" :zoom="12" />
         </client-only>
         
-        <pre>{{ allLocations }}</pre>
 
         <div class="products">
             <div class="_title">

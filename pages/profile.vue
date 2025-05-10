@@ -62,7 +62,7 @@
     <div class="allProductsCreated">
         <h3>Ваши объявления!</h3>
         <div class="wrapper">
-            
+            <div class="item"></div>
         </div>
     </div>
     <div class="modalWindowProfile" v-show="isShow">
@@ -84,7 +84,8 @@ export default {
             userInfo: '',
             btnsActive: true,
             allCorrect: true,
-            isShow: false
+            isShow: false,
+            donaArray: []
         }
     },
     mounted() {
@@ -93,6 +94,14 @@ export default {
             .then((res) => {
                 this.userInfo = res.data.data
 
+            })
+        axios.get(`${this.api}houses`)
+            .then((res) => {
+                for(let item of res.data.body){
+                    // for(let userHome of this.userInfo.)
+                    // if(item._id == )
+                }
+                this.donaArray = res.data.body
             })
     },
     methods: {
