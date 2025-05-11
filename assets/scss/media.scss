@@ -320,7 +320,173 @@
         font-size: 16px !important;
     }
     #mainPage .products .items-wrapper .item .info {
-        height: fit-content;
+        height: fit-content !important;
         width: 100% !important;
+    }
+    #mainPage .products .items-wrapper .item {
+        justify-content: space-between !important;
+        .bg {
+            position: relative !important;
+            width: 100% !important;
+            height: 60% !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #prod .item {
+        flex-direction: column !important;
+    }
+    #prod .item .right .price .main {
+        // flex-direction: column !important;
+    }
+    #prod .item .right .price .main .btns {
+        a,
+        div {
+            gap: 20px;
+            padding: 19px 13px;
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+    #prod .item .right .options {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+    #prod {
+        padding: 0px 15px;
+        ._margin {
+            height: 20px;
+        }
+        .item .right .price .main #price {
+            font-size: 28px !important;
+        }
+        .item .right .title .main h2 {
+            font-size: 25px !important;
+        }
+        .item .left .carousel-prod .images img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+        .left .mainImg {
+            height: 200px !important;
+        }
+        .item .left .carousel-prod {
+            display: flex;
+            height: 80px;
+        }
+        .item .right .price .main {
+            display: flex;
+            align-items: center !important;
+        }
+        .item .left {
+            width: 100%;
+        }
+        .right {
+            width: 100% !important;
+            .price {
+                .main {
+                    display: flex;
+                    flex-direction: row;
+                }
+            }
+            hr {
+                margin: 15px 0 !important;
+            }
+        }
+        .discItem .listItems {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        .items-wrapper {
+            grid-template-columns: repeat(1, 1fr);
+            height: fit-content;
+            gap: 5px;
+        }
+        .items-wrapper .item {
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            margin-right: 20px;
+            height: 350px;
+            .bg {
+                height: 60% !important;
+            }
+            .info {
+                height: 50%;
+            }
+        }
+    }
+    #prod .items-wrapper .item {
+        display: flex;
+        gap: 0px !important;
+    }
+    #prod .item .right .price .main .btns a {
+        display: none !important;
+    }
+    #prod .item .right .price .main .btns div {
+        width: fit-content;
+        height: 45px !important;
+    }
+    #allProd .items-wrapper .item {
+        display: flex;
+        flex-direction: column !important;
+    }
+    #allProd {
+        .items-wrapper {
+            display: flex !important;
+            flex-direction: column;
+            margin-top: 10px !important;
+            .locationAndPrice .location span {
+                font-size: 22px !important;
+            }
+            .item {
+                height: 350px !important;
+                justify-content: space-between;
+                background-color: white !important;
+                .bg {
+                    position: relative !important;
+                    width: 100% !important;
+                    height: 95% !important;
+                }
+            }
+        }
+        .filterBlock {
+            display: flex;
+            overflow-x: scroll;
+            max-width: 100%;
+            margin-top: 10px !important;
+            input {
+                width: 250px !important;
+            }
+            button {
+                display: none;
+            }
+        }
+    }
+    ._margin {
+        height: 0px !important;
+    }
+    #profile {
+        .info .main form .inputs {
+            grid-template-columns: 1fr;
+        }
+        .info .colorGrd {
+            height: 100px;
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+        .info {
+            border-radius: 0;
+            border: none;
+        }
+    }
+    #register {
+        display: block;
+        .bg {
+            display: none;
+        }
     }
 }

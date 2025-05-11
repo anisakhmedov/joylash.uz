@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
-  css: ['~/assets/css/media.css', '~/assets/css/index.css', 'leaflet/dist/leaflet.css'],
+  css: ['~/assets/css/style.css', 'leaflet/dist/leaflet.css'],
   app: {
     head: {
       title: 'Joylash,uz', // default fallback title

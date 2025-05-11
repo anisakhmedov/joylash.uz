@@ -3,7 +3,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import cleanCSS from 'gulp-clean-css';
 import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
-
+import concat from 'gulp-concat' // unit files
 const sass = gulpSass(dartSass);
 
 // Paths
@@ -18,6 +18,7 @@ const paths = {
 export function CustomStyles() {
     return gulp.src(paths.styles.src)
         .pipe(sass().on('error', sass.logError))
+        .pipe(concat('style.css'))
         .pipe(autoprefixer({ overrideBrowserslist: ['> 1%'], cascade: false }))
         .pipe(cleanCSS({ level: 2 }))
         .pipe(gulp.dest(paths.styles.dist));
