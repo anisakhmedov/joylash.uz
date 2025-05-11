@@ -198,7 +198,6 @@
     }
     #mainPage .products .items-wrapper .item .info {
         width: 100% !important;
-        height: fit-content !important;
     }
     #mainPage .products .items-wrapper .item .bg {
         right: 0% !important;
@@ -309,5 +308,19 @@
     .btn {
         padding: 9px 12px !important;
         font-size: 16px !important;
+    }
+    #mainPage .products .items-wrapper .item .info .locationAndPrice .price .mainPrice {
+        font-size: 24px !important;
+    }
+    .items-wrapper .locationAndPrice .location img {
+        height: 20px !important;
+        width: 20px !important;
+    }
+    .items-wrapper .locationAndPrice .location span {
+        font-size: 16px !important;
+    }
+    #mainPage .products .items-wrapper .item .info {
+        height: fit-content;
+        width: 100% !important;
     }
 }
