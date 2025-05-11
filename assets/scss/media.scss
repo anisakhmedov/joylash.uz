@@ -198,6 +198,7 @@
     }
     #mainPage .products .items-wrapper .item .info {
         width: 100% !important;
+        backdrop-filter: unset !important;
     }
     #mainPage .products .items-wrapper .item .bg {
         right: 0% !important;
@@ -220,9 +221,9 @@
 
     #mainPage .products .items-wrapper .item .info .locationAndPrice {
         display: flex;
-        flex-direction: column !important;
-        align-items: start !important;
-        justify-content: start !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
     }
     .item .bg {
         position: relative !important;
@@ -294,6 +295,7 @@
     }
     #mainPage .carousel-container .item .info {
         height: 50% !important;
+        backdrop-filter:unset !important;
     }
     #mainPage .carousel-container .item {
         display: flex;
@@ -466,9 +468,39 @@
     ._margin {
         height: 0px !important;
     }
+    .modalWindowProfile .wind {
+        padding: 30px 10px;
+        h2 {
+            width: 90%;
+            text-align: center;
+        }
+    }
     #profile {
+        .info .colorGrd {
+            height: 50px !important;
+        }
+        .info .main .infoMain img {
+            width: 70px !important;
+            height: 70px !important;
+        }
+        .info .main {
+            padding: 20px !important;
+        }
+        button {
+            padding: 10px 20px !important;
+            font-size: 14px !important;
+        }
         .info .main form .inputs {
             grid-template-columns: 1fr;
+            gap: 10px !important;
+            label {
+                margin-bottom: 5px !important;
+                font-size: 16px !important;
+            }
+            input {
+                padding: 10px !important;
+                border-radius: 5px !important;
+            }
         }
         .info .colorGrd {
             height: 100px;
@@ -484,6 +516,97 @@
         display: block;
         .bg {
             display: none;
+        }
+    }
+    #createItem {
+        flex-direction: column;
+        padding-top: 20px;
+        #map {
+            margin-top: 0px !important;
+        }
+        form {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .baseInfo {
+                gap: 5px;
+                width: 100%;
+                .image-container {
+                    margin-bottom: 0;
+                }
+                .allpluses {
+                    gap: 5px !important;
+                }
+                .pluses {
+                    padding: 5px 9px !important;
+                }
+            }
+            button {
+                width: fit-content;
+                padding: 10px 20px;
+            }
+        }
+        .otherPhotos {
+            width: 100%;
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 100px;
+            img {
+                height: 100%;
+                max-width: none !important;
+                max-height: none !important;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+    #footer .title {
+        font-size: 19px !important;
+        margin-bottom: 15px !important;
+    }
+    #footer .social {
+        margin-top: 10px !important;
+        gap: 0;
+        .circle {
+            transform: scale(0.7);
+        }
+    }
+    #whishlistUser {
+        .wrapper {
+            min-height: calc(100vh - 250px) !important;
+        }
+        .nav {
+            height: 100%;
+        }
+        .items-wrapper-whish {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px;
+            .options ul li {
+                font-size: 12px !important;
+            }
+            .location a {
+                font-size: 16px !important;
+            }
+            .locationAndPrice .price {
+                font-size: 23px !important;
+            }
+            .item {
+                height: 300px !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .bg {
+                    height: 100% !important;
+                }
+            }
+            .options ul {
+                overflow: scroll;
+                &::-webkit-scrollbar {
+                    height: 0;
+                }
+            }
         }
     }
 }

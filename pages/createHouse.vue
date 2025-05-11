@@ -56,7 +56,7 @@
                 <label for="sms" :class="{ active: showErrors && !form.sms }" v-show="showErrors && !form.sms">{{ $t('create_item.missing_field') }}</label>
 
                 <div class="addPluses">
-                    <input type="text" :placeholder="$t('create_item.advantage_name')" />
+                    <input type="text" data-langPla="smth" :placeholder="$t('create_item.advantage_name')" />
                     <div class="add" @click="newPluses()"><img src="/icons/plus.svg" alt=""></div>
                 </div>
 
@@ -218,7 +218,7 @@ export default {
         },
         newPluses() {
             if (process.client) {
-                let input = event.target.parentNode.parentNode.querySelector('input[placeholder="Название преимущества"]');
+                let input = event.target.parentNode.parentNode.querySelector('input[data-langPla]');
                 let text = input.value;
 
                 if (text.length >= 5) {
