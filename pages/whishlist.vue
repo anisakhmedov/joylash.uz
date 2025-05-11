@@ -1,7 +1,7 @@
 <template>
     <div id="whishlistUser">
         <div class="_margin"></div>
-        <div class="wrapper" style="min-height: 500px; height: 100%;">
+        <div class="wrapper" >
             <div class="nav" v-show="allHouses.length == 0">
                 <p class="emptyList">Список пустой! :(</p>
                 <NuxtLink to="/allProducts">Смотреть объявления</NuxtLink>

@@ -432,6 +432,9 @@
     #allProd .items-wrapper .item {
         display: flex;
         flex-direction: column !important;
+        .info{
+            backdrop-filter: unset !important;
+        }
     }
     #allProd {
         .items-wrapper {
@@ -575,6 +578,7 @@
     #whishlistUser {
         .wrapper {
             min-height: calc(100vh - 250px) !important;
+            padding-top: 200px;
         }
         .nav {
             height: 100%;
