@@ -92,8 +92,8 @@
     ._title nav span {
         font-size: 28px !important;
     }
-    .productView{
-        ._title{
+    .productView {
+        ._title {
             padding: 0px 30px !important;
         }
     }
@@ -124,7 +124,7 @@
         .btn {
             font-size: 15px !important;
             padding: 12px 14px !important;
-        }   
+        }
         .item {
             width: 250px !important;
             height: 250px !important;
@@ -155,5 +155,159 @@
         .logo {
             display: none !important;
         }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    header {
+        display: none !important;
+        .mid {
+            display: none;
+        }
+    }
+    #mainPage .appereance {
+        width: 100% !important;
+        border-radius: 0 !important;
+        padding: 14px !important;
+    }
+    #mainPage #mainView .text {
+        padding: 30px 20px !important;
+    }
+    #mainPage #mainView {
+        height: 400px !important;
+    }
+
+    #mainPage .appereance ul {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    #mainPage #mainView .text .title {
+        width: 90% !important;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #mainPage .products .items-wrapper .item {
+        align-items: end !important;
+        flex-direction: column !important;
+        height: 350px !important;
+    }
+
+    #mainPage .products .items-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    #mainPage .products .items-wrapper .item .info {
+        width: 100% !important;
+        height: fit-content !important;
+    }
+    #mainPage .products .items-wrapper .item .bg {
+        right: 0% !important;
+    }
+    #footer .mainBox {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    #footer {
+        padding: 30px 15px !important;
+        .mainBox ul.categories.two {
+            display: none !important;
+        }
+    }
+
+    #footer .mainBox .line {
+        display: none !important;
+    }
+
+    #mainPage .products .items-wrapper .item .info .locationAndPrice {
+        display: flex;
+        flex-direction: column !important;
+        align-items: start !important;
+        justify-content: start !important;
+    }
+    .item .bg {
+        position: relative !important;
+        width: 100% !important;
+        height: 50% !important;
+        background-position: center;
+        background-size: cover;
+        background-image: url(/_nuxt/public/images/bg_product.png);
+    }
+    #mainPage .products {
+        padding: 0 20px !important;
+    }
+    #mainPage .map-def {
+        max-width: calc(100% - 0px) !important;
+    }
+    #mainPage #mainView {
+        height: 340px !important;
+        .text .title {
+            font-size: 20px !important;
+        }
+        .text .disc {
+            font-size: 12px !important;
+        }
+        .text .btn {
+            font-size: 12px !important;
+        }
+    }
+
+    #mainPage #mainView .text p {
+        font-size: 12px !important;
+    }
+    .title {
+        width: 80% !important;
+        font-size: 20px !important;
+    }
+    .appereance {
+        .toggle {
+            p {
+                font-size: 12px !important;
+            }
+        }
+    }
+
+    .title {
+        width: 100% !important;
+    }
+    ._title nav span {
+        font-size: 19px !important;
+    }
+    #mainPage .carousel-container .item {
+        width: 300px !important;
+        height: 300px !important;
+        margin-right: 10px !important;
+    }
+    #mainPage .carousel-container .item .info .locationAndPrice {
+        display: flex;
+        flex-direction: column !important;
+        gap: 10px !important;
+        align-items: self-start !important;
+    }
+
+    #mainPage .carousel-container .item .bg {
+        position: relative !important;
+        width: 100% !important;
+        height: 50% !important;
+        background-position: center;
+        background-size: cover;
+        bottom: 0;
+    }
+    #mainPage .carousel-container .item .info {
+        height: 50% !important;
+    }
+    #mainPage .carousel-container .item {
+        display: flex;
+        flex-direction: column !important;
+    }
+    .productView ._title {
+        padding: 0 10px !important;
+    }
+    #mainPage .carousel-container {
+        margin: 10px 0 !important;
+    }
+    .btn {
+        padding: 9px 12px !important;
+        font-size: 16px !important;
     }
 }
