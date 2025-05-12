@@ -16,17 +16,16 @@
                     :class="{ active: activeIndex === index }">
                     <div class="toggle" @click="toggleMenu(index)">
                         <p>
-                            ALSKDLKASD
-                            <!-- {{ item[this.$i18n.locale]?.label }} -->
+                            {{ item[this.$i18n.locale]?.label }}
                         </p>
 
                         <img src="~/public/icons/arrow.svg" alt="">
                     </div>
                     <ul class="submenu">
-                        <!-- <NuxtLink to="/allProducts" v-for="(option, idx) in item[this.$i18n.locale]?.options"
+                        <NuxtLink to="/allProducts" v-for="(option, idx) in item[this.$i18n.locale]?.options"
                             :key="idx">
                             {{ option }}
-                        </NuxtLink> -->
+                        </NuxtLink>
                     </ul>
                 </div>
 

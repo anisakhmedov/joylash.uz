@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
+  ssr: false,
+  target: 'static',
+  router: {
+    base: '/'
+  },
   css: ['~/assets/css/style.css', 'leaflet/dist/leaflet.css'],
   app: {
     head: {

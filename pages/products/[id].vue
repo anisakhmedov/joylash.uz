@@ -21,7 +21,8 @@
       <div class="right">
         <div class="title">
           <div class="main">
-            <h2>{{ house.title }}</h2>
+            <h2>{{ house.title }} <span :class="house.quality == 1 ? 'new' : 'old'">{{ house.quality == 1 ? 'Новое' :
+              'Б/У' }}</span></h2>
             <p>{{ house.description }}</p>
           </div>
           <div class="nav">
@@ -111,8 +112,13 @@
       </ul>
     </div>
 
-    <p style="font-size: 30px; margin: 60px 0 30px 0; font-weight: 600;">{{ t('product.similar_items') }}</p>
+    <p class="smthID" style="font-size: 30px; margin: 60px 0 30px 0; font-weight: 600;">{{ t('product.similar_items') }}
+    </p>
     <Items :houses="similarHouses" />
+    <div id="mobileVersion" v-show="widthWindow">
+      <NuxtLink :to="'tel:' + house.phoneNumberUser">Позвонить</NuxtLink>
+      <NuxtLink :to="house.sms">SMS</NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -131,7 +137,8 @@ export default {
       similarHouses: [],
       allHouse: [],
       coordsSpc: [],
-      alreadyLiked: []
+      alreadyLiked: [],
+      widthWindow: []
     }
   },
   setup() {
@@ -142,6 +149,8 @@ export default {
     let id;
     if (process.client) {
       id = window.location.href.split('products/')[1]
+
+      window.innerWidth <= 600 ? this.widthWindow = true : this.widthWindow = false 
     }
 
     axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
@@ -152,7 +161,6 @@ export default {
       .catch((err) => {
         console.log(err);
       })
-
 
 
     axios.get(`https://joylash-778750a705b4.herokuapp.com/houses/${id}`)
@@ -171,6 +179,9 @@ export default {
           id: this.house._id,
           title: this.house.title
         }]
+
+        console.log(this.house);
+
       })
   },
 

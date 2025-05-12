@@ -295,7 +295,7 @@
     }
     #mainPage .carousel-container .item .info {
         height: 50% !important;
-        backdrop-filter:unset !important;
+        backdrop-filter: unset !important;
     }
     #mainPage .carousel-container .item {
         display: flex;
@@ -357,7 +357,28 @@
     #prod {
         padding: 0px 15px;
         ._margin {
-            height: 20px;
+            height: 20px !important;
+        }
+        .item .right .agency .logoAgen img {
+            border-radius: 10px;
+            width: 60px !important;
+            height: 60px !important;
+        }
+        .item .right .agency .text .titleAgen {
+            font-size: 14px;
+        }
+        .item .right .agency .text .mainTitle {
+            font-size: 14px;
+        }
+        .item .right .agency .text {
+            gap: 0;
+        }
+        .item .right .agency {
+            margin-top: 10px;
+            padding: 5px 20px 5px 5px;
+        }
+        .discItem {
+            margin-top: 15px;
         }
         .item .right .price .main #price {
             font-size: 28px !important;
@@ -432,7 +453,7 @@
     #allProd .items-wrapper .item {
         display: flex;
         flex-direction: column !important;
-        .info{
+        .info {
             backdrop-filter: unset !important;
         }
     }
@@ -460,6 +481,9 @@
             overflow-x: scroll;
             max-width: 100%;
             margin-top: 10px !important;
+            &::-webkit-scrollbar {
+                height: 0;
+            }
             input {
                 width: 250px !important;
             }
@@ -612,5 +636,74 @@
                 }
             }
         }
+    }
+    #prod .item .right .title .main h2 {
+        font-size: 20px !important;
+        gap: 3px;
+        span {
+            font-size: 12px;
+            padding: 2px 5px;
+        }
+    }
+    #prod .item {
+        display: flex;
+        gap: 10px !important;
+    }
+    #prod .item .right .options .itemOpt {
+        padding: 5px 10px !important;
+        p {
+            font-size: 14px;
+        }
+    }
+    body {
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+    }
+    .smthID {
+        font-size: 20px !important;
+        margin: 20px 0 10px 0 !important;
+    }
+    #prod .discItem .listItems {
+        li {
+            ul {
+                gap: 5px !important;
+                li {
+                    gap: 5px;
+                    img {
+                        height: 20px;
+                        width: 20px;
+                    }
+                }
+            }
+        }
+        h2 {
+            font-size: 15px;
+            margin-bottom: 10px !important;
+        }
+        p {
+            font-size: 14px;
+        }
+    }
+    #prod .items-wrapper .item .info .locationAndPrice .price .mainPrice {
+        font-size: 20px;
+    }
+    #prod .items-wrapper .item .info {
+        height: fit-content;
+        .options ul {
+            margin: 5px 0 !important;
+        }
+    }
+    #map {
+        height: 200px !important;
+        margin-top: 10px !important;
+    }
+    #prod .discItem {
+        margin-top: 0px !important;
+    }
+    #mainPage .appereance ul .title ul a {
+        z-index: 200 !important;
+        font-size: 14px !important;
+        padding: 5px 10px !important;
     }
 }

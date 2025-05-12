@@ -913,6 +913,22 @@ body {
                     h2 {
                         font-size: 28px;
                         font-weight: 800;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        span{
+                            font-size: 18px;
+                            padding: 5px 10px;
+                            border-radius: 5px;
+                            &.new{
+                                color: white;
+                                background-color: rgb(0, 255, 0);
+                            }
+                            &.old{
+                                color: white;
+                                background-color: rgb(0, 0, 255);
+                            }
+                        }
                     }
                     p {
                         font-size: 18px;
@@ -1155,6 +1171,30 @@ body {
                     }
                 }
             }
+        }
+    }
+    #mobileVersion{
+        position: fixed;
+        left: 0;
+        z-index: 100000;
+        right: 0;
+        bottom: 70px;
+        background-color: #ffb246;
+        height: 60px;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        a{
+            border: 2px solid white;
+            height: 100%;
+            font-weight: 600;
+            display: flex;
+            color: white;
+            align-items: center;
+            justify-content: center;
         }
     }
 }
@@ -1728,3 +1768,4 @@ body {
         }
     }
 }
+
