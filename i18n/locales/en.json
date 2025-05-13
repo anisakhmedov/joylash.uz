@@ -82,8 +82,9 @@
     },
     "register": {
         "get_started_now": "Get Started Now",
-        "email_or_phone_number": "Email or Phone Number",
-        "enter_email_or_phone_number": "Enter your email or phone number",
+        "email_or_phone": "Email or Phone Number",
+        "enter_email_or_phone": "Enter your email or phone number",
+        "invalid_email_or_phone": "Invalid email or phone number",
         "user_already_exists": "This user already exists",
         "password": "Password",
         "enter_password": "Enter your password",
@@ -94,8 +95,9 @@
         "sign_in": "Sign In",
         "welcome_back": "Welcome Back!",
         "email": "Email",
+        "enter_email": "Enter your email",
         "invalid_login_or_password": "Invalid login or password",
-        "forgot_password": "forgot password",
+        "forgot_password": "Forgot password",
         "remember_7_days": "Remember for 7 days",
         "dont_have_account": "Don't have an account?"
     },
@@ -165,6 +167,9 @@
         "house_details": "House Details",
         "similar_items": "Similar Items You Might Also Like",
         "estate_agency": "Estate Agency",
-        "agency_name": "Joylash Agency Uzbekistan"
+        "agency_name": "Joylash Agency Uzbekistan",
+        "noDisc": "No description",
+        "floor": "Floor:",
+        "roomsNumber": "Number of rooms:"
     }
 }

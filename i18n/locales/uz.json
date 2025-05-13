@@ -1,171 +1,175 @@
 {
-    "mainPage": {
-      "1ViewText": {
-        "p1": "Salom, siz hozir PropDowndasiz",
-        "h1": "Orzuingizdagi uyni hayotga tatbiq etamiz.",
-        "disc": "Lorem ipsum dolor sit amet consectetur. Est quisque elementum aliquam a."
-      },
-      "filterBar": {
-        "inp1": "Manzil",
-        "inp2": "Kategoriya",
-        "inp3": "Turi",
-        "inp4": "Ko'chmas mulkni qidirish"
-      },
-      "items": {
-        "label": "Tavsiya etilgan mulk",
-        "title": "Siz uchun tavsiya etilgan yashash joyi",
-        "showAll": "Barcha mulklarni ko‘rsatish"
-      },
-      "items2": {
-        "label": "So'nggi qo‘shimchalar",
-        "title": "Sizga mos mulklarni toping",
-        "smth": "Mulk eʼlon qilish"
-      }
+  "mainPage": {
+    "1ViewText": {
+      "p1": "Salom, siz hozir PropDowndasiz",
+      "h1": "Orzuingizdagi uyni hayotga tatbiq etamiz.",
+      "disc": "Lorem ipsum dolor sit amet consectetur. Est quisque elementum aliquam a."
     },
-    "def": {
-      "footer": {
-        "left": {
-          "main": "Hayotingizdagi qulaylikni kashf eting"
-        },
-        "mid": {
-          "home": "Bosh sahifa",
-          "blog": "Blog",
-          "categories": "Kategoriyalar",
-          "contact": "Aloqa",
-          "packages": "Paketlar",
-          "licensing": "Litsenziyalar"
-        },
-        "right": {
-          "house": "Uy",
-          "apartment": "Kvartira",
-          "office": "Ofis",
-          "warehouse": "Ombor"
-        }
-      },
-      "form": {
-        "top": "Bizga qo'shiling",
-        "title": "Mulk bo‘yicha ma’lumot va e’lonlarni emailingizga oling",
-        "label": "Mulk haqida yangiliklarni olish uchun obuna bo‘ling.",
-        "inpPla": "Emailingizni kiriting",
-        "subscribe": "Obuna bo‘lish"
-      },
-      "header": {
-        "house": "Uy",
-        "cate": "Kategoriyalar",
-        "catalogue": "Katalog",
-        "wishlist": "Tanlanganlar"
-      }
-    },
-    "allProd": {},
-    "profile": {
-      "form": {
-        "fullName": "To‘liq ism",
-        "nickname": "Taxallus",
-        "email": "Email",
-        "phone": "Telefon raqami",
-        "password": "Parol",
-        "passwordRes": "Parolni tiklash",
-        "mustFill": "Ushbu shaklni to‘ldirishingiz kerak!",
-        "btn": "Yangi ma'lumotni yuborish",
-        "btnEdit": "Tahrirlash",
-        "close": "Oynani yopish",
-        "correct": "Profil muvaffaqiyatli yangilandi!",
-        "inCorrect": "Profilni o‘zgartirishda xatolik yuz berdi"
-      },
-      "formPla": {
-        "fullName": "Ismingizni kiriting",
-        "nickname": "Taxallusingiz",
-        "email": "Email manzilingiz",
-        "phone": "Telefon raqamingiz",
-        "passwordRes": "Yangi parol"
-      }
-    },
-    "register": {
-      "get_started_now": "Boshlash",
-      "email_or_phone_number": "Email yoki telefon raqami",
-      "enter_email_or_phone_number": "Email yoki telefon raqamingizni kiriting",
-      "user_already_exists": "Bunday foydalanuvchi allaqachon mavjud",
-      "password": "Parol",
-      "enter_password": "Parolingizni kiriting",
-      "field_required": "Bu maydon majburiy",
-      "sign_up": "Ro‘yxatdan o‘tish",
-      "or": "yoki",
-      "have_account": "Hisobingiz bormi?",
-      "sign_in": "Kirish",
-      "welcome_back": "Xush kelibsiz!",
-      "email": "Email",
-      "invalid_login_or_password": "Login yoki parol noto‘g‘ri",
-      "forgot_password": "parolni unutdingizmi",
-      "remember_7_days": "7 kun eslab qolish",
-      "dont_have_account": "Hisobingiz yo‘qmi?"
-    },
-    "create_item": {
-      "create_new_house": "Yangi uy qo‘shish",
-      "title": "Sarlavha",
-      "missing_field": "Bu maydon majburiy",
-      "price": "Narxi",
-      "description": "Tavsif",
-      "scale": "Maydoni",
-      "rooms_number": "Xonalar soni",
-      "wall_type": "Devor materiali",
-      "street_and_number": "Ko‘cha va uy raqami",
-      "new": "Yangi",
-      "used": "Foydalanilgan",
-      "ceiling_height": "Shift balandligi",
-      "apartment": "Kvartira",
-      "office": "Ofis",
-      "house": "Uy",
-      "plot": "Yer uchastkasi",
-      "sell": "Sotiladi",
-      "rent": "Ijaraga",
-      "floor": "Qavat",
-      "phone_number": "Telefon raqami",
-      "social_link": "Ijtimoiy tarmoq havolasi",
-      "advantage_name": "Afzallik nomini kiriting",
-      "main_image": "Asosiy rasm",
-      "choose_image": "Rasm tanlash uchun bosing",
-      "additional_images": "Qo‘shimcha rasmlar",
-      "images_selected": "ta rasm tanlandi",
-      "additional_photos": "Qo‘shimcha rasmlar",
-      "submit": "Yuborish",
-      "success": "Muvaffaqiyatli",
-      "failure": "Xatolik",
-      "close": "Yopish"
+    "filterBar": {
+      "inp1": "Manzil",
+      "inp2": "Kategoriya",
+      "inp3": "Turi",
+      "inp4": "Ko'chmas mulkni qidirish"
     },
     "items": {
-      "openMap": "Manzilni ochish"
+      "label": "Tavsiya etilgan mulk",
+      "title": "Siz uchun tavsiya etilgan yashash joyi",
+      "showAll": "Barcha mulklarni ko‘rsatish"
     },
-    "allProducts": {
-      "search_placeholder": "Ko'chmas mulkni qidiring",
-      "quality_placeholder": "Holati",
-      "type_placeholder": "Ijara yoki Sotuv",
-      "building_placeholder": "Mulk turi",
-      "clear_filters": "Filterlarni tozalash",
-      "buildings": {
-        "flat": "Kvartira",
-        "office": "Ofis",
+    "items2": {
+      "label": "So'nggi qo‘shimchalar",
+      "title": "Sizga mos mulklarni toping",
+      "smth": "Mulk eʼlon qilish"
+    }
+  },
+  "def": {
+    "footer": {
+      "left": {
+        "main": "Hayotingizdagi qulaylikni kashf eting"
+      },
+      "mid": {
+        "home": "Bosh sahifa",
+        "blog": "Blog",
+        "categories": "Kategoriyalar",
+        "contact": "Aloqa",
+        "packages": "Paketlar",
+        "licensing": "Litsenziyalar"
+      },
+      "right": {
         "house": "Uy",
-        "land": "Yer"
-      },
-      "types": {
-        "rent": "Ijara",
-        "sale": "Sotuv"
-      },
-      "qualities": {
-        "used": "Foydalanilgan",
-        "new": "Yangi"
+        "apartment": "Kvartira",
+        "office": "Ofis",
+        "warehouse": "Ombor"
       }
     },
-    "product": {
-      "add_to_wishlist": "Tanlanganlarga qo‘shish",
-      "call": "Qo‘ng‘iroq qilish",
-      "message": "Xabar yozish",
-      "product_description": "Obyekt tavsifi",
-      "benefits": "Afzalliklar",
-      "house_details": "Uy tafsilotlari",
-      "similar_items": "Sizga yoqadigan o‘xshash e’lonlar",
-      "estate_agency": "Ko‘chmas mulk agentligi",
-      "agency_name": "Joylash Agentligi O'zbekiston"
+    "form": {
+      "top": "Bizga qo'shiling",
+      "title": "Mulk bo‘yicha ma’lumot va e’lonlarni emailingizga oling",
+      "label": "Mulk haqida yangiliklarni olish uchun obuna bo‘ling.",
+      "inpPla": "Emailingizni kiriting",
+      "subscribe": "Obuna bo‘lish"
+    },
+    "header": {
+      "house": "Uy",
+      "cate": "Kategoriyalar",
+      "catalogue": "Katalog",
+      "wishlist": "Tanlanganlar"
     }
+  },
+  "allProd": {},
+  "profile": {
+    "form": {
+      "fullName": "To‘liq ism",
+      "nickname": "Taxallus",
+      "email": "Email",
+      "phone": "Telefon raqami",
+      "password": "Parol",
+      "passwordRes": "Parolni tiklash",
+      "mustFill": "Ushbu shaklni to‘ldirishingiz kerak!",
+      "btn": "Yangi ma'lumotni yuborish",
+      "btnEdit": "Tahrirlash",
+      "close": "Oynani yopish",
+      "correct": "Profil muvaffaqiyatli yangilandi!",
+      "inCorrect": "Profilni o‘zgartirishda xatolik yuz berdi"
+    },
+    "formPla": {
+      "fullName": "Ismingizni kiriting",
+      "nickname": "Taxallusingiz",
+      "email": "Email manzilingiz",
+      "phone": "Telefon raqamingiz",
+      "passwordRes": "Yangi parol"
+    }
+  },
+  "register": {
+    "get_started_now": "Ro'yxatdan o'tishni boshlang",
+    "email_or_phone": "Email yoki telefon raqami",
+    "enter_email_or_phone": "Email yoki telefon raqamingizni kiriting",
+    "invalid_email_or_phone": "Email yoki telefon raqami noto‘g‘ri",
+    "user_already_exists": "Foydalanuvchi allaqachon mavjud",
+    "password": "Parol",
+    "enter_password": "Parolingizni kiriting",
+    "field_required": "Bu maydon to‘ldirilishi shart",
+    "sign_up": "Ro'yxatdan o'tish",
+    "or": "yoki",
+    "have_account": "Hisobingiz bormi?",
+    "sign_in": "Kirish",
+    "welcome_back": "Xush kelibsiz!",
+    "email": "Email",
+    "enter_email": "Email kiriting",
+    "invalid_login_or_password": "Noto‘g‘ri login yoki parol",
+    "forgot_password": "Parolni unutdingizmi",
+    "remember_7_days": "7 kun eslab qolish",
+    "dont_have_account": "Hisobingiz yo‘qmi?"
+  },
+  "create_item": {
+    "create_new_house": "Yangi uy qo‘shish",
+    "title": "Sarlavha",
+    "missing_field": "Bu maydon majburiy",
+    "price": "Narxi",
+    "description": "Tavsif",
+    "scale": "Maydoni",
+    "rooms_number": "Xonalar soni",
+    "wall_type": "Devor materiali",
+    "street_and_number": "Ko‘cha va uy raqami",
+    "new": "Yangi",
+    "used": "Foydalanilgan",
+    "ceiling_height": "Shift balandligi",
+    "apartment": "Kvartira",
+    "office": "Ofis",
+    "house": "Uy",
+    "plot": "Yer uchastkasi",
+    "sell": "Sotiladi",
+    "rent": "Ijaraga",
+    "floor": "Qavat",
+    "phone_number": "Telefon raqami",
+    "social_link": "Ijtimoiy tarmoq havolasi",
+    "advantage_name": "Afzallik nomini kiriting",
+    "main_image": "Asosiy rasm",
+    "choose_image": "Rasm tanlash uchun bosing",
+    "additional_images": "Qo‘shimcha rasmlar",
+    "images_selected": "ta rasm tanlandi",
+    "additional_photos": "Qo‘shimcha rasmlar",
+    "submit": "Yuborish",
+    "success": "Muvaffaqiyatli",
+    "failure": "Xatolik",
+    "close": "Yopish"
+  },
+  "items": {
+    "openMap": "Manzilni ochish"
+  },
+  "allProducts": {
+    "search_placeholder": "Ko'chmas mulkni qidiring",
+    "quality_placeholder": "Holati",
+    "type_placeholder": "Ijara yoki Sotuv",
+    "building_placeholder": "Mulk turi",
+    "clear_filters": "Filterlarni tozalash",
+    "buildings": {
+      "flat": "Kvartira",
+      "office": "Ofis",
+      "house": "Uy",
+      "land": "Yer"
+    },
+    "types": {
+      "rent": "Ijara",
+      "sale": "Sotuv"
+    },
+    "qualities": {
+      "used": "Foydalanilgan",
+      "new": "Yangi"
+    }
+  },
+  "product": {
+    "add_to_wishlist": "Tanlanganlarga qo‘shish",
+    "call": "Qo‘ng‘iroq qilish",
+    "message": "Xabar yozish",
+    "product_description": "Obyekt tavsifi",
+    "benefits": "Afzalliklar",
+    "house_details": "Uy tafsilotlari",
+    "similar_items": "Sizga yoqadigan o‘xshash e’lonlar",
+    "estate_agency": "Ko‘chmas mulk agentligi",
+    "agency_name": "Joylash Agentligi O'zbekiston",
+    "noDisc": "Tavsif yo'q",
+    "floor": "Qavat:",
+    "roomsNumber": "Xonalar soni:"
   }
-  
+}

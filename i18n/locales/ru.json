@@ -82,11 +82,12 @@
     },
     "register": {
         "get_started_now": "Начать сейчас",
-        "email_or_phone_number": "Email или номер телефона",
-        "enter_email_or_phone_number": "Введите email или номер телефона",
+        "email_or_phone": "Email или номер телефона",
+        "enter_email_or_phone": "Введите Email или номер телефона",
+        "invalid_email_or_phone": "Неверный Email или номер телефона",
         "user_already_exists": "Такой пользователь уже существует",
         "password": "Пароль",
-        "enter_password": "Введите пароль",
+        "enter_password": "Введите ваш пароль",
         "field_required": "Это поле обязательно",
         "sign_up": "Зарегистрироваться",
         "or": "или",
@@ -94,8 +95,9 @@
         "sign_in": "Войти",
         "welcome_back": "С возвращением!",
         "email": "Email",
+        "enter_email": "Введите ваш Email",
         "invalid_login_or_password": "Неверный логин или пароль",
-        "forgot_password": "забыли пароль",
+        "forgot_password": "Забыли пароль",
         "remember_7_days": "Запомнить на 7 дней",
         "dont_have_account": "Нет аккаунта?"
     },
@@ -165,6 +167,9 @@
         "house_details": "Детали недвижимости",
         "similar_items": "Похожие предложения",
         "estate_agency": "Агентство недвижимости",
-        "agency_name": "Агентство Joylash Uzbekistan"
+        "agency_name": "Агентство Joylash Uzbekistan",
+        "noDisc": "Нет описания",
+        "floor": "Этаж:",
+        "roomsNumber": "Количество комнат:"
     }
 }

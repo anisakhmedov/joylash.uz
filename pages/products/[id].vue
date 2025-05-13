@@ -23,14 +23,14 @@
           <div class="main">
             <h2>{{ house.title }} <span :class="house.quality == 1 ? 'new' : 'old'">{{ house.quality == 1 ? 'Новое' :
               'Б/У' }}</span></h2>
-            <p>{{ house.description }}</p>
+            <p>{{ house.description || t('product.noDisc') }}</p>
           </div>
           <div class="nav">
             <div class="save">
-              <img src="~/public/icons/save.svg" alt="">
+              <img src="~/public/icons/save.svg" @click="addToWhishlist()" alt="">
             </div>
             <div class="share">
-              <img src="~/public/icons/share.svg" alt="">
+              <img src="~/public/icons/share.svg" @click="saveToClipdrop()" alt="">
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@
       <ul class="listItems">
         <li class="top">
           <h2>{{ t('product.product_description') }}</h2>
-          <p>{{ house.discription }}</p>
+          <p>{{ house.discription || t('product.noDisc') }}</p>
         </li>
         <li>
           <h2>{{ t('product.benefits') }}</h2>
@@ -101,11 +101,11 @@
           <ul>
             <li>
               <img src="~/public/icons/check.svg" alt="">
-              <p>Floor: {{ house.floor }}</p>
+              <p>{{ t('product.floor') }} {{ house.floor }}</p>
             </li>
             <li>
               <img src="~/public/icons/check.svg" alt="">
-              <p>Rooms: {{ house.roomsNumber }}</p>
+              <p>{{ t('product.roomsNumber') }} {{ house.roomsNumber }}</p>
             </li>
           </ul>
         </li>
@@ -150,7 +150,7 @@ export default {
     if (process.client) {
       id = window.location.href.split('products/')[1]
 
-      window.innerWidth <= 600 ? this.widthWindow = true : this.widthWindow = false 
+      window.innerWidth <= 600 ? this.widthWindow = true : this.widthWindow = false
     }
 
     axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
@@ -240,6 +240,18 @@ export default {
       }
     },
     addNewLike() {
+    },
+    saveToClipdrop() {
+      if (process.client) {
+        navigator.clipboard.writeText(window.location.href)
+          .then(() => {
+            alert('Ссылка скопирована в буфер обмена!');
+          })
+          .catch(err => {
+            console.error('Ошибка копирования:', err);
+          });
+
+      }
     }
   }
 }

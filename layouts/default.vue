@@ -15,7 +15,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 let showMenu;
 if(process.client){
-  showMenu = computed(() => window.innerWidth <= 600)
+  showMenu = computed(() => window.innerWidth <= 600 && route.path !== '/register')
 }
 const isRegisterPage = computed(() => route.path === '/register' )
 </script>

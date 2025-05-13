@@ -1,19 +1,17 @@
 <template>
     <div ref="scrollWrapper" class="items-wrapper">
         <div class="item" v-for="house of allHouses" :id="house._id" :key="house._id">
-            <div class="bg" @click="switchOnIDPage(house._id)"
-                :style="`background-image:url(${house.mainImage});`">
-
+            <div class="bg" @click="switchOnIDPage(house._id)">
+                <img :src="house.mainImage" alt="">
             </div>
             <div class="info" @click="switchOnIDPage(house._id)">
-                <div class="title">
-                    <p>{{ house.title }}</p>
-                </div>
-                <div class="options">
-                    <ul>
-                        <li v-for="item of house.pluses" :key="item">{{ item }}</li>
-                    </ul>
-                </div>
+                <p class="title">
+                    {{ house.title }} <span :class="house.quality == 1 ? 'new' : 'old'">{{ house.quality == 1 ? 'Новое'
+                        : 'Б/У' }}</span>
+                </p>
+                <p class="disc">
+                    {{ house.description || "laskjdlkajsldkjalskdjlaksjdlkajslkdjlaksjdlakdjlaksdjlkasjdlakjd" }}
+                </p>
                 <div class="locationAndPrice">
                     <div class="location">
                         <img src="~/public/icons/location.svg" alt="">
