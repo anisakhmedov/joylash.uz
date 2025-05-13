@@ -5,7 +5,10 @@
     <Form v-show="!isRegisterPage" />
     <Footer v-show="!isRegisterPage" />
     <bottomMenuMobile v-show="showMenu" />
-    <div style="height: 50px;"></div>
+    <clien-only>
+      <div v-show="showMenu" style="height: 50px;" ></div>
+      <div v-show="sizeWindow" style="height: 100px;"></div>
+    </clien-only>
   </div>
 </template>
 
@@ -14,10 +17,12 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 let showMenu;
-if(process.client){
+let sizeWindow;
+if (process.client) {
   showMenu = computed(() => window.innerWidth <= 600 && route.path !== '/register')
+  sizeWindow = computed(() => window.innerWidth <= 400)
 }
-const isRegisterPage = computed(() => route.path === '/register' )
+const isRegisterPage = computed(() => route.path === '/register')
 </script>
 
 <style></style>

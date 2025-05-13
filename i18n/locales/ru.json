@@ -135,7 +135,9 @@
         "close": "Закрыть"
     },
     "items": {
-        "openMap": "Открыть на карте"
+        "openMap": "Открыть на карте",
+        "openMapMobile": "Локация"
+
     },
     "allProducts": {
         "search_placeholder": "Поиск недвижимости",

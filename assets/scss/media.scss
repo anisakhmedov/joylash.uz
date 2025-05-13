@@ -303,7 +303,7 @@
         }
     }
 
-    #prod{
+    #prod {
         #map {
             margin-top: 15px !important;
         }
@@ -683,5 +683,88 @@
     }
     #prod .right {
         margin-top: 10px !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #register {
+        form {
+            p {
+                margin: 5px 0;
+            }
+            input {
+                width: 350px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+    #mainPage {
+        .appereance {
+            padding: 5px !important;
+            .search {
+                img {
+                    height: 18px;
+                    width: 18px;
+                }
+            }
+            ul {
+                gap: 5px;
+            }
+        }
+        .carousel-container .carousel .items-wrapper .item {
+            width: 285px !important;
+            .bg img {
+                height: 200px !important;
+            }
+        }
+        .products {
+            padding: 0 5px !important;
+        }
+        .products .items-wrapper .item .bg {
+            width: 40%;
+            height: 125px !important;
+        }
+    }
+    .items-wrapper {
+        gap: 5px !important;
+    }
+    #prod .items-wrapper .item {
+        .info {
+            width: 60% !important;
+            padding: 10px !important;
+            .disc{
+                font-size: 12px;
+            }
+            .title {
+                gap: 5px !important;
+                font-size: 15px !important;
+            }
+            .locationAndPrice {
+                height: 55% !important;
+                .price {
+                    font-size: 20px !important;
+                    .mainPrice {
+                        font-size: 18px !important;
+                    }
+                }
+                .location {
+                    img{
+                        width: 15px;
+                    }
+                    span{
+                        height: fit-content;
+                    }
+                    a {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+        .bg {
+            height: 100px !important;
+            img {
+                height: 100px !important;
+            }
+        }
     }
 }

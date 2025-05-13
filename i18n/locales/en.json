@@ -135,7 +135,9 @@
         "close": "Close"
     },
     "items": {
-        "openMap": "Open location"
+        "openMap": "Open location",
+        "openMapMobile": "Location"
+
     },
     "allProducts": {
         "search_placeholder": "Search a Property",

@@ -6,19 +6,22 @@
             </div>
             <div class="info" @click="switchOnIDPage(house._id)">
                 <p class="title">
-                    {{ house.title }} <span :class="house.quality == 1 ? 'new' : 'old'">{{ house.quality == 1 ? 'Новое'
+                    {{ house.title }} <span v-show="!windowSize" :class="house.quality == 1 ? 'new' : 'old'">{{ house.quality == 1 ? 'Новое'
                         : 'Б/У' }}</span>
                 </p>
                 <p class="disc">
-                    {{ house.description || "laskjdlkajsldkjalskdjlaksjdlkajslkdjlaksjdlakdjlaksdjlkasjdlakjd" }}
+                    {{ house.description || $t('product.noDisc') }}
                 </p>
                 <div class="locationAndPrice">
                     <div class="location">
                         <img src="~/public/icons/location.svg" alt="">
                         <span>
-                            <NuxtLink
-                                :to="`https://yandex.com/maps/?pt=${house.coords[1]},${house.coords[0]}&z=16&l=map`"
-                                target="_blank">{{ $t('items.openMap') }}</NuxtLink>
+                            <client-only>
+                                <NuxtLink
+                                    :to="`https://yandex.com/maps/?pt=${house.coords[1]},${house.coords[0]}&z=16&l=map`"
+                                    target="_blank">{{ windowSize <= 600 ? $t('items.openMapMobile') :
+                                        $t('items.openMap') }}</NuxtLink>
+                            </client-only>
                         </span>
                     </div>
                     <div class="price">
@@ -40,7 +43,8 @@ export default {
         return {
             api: 'https://joylash-778750a705b4.herokuapp.com/',
             allHouses: [],
-            router: useRouter()
+            router: useRouter(),
+            windowSize: false
         }
     },
     mounted() {
@@ -53,6 +57,8 @@ export default {
                 console.log(err);
 
             })
+
+        this.windowSize = window.innerWidth <= 600
     },
     methods: {
         switchOnIDPage(param) {

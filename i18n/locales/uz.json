@@ -135,7 +135,8 @@
     "close": "Yopish"
   },
   "items": {
-    "openMap": "Manzilni ochish"
+    "openMap": "Manzilni ochish",
+    "openMapMobile": "Manzil"
   },
   "allProducts": {
     "search_placeholder": "Ko'chmas mulkni qidiring",
