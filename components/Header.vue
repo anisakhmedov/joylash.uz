@@ -1,23 +1,21 @@
 <template>
     <header id="header">
         <div class="left">
-            <NuxtLink style="color: white;" to="/">
-                Joylash
-            </NuxtLink>
+            <NuxtLink :to="$localePath('/')">Joylash</NuxtLink>
         </div>
         <div class="mid">
             <ul>
                 <li>
-                    <NuxtLink to="/">{{ $t("def.header.house") }}</NuxtLink>
+                    <NuxtLink :to="$localePath('/')">{{ $t("def.header.house") }}</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/allProducts">{{ $t("def.header.cate") }}</NuxtLink>
+                    <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.cate") }}</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/allProducts">{{ $t("def.header.catalogue") }}</NuxtLink>
+                    <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.catalogue") }}</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/allProducts">{{ $t("def.header.wishlist") }}</NuxtLink>
+                    <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.wishlist") }}</NuxtLink>
                 </li>
             </ul>
         </div>
@@ -26,24 +24,18 @@
                 <img @click="isActive = !isActive" src="~/public/icons/languages.svg" alt="">
                 <div class="block-lang" :class="isActive ? 'active' : ''">
                     <div class="rus">
-                        <NuxtLink :to="$switchLocalePath('ru')">
-                            RU
-                        </NuxtLink>
+                        <NuxtLink :to="$switchLocalePath('ru')">RU</NuxtLink>
                     </div>
                     <div class="uz">
-                        <NuxtLink :to="$switchLocalePath('uz')">
-                            UZ
-                        </NuxtLink>
+                        <NuxtLink :to="$switchLocalePath('uz')">UZ</NuxtLink>
                     </div>
                     <div class="eng">
-                        <NuxtLink :to="$switchLocalePath('en')">
-                            ENG
-                        </NuxtLink>
+                        <NuxtLink :to="$switchLocalePath('en')">ENG</NuxtLink>
                     </div>
                 </div>
             </div>
             <div class="nav-images profile">
-                <NuxtLink to="/profile">
+                <NuxtLink :to="$localePath('/profile')">
                     <img src="~/public/icons/profile.svg" alt="">
                 </NuxtLink>
             </div>
@@ -52,13 +44,18 @@
 </template>
 
 <script>
+// import { useLocalePath } from 'vue-i18n-routing' // Nuxt auto-imports this too
+
 export default {
     data() {
         return {
             isActive: false
         }
     },
+    // computed: {
+    //     localePath() {
+    //         return useLocalePath()
+    //     }
+    // }
 }
 </script>
-
-<style></style>

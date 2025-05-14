@@ -145,7 +145,7 @@ export default {
 
                 try {
                     const res = await axios.post(this.api, newUser);
-                    console.log(res);
+                    (res);
 
                     if (res.data.ok) {
                         localStorage.setItem('user', res.data.element._id);

@@ -9,7 +9,7 @@
             </ul>
             <ul class="categories">
                 <li>
-                    <NuxtLink to="/">
+                    <NuxtLink :to="$localePath('/')" >
                         {{ $t('def.footer.mid.home') }}
                     </NuxtLink>
                 </li>

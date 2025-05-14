@@ -141,7 +141,6 @@ export default {
             }
 
             if (counter == 0) {
-                console.log(counter);
                 axios.patch(this.api + 'usersJoy/' + this.userInfo._id, obj)
                     .then((res) => {
                         for (let item of allItems) {

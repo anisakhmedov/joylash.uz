@@ -4,7 +4,7 @@
         <div class="wrapper" :style="allHouses.length == 0 ? 'padding-top: 200px;' : 'padding-top: 0;'">
             <div class="nav" v-show="allHouses.length == 0">
                 <p class="emptyList">Список пустой! :(</p>
-                <NuxtLink to="/allProducts">Смотреть объявления</NuxtLink>
+                <NuxtLink :to="$localePath('/allProducts')">Смотреть объявления</NuxtLink>
             </div>
             <!-- <div ref="scrollWrapper"  class="items-wrapper-whish">
                 <div class="item" v-for="house of allHouses" :id="house._id" :key="house._id">
@@ -88,12 +88,9 @@ export default {
         await axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user)
             .then((res) => {
                 this.allLiked = res.data.data.likedHouses
-                console.log(this.allLiked);
 
             })
             .catch((err) => {
-                console.log(er);
-
             })
         await axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
             .then(async (response) => {
@@ -108,7 +105,6 @@ export default {
 
             })
             .catch((err) => {
-                console.log(err);
             })
 
     }

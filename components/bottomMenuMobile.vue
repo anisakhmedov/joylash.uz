@@ -1,10 +1,10 @@
 <template>
   <div id="menuMobile">
     <div class="circle">
-      <NuxtLink to="/"><img src="/icons/home.svg"></NuxtLink>
-      <NuxtLink to="/allProducts"><img src="/icons/layers.svg" alt=""></NuxtLink>
-      <NuxtLink to="/createHouse"><img src="/icons/plus.svg" alt=""></NuxtLink>
-      <NuxtLink to="/whishlist"><img src="/icons/star.svg" alt=""></NuxtLink>
+      <NuxtLink :to="$localePath('/')"><img src="/icons/home.svg"></NuxtLink>
+      <NuxtLink :to="$localePath('/allProducts')"><img src="/icons/layers.svg" alt=""></NuxtLink>
+      <NuxtLink :to="$localePath('/createHouse')"><img src="/icons/plus.svg" alt=""></NuxtLink>
+      <NuxtLink :to="$localePath('/whishlist')"><img src="/icons/star.svg" alt=""></NuxtLink>
       <div class="asd">
         <img @click="openMenu = !openMenu" src="/icons/menu.svg" alt="">
         <p class="wrapperMenu" v-show="openMenu">
@@ -43,6 +43,8 @@
 </template>
 
 <script>
+// import { useLocalePath } from 'vue-i18n-routing' // Nuxt auto-imports this too
+
 export default {
   data() {
     return {
@@ -50,6 +52,11 @@ export default {
       openMenu: false
     }
   },
+  // computed: {
+  //   localePath() {
+  //     return useLocalePath()
+  //   }
+  // },
   unmounted() {
     this.isActive = false
     this.openMenu = false

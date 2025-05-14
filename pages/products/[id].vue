@@ -159,7 +159,6 @@ export default {
 
       })
       .catch((err) => {
-        console.log(err);
       })
 
 
@@ -179,9 +178,6 @@ export default {
           id: this.house._id,
           title: this.house.title
         }]
-
-        console.log(this.house);
-
       })
   },
 
@@ -213,10 +209,8 @@ export default {
 
           axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
             .then((res) => {
-              console.log(res);
             })
             .catch((err) => {
-              console.log(err);
 
             })
 
@@ -228,13 +222,6 @@ export default {
           } else {
             this.alreadyLiked.push(id)
             axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-
-              })
           }
         }
       }

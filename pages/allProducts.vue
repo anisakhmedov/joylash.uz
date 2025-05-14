@@ -124,11 +124,9 @@ export default {
 
             axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
                 .then(res => {
-                    console.log('Response:', res.data); // <--- добавь это
                     this.allHouse = res.data.body || []; // защитное присваивание
                 })
                 .catch(err => {
-                    console.log(err);
                 });
         }
     },

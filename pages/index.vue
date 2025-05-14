@@ -6,7 +6,8 @@
                 <p>{{ $t('mainPage.1ViewText.p1') }}</p>
                 <div class="title">{{ $t('mainPage.1ViewText.h1') }}</div>
                 <div class="disc">{{ $t('mainPage.1ViewText.disc') }}<br></div>
-                <NuxtLink class="btn orange" to="/allProducts">{{ $t('mainPage.items2.smth') }}</NuxtLink>
+                <NuxtLink class="btn orange" :to="$localePath('/allProducts')">{{ $t('mainPage.items2.smth') }}
+                </NuxtLink>
             </div>
         </div>
 
@@ -22,8 +23,8 @@
                         <img src="~/public/icons/arrow.svg" alt="">
                     </div>
                     <ul class="submenu">
-                        <NuxtLink to="/allProducts" v-for="(option, idx) in item[this.$i18n.locale]?.options"
-                            :key="idx">
+                        <NuxtLink :to="$localePath('/allProducts')"
+                            v-for="(option, idx) in item[this.$i18n.locale]?.options" :key="idx">
                             {{ option }}
                         </NuxtLink>
                     </ul>
@@ -43,12 +44,25 @@
                     <span>{{ $t('mainPage.items.title') }}</span>
                 </nav>
             </div>
-            <div class="carousel-container">
-                <div class="carousel">
-                    <Items ref="carouselInner" :houses="houses" />
+            <div class="slider">
+
+                <div @click="moveSlider('left')" class="ar left">
+                    <div class="block">
+                        <img src="/icons/arrow.svg" alt="">
+                    </div>
+                </div>
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <Items ref="carouselInner" :houses="houses" />
+                    </div>
+                </div>
+                <div class="ar right" @click="moveSlider('right')">
+                    <div class="block">
+                        <img src="/icons/arrow.svg" alt="">
+                    </div>
                 </div>
             </div>
-            <NuxtLink class="btn orange" to="allProducts">{{ $t('mainPage.items.showAll') }}</NuxtLink>
+            <NuxtLink class="btn orange" :to="$localePath('/allProducts')">{{ $t('mainPage.items.showAll') }}</NuxtLink>
         </div>
         <client-only>
             <Map class="map-def" v-if="isLoaded && allLocations.length" :locations="allLocations" :zoom="12" />
@@ -157,10 +171,43 @@ export default {
             if (this.$refs.menuRef && !this.$refs.menuRef.contains(event.target)) {
                 this.activeIndex = null;
             }
+        },
+        moveSlider(param) {
+            let axisX = document.querySelector('.carousel-container')
+            if (param === 'right') {
+                let count = 0
+                let intRight = setInterval(() => {
+                    count += 2
+                    if (count >= 200) {
+                        clearInterval(intRight)
+                    }
+                    axisX.scrollBy({
+                        left: 6,
+                        behavior: "smooth"
+                    })
+                }, 1)
+
+
+            } else if (param === 'left') {
+                let count = 0
+                let intRight = setInterval(() => {
+                    count += 2
+                    if (count >= 200) {
+                        clearInterval(intRight)
+                    }
+                    axisX.scrollBy({
+                        left: -6,
+                        behavior: "smooth"
+                    })
+                }, 1)
+            }
         }
     },
     mounted() {
         if (process.client) {
+            document.querySelector('.carousel-container').scrollLeft = -100
+
+            document.querySelector('.carousel-container').scrollTo = 100
             document.addEventListener('click', this.handleClickOutside);
 
             axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
@@ -169,12 +216,13 @@ export default {
                     this.isLoaded = true
                 })
                 .catch(err => {
-                    console.log(err);
                 });
         }
     },
     beforeUnmount() {
         document.removeEventListener('click', this.handleClickOutside);
+    },
+    beforeMount() {
     }
 }
 </script>

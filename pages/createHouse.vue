@@ -176,7 +176,6 @@ export default {
                 this.userPluses = res.data.data.codeHouses
             })
             .catch((err) => {
-                console.log(err);
             })
 
 
@@ -304,21 +303,6 @@ export default {
                 formData.append('additionalImages', file);
             });
 
-
-            //         let newAddForUser = (param) => {
-            //                 .then((res) => {
-            //             let addForPush = res.data.codeHouses
-            //             addForPush.push(param)
-            //             axios.patch(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
-            //                 .then((res) => {
-            //                     console.log(res);
-            //                 })
-            //                 .catch((err) => console.log(err))
-            //         })
-            //         .catch((err) => console.log(err))
-
-            // }
-
             axios.post(this.api, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -332,9 +316,8 @@ export default {
 
                     axios.patch(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
                         .then((res) => {
-                            console.log(res);
                         })
-                        .catch((err) => console.log(err))
+                        .catch((err) => {})
                 })
                 .catch(err => {
                     this.isCorrect = false;

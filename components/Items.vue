@@ -54,8 +54,6 @@ export default {
                 for (let item of this.allHouses) item.pluses = item.pluses.splice(0, 4)
             })
             .catch((err) => {
-                console.log(err);
-
             })
 
         this.windowSize = window.innerWidth <= 600
