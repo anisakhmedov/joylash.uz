@@ -157,7 +157,6 @@ export default {
     axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
       .then((res) => {
         this.alreadyLiked = res.data.data.likedHouses
-        console.log(this.alreadyLiked);
         this.user = res.data.data
         for (let item of this.alreadyLiked) {
           if (window.location.href.includes(item)) {
