@@ -5,13 +5,16 @@
                 <img :src="house.mainImage" alt="">
             </div>
             <div class="info" @click="switchOnIDPage(house._id)">
-                <p class="title">
-                    {{ house.title }} <span v-show="!windowSize" :class="house.quality == 1 ? 'new' : 'old'">{{ house.quality == 1 ? 'Новое'
-                        : 'Б/У' }}</span>
-                </p>
-                <p class="disc">
-                    {{ house.description || $t('product.noDisc') }}
-                </p>
+                <div class="text">
+                    <p class="title">
+                        {{ house.title }} <span v-show="!windowSize" :class="house.quality == 1 ? 'new' : 'old'">{{
+                            house.quality == 1 ? 'Новое'
+                            : 'Б/У' }}</span>
+                    </p>
+                    <p class="disc">
+                        {{ house.description || $t('product.noDisc') }}
+                    </p>
+                </div>
                 <div class="locationAndPrice">
                     <div class="location">
                         <img src="~/public/icons/location.svg" alt="">

@@ -4,13 +4,13 @@
     <div class="item">
       <div class="left">
         <img class="mainImg" :src="house.mainImage" alt="">
-        <div class="carousel-prod">
+        <div class="carousel-prod" v-show="house.show">
           <div class="ar">
             <img class="arrow" style="transform: rotate(90deg);" src="~/public/icons/arrow.svg" alt="">
           </div>
           <div class="images">
-            <div class="img" v-for="i of house.additionalImages" :key="i">
-              <img :src="i" alt="">
+            <div class="img" v-for="i of house.allImages" :key="i">
+              <img @click="showImage(i)" :src="i" alt="">
             </div>
           </div>
           <div class="ar">
@@ -27,7 +27,8 @@
           </div>
           <div class="nav">
             <div class="save">
-              <img src="~/public/icons/save.svg" @click="addToWhishlist()" alt="">
+              <img :src="likedIsActive ? '/icons/saved.svg' : '/icons/save.svg'" @click="checkWhishList('check')"
+                alt="">
             </div>
             <div class="share">
               <img src="~/public/icons/share.svg" @click="saveToClipdrop()" alt="">
@@ -72,14 +73,12 @@
       </div>
     </div>
 
-
     <client-only>
       <NuxtLink target="_blank" :to="`https://yandex.com/maps/?pt=${coordsSpc[1]},${coordsSpc[0]}&z=16&l=map`">
         <Map style="margin-top: 50px;" v-if="locationObj && allLocations.length" :zoom="16" :locations="allLocations"
           :center="locationObj" />
       </NuxtLink>
     </client-only>
-
 
     <div class="discItem">
       <ul class="listItems">
@@ -138,7 +137,9 @@ export default {
       allHouse: [],
       coordsSpc: [],
       alreadyLiked: [],
-      widthWindow: []
+      widthWindow: [],
+      likedIsActive: false,
+      user: {}
     }
   },
   setup() {
@@ -156,7 +157,13 @@ export default {
     axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
       .then((res) => {
         this.alreadyLiked = res.data.data.likedHouses
-
+        console.log(this.alreadyLiked);
+        this.user = res.data.data
+        for (let item of this.alreadyLiked) {
+          if (window.location.href.includes(item)) {
+            this.likedIsActive = true
+          }
+        }
       })
       .catch((err) => {
       })
@@ -178,6 +185,16 @@ export default {
           id: this.house._id,
           title: this.house.title
         }]
+
+        if (this.house.additionalImages.length >= 1) this.house.show = true
+        else this.house.show = false
+
+        this.house.allImages = []
+        this.house.allImages.push(this.house.mainImage)
+
+        for (let item of this.house.additionalImages) {
+          this.house.allImages.push(item)
+        }
       })
   },
 
@@ -208,12 +225,6 @@ export default {
           this.alreadyLiked.push(id)
 
           axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
-            .then((res) => {
-            })
-            .catch((err) => {
-
-            })
-
         } else {
 
 
@@ -222,11 +233,61 @@ export default {
           } else {
             this.alreadyLiked.push(id)
             axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+              .then((res) => {
+                if (process.client) {
+                  window.location.reload();
+                }
+              })
           }
         }
       }
     },
-    addNewLike() {
+    checkWhishList() {
+      if (this.likedIsActive) {
+        let id = window.location.href.split('products/')[1]
+        console.log();
+        let newUser = this.user.likedHouses.filter(item => item != id)
+
+        axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: newUser })
+          .then((res) => {
+            axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
+              .then((res) => {
+                if (process.client) {
+                  window.location.reload();
+                }
+              })
+              .catch((err) => {
+              })
+          })
+      } else {
+        if (process.client) {
+
+          let id = window.location.href.split('products/')[1]
+
+          if (this.alreadyLiked.length == 0) {
+            this.alreadyLiked.push(id)
+
+            axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+              .then((res) => {
+                if (process.client) {
+                  window.location.reload()
+                }
+              })
+          } else {
+
+            if (!this.alreadyLiked.includes(id)) {
+              this.alreadyLiked.push(id)
+              axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+                .then((res) => {
+                  if (process.client) {
+                    window.location.reload();
+                  }
+                })
+            }
+          }
+        }
+      }
+
     },
     saveToClipdrop() {
       if (process.client) {
@@ -238,6 +299,13 @@ export default {
             console.error('Ошибка копирования:', err);
           });
 
+      }
+    },
+    showImage(param) {
+      event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.mainImg').src = param
+      for(let item of event.target.parentNode.parentNode.children){
+        item.classList.remove('active')
+        event.target.parentNode.classList.add('active')
       }
     }
   }
