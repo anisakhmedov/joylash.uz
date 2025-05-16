@@ -1,5 +1,4 @@
 <template>
-    <div class="_margin"></div>
     <div id="createItem">
         <form @submit.prevent="sendForm()" action="">
             <div class="baseInfo">

@@ -49,7 +49,7 @@ body {
 }
 
 ._margin {
-    height: 120px;
+    height: 115px;
 }
 
 #header {
@@ -841,8 +841,8 @@ body {
                         object-fit: cover;
                         object-position: center;
                         border-radius: 14px;
-                        width: 100%;
-                        height: 100%;
+                        width: 115px;
+                        height: 115px;
                     }
                 }
             }
@@ -1676,7 +1676,7 @@ body {
             font-weight: 600;
         }
     }
-    .del{
+    .del {
         height: 50px;
         width: 100%;
         display: flex;
@@ -1686,4 +1686,8 @@ body {
         color: white;
         font-size: 18px;
     }
+}
+
+.arrows {
+    padding: 10px 60px;
 }

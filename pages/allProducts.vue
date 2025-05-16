@@ -1,7 +1,5 @@
 <template>
     <div id="allProd">
-        <div class="_margin"></div>
-
         <client-only>
             <Map :locations="allLocations" style="max-height: 600px;" class="active" :zoom="12" />
         </client-only>

@@ -1,6 +1,5 @@
 <template>
     <div id="whishlistUser">
-        <div class="_margin"></div>
         <div class="wrapper" :style="allHouses.length == 0 ? 'padding-top: 200px;' : 'padding-top: 0;'">
             <div class="nav" v-show="allHouses.length == 0">
                 <p class="emptyList">Список пустой! :(</p>

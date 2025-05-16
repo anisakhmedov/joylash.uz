@@ -1,6 +1,5 @@
 <template>
   <div id="prod">
-    <div class="_margin"></div>
     <div class="item">
       <div class="left">
         <img class="mainImg" :src="house.mainImage" alt="">

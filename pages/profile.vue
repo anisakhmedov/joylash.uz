@@ -1,6 +1,5 @@
 <template>
     <div id="profile">
-        <div class="_margin"></div>
         <div class="info">
             <div class="colorGrd"></div>
             <div class="main">
