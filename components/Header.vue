@@ -15,7 +15,7 @@
                     <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.catalogue") }}</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.wishlist") }}</NuxtLink>
+                    <NuxtLink :to="$localePath('/whishlist')">{{ $t("def.header.wishlist") }}</NuxtLink>
                 </li>
             </ul>
         </div>
@@ -34,10 +34,10 @@
                     </div>
                 </div>
             </div>
-            <div class="nav-images profile">
-                <NuxtLink :to="$localePath('/profile')">
-                    <img src="~/public/icons/profile.svg" alt="">
-                </NuxtLink>
+            <div style="cursor: pointer;" class="nav-images profile" @click="checkAndRoot()">
+
+                <img src="~/public/icons/profile.svg" alt="">
+
             </div>
         </div>
     </header>
@@ -46,16 +46,21 @@
 <script>
 // import { useLocalePath } from 'vue-i18n-routing' // Nuxt auto-imports this too
 
+import { useRoute } from 'vue-router'
 export default {
     data() {
         return {
-            isActive: false
+            isActive: false,
+            // router: useRoute(),
         }
     },
-    // computed: {
-    //     localePath() {
-    //         return useLocalePath()
-    //     }
-    // }
+    methods: {
+        checkAndRoot() {
+            if (localStorage.user) {
+                if (this.$router.path !== 'profile') this.$router.push('/profile')
+                else console.log('Зачем так много кликать??? ты уже тут!!!!');
+            } else this.$router.push('/register')
+        }
+    }
 }
 </script>

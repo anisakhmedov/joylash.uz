@@ -1,37 +1,55 @@
 <template>
     <div id="createItem">
+        <div class="arrowsBack">
+            <NuxtLink style="display: flex; align-items: center; gap: 10px;" to="#" @click.prevent="$router.back()">
+                <img style="transform: rotate(90deg);" src="/icons/arrow.svg" alt=""> {{ $t('def.backHome') }}
+            </NuxtLink>
+        </div>
         <form @submit.prevent="sendForm()" action="">
             <div class="baseInfo">
                 <h1>{{ $t('create_item.create_new_house') }}</h1>
 
                 <input type="text" v-model="form.title" :placeholder="$t('create_item.title')" name="title">
-                <label for="title" :class="{ active: showErrors && !form.title }" v-show="showErrors && !form.title">{{ $t('create_item.missing_field') }}</label>
+                <label for="title" :class="{ active: showErrors && !form.title }" v-show="showErrors && !form.title">{{
+                    $t('create_item.missing_field') }}</label>
 
                 <input type="number" v-model="form.price" name="price" :placeholder="$t('create_item.price')" />
-                <label for="price" :class="{ active: showErrors && !form.price }" v-show="showErrors && !form.price">{{ $t('create_item.missing_field') }}</label>
+                <label for="price" :class="{ active: showErrors && !form.price }" v-show="showErrors && !form.price">{{
+                    $t('create_item.missing_field') }}</label>
 
-                <input type="text" v-model="form.discription" :placeholder="$t('create_item.description')" name="discription">
-                <label for="discription" :class="{ active: showErrors && !form.discription }" v-show="showErrors && !form.discription">{{ $t('create_item.missing_field') }}</label>
+                <input type="text" v-model="form.discription" :placeholder="$t('create_item.description')"
+                    name="discription">
+                <label for="discription" :class="{ active: showErrors && !form.discription }"
+                    v-show="showErrors && !form.discription">{{ $t('create_item.missing_field') }}</label>
 
                 <input type="number" v-model="form.scale" name="scale" :placeholder="$t('create_item.scale')" />
-                <label for="scale" :class="{ active: showErrors && !form.scale }" v-show="showErrors && !form.scale">{{ $t('create_item.missing_field') }}</label>
+                <label for="scale" :class="{ active: showErrors && !form.scale }" v-show="showErrors && !form.scale">{{
+                    $t('create_item.missing_field') }}</label>
 
-                <input type="number" v-model="form.roomsNumber" name="roomsNumber" :placeholder="$t('create_item.rooms_number')" />
-                <label for="roomsNumber" :class="{ active: showErrors && !form.roomsNumber }" v-show="showErrors && !form.roomsNumber">{{ $t('create_item.missing_field') }}</label>
+                <input type="number" v-model="form.roomsNumber" name="roomsNumber"
+                    :placeholder="$t('create_item.rooms_number')" />
+                <label for="roomsNumber" :class="{ active: showErrors && !form.roomsNumber }"
+                    v-show="showErrors && !form.roomsNumber">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="text" v-model="form.typeOfHouse" :placeholder="$t('create_item.wall_type')" name="typeOfHouse">
-                <label for="typeOfHouse" :class="{ active: showErrors && !form.typeOfHouse }" v-show="showErrors && !form.typeOfHouse">{{ $t('create_item.missing_field') }}</label>
+                <input type="text" v-model="form.typeOfHouse" :placeholder="$t('create_item.wall_type')"
+                    name="typeOfHouse">
+                <label for="typeOfHouse" :class="{ active: showErrors && !form.typeOfHouse }"
+                    v-show="showErrors && !form.typeOfHouse">{{ $t('create_item.missing_field') }}</label>
 
-                <input type="text" v-model="form.street" :placeholder="$t('create_item.street_and_number')" name="street">
-                <label for="street" :class="{ active: showErrors && !form.street }" v-show="showErrors && !form.street">{{ $t('create_item.missing_field') }}</label>
+                <input type="text" v-model="form.street" :placeholder="$t('create_item.street_and_number')"
+                    name="street">
+                <label for="street" :class="{ active: showErrors && !form.street }"
+                    v-show="showErrors && !form.street">{{ $t('create_item.missing_field') }}</label>
 
                 <select v-model="qualitySelect" name="qualitySelect">
                     <option selected value="1">{{ $t('create_item.new') }}</option>
                     <option value="2">{{ $t('create_item.used') }}</option>
                 </select>
 
-                <input type="number" v-model="form.cilingHeight" name="cilingHeight" :placeholder="$t('create_item.ceiling_height')" />
-                <label for="cilingHeight" :class="{ active: showErrors && !form.cilingHeight }" v-show="showErrors && !form.cilingHeight">{{ $t('create_item.missing_field') }}</label>
+                <input type="number" v-model="form.cilingHeight" name="cilingHeight"
+                    :placeholder="$t('create_item.ceiling_height')" />
+                <label for="cilingHeight" :class="{ active: showErrors && !form.cilingHeight }"
+                    v-show="showErrors && !form.cilingHeight">{{ $t('create_item.missing_field') }}</label>
 
                 <select v-model="typeOfBuilding" name="typeOfBuilding">
                     <option selected value="1">{{ $t('create_item.apartment') }}</option>
@@ -46,13 +64,17 @@
                 </select>
 
                 <input type="number" name="floor" v-model="form.floor" :placeholder="$t('create_item.floor')" />
-                <label for="floor" :class="{ active: showErrors && !form.floor }">{{ $t('create_item.missing_field') }}</label>
+                <label for="floor" :class="{ active: showErrors && !form.floor }">{{ $t('create_item.missing_field')
+                    }}</label>
 
-                <input type="text" v-model="form.phoneNumberUser" :placeholder="$t('create_item.phone_number')" name="phoneNumberUser">
-                <label for="phoneNumberUser" :class="{ active: showErrors && !form.phoneNumberUser }" v-show="showErrors && !form.phoneNumberUser">{{ $t('create_item.missing_field') }}</label>
+                <input type="text" v-model="form.phoneNumberUser" :placeholder="$t('create_item.phone_number')"
+                    name="phoneNumberUser">
+                <label for="phoneNumberUser" :class="{ active: showErrors && !form.phoneNumberUser }"
+                    v-show="showErrors && !form.phoneNumberUser">{{ $t('create_item.missing_field') }}</label>
 
                 <input type="text" v-model="form.sms" :placeholder="$t('create_item.social_link')" name="sms">
-                <label for="sms" :class="{ active: showErrors && !form.sms }" v-show="showErrors && !form.sms">{{ $t('create_item.missing_field') }}</label>
+                <label for="sms" :class="{ active: showErrors && !form.sms }" v-show="showErrors && !form.sms">{{
+                    $t('create_item.missing_field') }}</label>
 
                 <div class="addPluses">
                     <input type="text" data-langPla="smth" :placeholder="$t('create_item.advantage_name')" />
@@ -78,14 +100,16 @@
                     </div>
                     <p v-if="obj.additionalImages.length === 0">{{ $t('create_item.choose_image') }}</p>
                 </div>
-                <input type="file" id="additionalImages" @change="handleAdditionalImagesChange" multiple accept="image/*" class="file-input">
+                <input type="file" id="additionalImages" @change="handleAdditionalImagesChange" multiple
+                    accept="image/*" class="file-input">
 
                 <div v-if="obj.additionalImages.length > 0">
                     <h3>{{ $t('create_item.additional_photos') }}</h3>
                     <div class="otherPhotos">
                         <div v-for="(image, index) in obj.additionalImages" :key="index" class="image-container">
                             <img :src="image" style="max-width: 200px; margin-bottom: 10px;">
-                            <img class="delete-icon" src="~/public/icons/x-circle.svg" alt="Удалить" @click="removeAdditionalImage(index)">
+                            <img class="delete-icon" src="~/public/icons/x-circle.svg" alt="Удалить"
+                                @click="removeAdditionalImage(index)">
                         </div>
                     </div>
                 </div>
@@ -316,7 +340,7 @@ export default {
                     axios.patch(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
                         .then((res) => {
                         })
-                        .catch((err) => {})
+                        .catch((err) => { })
                 })
                 .catch(err => {
                     this.isCorrect = false;

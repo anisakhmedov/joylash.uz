@@ -23,6 +23,7 @@
         }
     },
     "def": {
+        "backHome": "Back",
         "footer": {
             "left": {
                 "main": "Discover the Comfort of Your Life"
@@ -50,7 +51,7 @@
             "subscribe": "Subscribe"
         },
         "header": {
-            "house": "House",
+            "house": "Homepage",
             "cate": "Categories",
             "catalogue": "Catalogue",
             "wishlist": "Wishlist"

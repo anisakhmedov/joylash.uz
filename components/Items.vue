@@ -9,10 +9,10 @@
                     <p class="title">
                         {{ house.title }} <span v-show="!windowSize" :class="house.quality == 1 ? 'new' : 'old'">{{
                             house.quality == 1 ? 'Новое'
-                            : 'Б/У' }}</span>
+                                : 'Б/У' }}</span>
                     </p>
                     <p class="disc">
-                        {{ house.description || $t('product.noDisc') }}
+                        {{ (house.discription || house.description) || $t('product.noDisc') }}
                     </p>
                 </div>
                 <div class="locationAndPrice">

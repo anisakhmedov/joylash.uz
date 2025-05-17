@@ -1,5 +1,10 @@
 <template>
     <div id="profile">
+        <div class="arrowsBack">
+            <NuxtLink style="padding: 0 15px; display: flex; align-items: center; gap: 10px;" to="#" @click.prevent="$router.back()">
+                <img style="transform: rotate(90deg);" src="/icons/arrow.svg" alt=""> {{ $t('def.backHome') }}
+            </NuxtLink>
+        </div>
         <div class="info">
             <div class="colorGrd"></div>
             <div class="main">
@@ -56,7 +61,8 @@
                     </div>
                     <div class="btns">
                         <button @click="btnsActive = !btnsActive" :disabled="!btnsActive"
-                            :style="!btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'">{{ $t('profile.form.btnEdit') }}</button>
+                            :style="!btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'">{{
+                                $t('profile.form.btnEdit') }}</button>
                         <button :disabled="btnsActive"
                             :style="btnsActive ? 'opacity: 0.5; cursor: not-allowed;' : 'opacity: 1;'"
                             @click="sendNewInfo()">{{ $t('profile.form.btn') }}</button>

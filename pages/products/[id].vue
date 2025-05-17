@@ -1,19 +1,26 @@
 <template>
   <div id="prod">
+    <div class="arrowsBack">
+      <NuxtLink style="color: black; display: flex; align-items: center; gap: 10px;" to="#"
+        @click.prevent="$router.back()">
+        <img style="transform: rotate(90deg);" src="/icons/arrow.svg" alt=""> {{ $t('def.backHome') }}
+      </NuxtLink>
+    </div>
     <div class="item">
       <div class="left">
         <img class="mainImg" :src="house.mainImage" alt="">
         <div class="carousel-prod" v-show="house.show">
-          <div class="ar">
-            <img class="arrow" style="transform: rotate(90deg);" src="~/public/icons/arrow.svg" alt="">
+          <div class="ar" data-edge="left" @click="dragImages('left')">
+            <img class="arrow" data-edge="left" style="transform: rotate(90deg);" src="~/public/icons/arrow.svg" alt="">
           </div>
           <div class="images">
             <div class="img" v-for="i of house.allImages" :key="i">
               <img @click="showImage(i)" :src="i" alt="">
             </div>
           </div>
-          <div class="ar">
-            <img class="arrow" style="transform: rotate(-90deg);" src="~/public/icons/arrow.svg" alt="">
+          <div class="ar" data-edge="right" @click="dragImages('right')">
+            <img class="arrow" data-edge="right" style="transform: rotate(-90deg);" src="~/public/icons/arrow.svg"
+              alt="">
           </div>
         </div>
       </div>
@@ -22,7 +29,7 @@
           <div class="main">
             <h2>{{ house.title }} <span :class="house.quality == 1 ? 'new' : 'old'">{{ house.quality == 1 ? 'Новое' :
               'Б/У' }}</span></h2>
-            <p>{{ house.description || t('product.noDisc') }}</p>
+            <p>{{ (house.discription || house.description) || t('product.noDisc') }}</p>
           </div>
           <div class="nav">
             <div class="save">
@@ -69,6 +76,7 @@
             <div class="titleAgen">Joylash Agency Uzbekistan</div>
           </div>
         </div>
+        <div class="main"></div>
       </div>
     </div>
 
@@ -301,9 +309,39 @@ export default {
     },
     showImage(param) {
       event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.mainImg').src = param
-      for(let item of event.target.parentNode.parentNode.children){
+      for (let item of event.target.parentNode.parentNode.children) {
         item.classList.remove('active')
         event.target.parentNode.classList.add('active')
+      }
+    },
+    dragImages(param) {
+      let axisX = document.querySelector('.images')
+      if (param === 'right') {
+        let count = 0
+        let intRight = setInterval(() => {
+          count += 2
+          if (count >= 200) {
+            clearInterval(intRight)
+          }
+          axisX.scrollBy({
+            left: 2,
+            behavior: "smooth"
+          })
+        }, 1)
+
+
+      } else if (param === 'left') {
+        let count = 0
+        let intRight = setInterval(() => {
+          count += 2
+          if (count >= 200) {
+            clearInterval(intRight)
+          }
+          axisX.scrollBy({
+            left: -2,
+            behavior: "smooth"
+          })
+        }, 1)
       }
     }
   }

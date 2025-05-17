@@ -1,5 +1,10 @@
 <template>
     <div id="allProd">
+        <div class="arrowsBack">
+            <NuxtLink style="display: flex; align-items: center; gap: 10px;" to="#" @click.prevent="$router.back()">
+                <img style="transform: rotate(90deg);" src="/icons/arrow.svg" alt=""> {{ $t('def.backHome') }}
+            </NuxtLink>
+        </div>
         <client-only>
             <Map :locations="allLocations" style="max-height: 600px;" class="active" :zoom="12" />
         </client-only>
@@ -51,7 +56,6 @@ export default {
         return {
             houses: [],
             allHouse: [],
-
             selectedBuilding: '',
             selectedType: '',
             selectedQuality: '',
@@ -148,7 +152,7 @@ export default {
             this.selectedType = '';
             this.selectedQuality = '';
             this.searchTitle = '';
-        }
+        },
     }
 }
 </script>
