@@ -124,7 +124,7 @@ export default {
         if (process.client) {
             document.addEventListener('click', this.handleClickOutside);
 
-            axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+            axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/houses')
                 .then(res => {
                     this.allHouse = res.data.body || []; // защитное присваивание
                 })

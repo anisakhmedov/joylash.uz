@@ -76,7 +76,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            api: 'https://joylash-778750a705b4.herokuapp.com/usersJoy',
+            api: 'https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy',
             checkType: true,
             typeOfForm: true,
             emailOrPhone: '',
@@ -149,7 +149,7 @@ export default {
 
                     if (res.data.ok) {
                         localStorage.setItem('user', res.data.element._id);
-                        this.$router.push('/');
+                        this.$router.back();
                     }
                 } catch (err) {
                     console.error('Ошибка при регистрации:', err);
@@ -164,7 +164,7 @@ export default {
 
                 if (user) {
                     localStorage.setItem('user', user._id);
-                    this.$router.push('/');
+                    this.$router.back();
                 } else {
                     this.errors.notFound = true;
                     this.showErrors = true;

@@ -15,7 +15,7 @@
                     <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.catalogue") }}</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink :to="$localePath('/whishlist')">{{ $t("def.header.wishlist") }}</NuxtLink>
+                    <span @click="directRoute()">{{ $t("def.header.wishlist") }}</span>
                 </li>
             </ul>
         </div>
@@ -57,9 +57,19 @@ export default {
     methods: {
         checkAndRoot() {
             if (localStorage.user) {
-                if (this.$router.path !== 'profile') this.$router.push('/profile')
+                if (this.$router.path !== 'profile') this.$router.push(this.$localePath('/profile'))
                 else console.log('Зачем так много кликать??? ты уже тут!!!!');
-            } else this.$router.push('/register')
+            } else this.$router.push(this.$localePath('/register'))
+        },
+        directRoute() {
+            const localePath = this.$i18n.locale
+
+            if (localStorage.user) {
+                this.$router.push(this.$localePath('/whishlist'))
+            } else {
+                this.$router.push(this.$localePath('/register'))
+            }
+
         }
     }
 }

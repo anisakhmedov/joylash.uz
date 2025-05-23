@@ -37,7 +37,8 @@
                 alt="">
             </div>
             <div class="share">
-              <img src="~/public/icons/share.svg" @click="saveToClipdrop()" alt="">
+              <img height="18px" :src="shareImg ? '/icons/check.svg' : '/icons/clipboard.svg'" @click="saveToClipdrop()"
+                alt="">
             </div>
           </div>
         </div>
@@ -82,8 +83,7 @@
 
     <client-only>
       <NuxtLink target="_blank" :to="`https://yandex.com/maps/?pt=${coordsSpc[1]},${coordsSpc[0]}&z=16&l=map`">
-        <Map style="margin-top: 50px;" v-if="locationObj && allLocations.length" :zoom="16" :locations="allLocations"
-          :center="locationObj" />
+        <YandexMap v-if="allHouse.length" :coords="[39.6542, 66.9597]" :zoom="17" :locations="allLocations" />
       </NuxtLink>
     </client-only>
 
@@ -146,7 +146,8 @@ export default {
       alreadyLiked: [],
       widthWindow: [],
       likedIsActive: false,
-      user: {}
+      user: {},
+      shareImg: false
     }
   },
   setup() {
@@ -161,21 +162,22 @@ export default {
       window.innerWidth <= 600 ? this.widthWindow = true : this.widthWindow = false
     }
 
-    axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
-      .then((res) => {
-        this.alreadyLiked = res.data.data.likedHouses
-        this.user = res.data.data
-        for (let item of this.alreadyLiked) {
-          if (window.location.href.includes(item)) {
-            this.likedIsActive = true
+    const userId = localStorage.getItem("user")
+    if (userId) {
+      axios.get(`https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/${userId}`)
+        .then((res) => {
+          this.alreadyLiked = res.data.data.likedHouses
+          this.user = res.data.data
+          for (let item of this.alreadyLiked) {
+            if (window.location.href.includes(item)) {
+              this.likedIsActive = true
+            }
           }
-        }
-      })
-      .catch((err) => {
-      })
+        })
+    }
 
 
-    axios.get(`https://joylash-778750a705b4.herokuapp.com/houses/${id}`)
+    axios.get(`https://joylash-uz-4a09707016fe.herokuapp.com/houses/${id}`)
       .then((res) => {
         this.house = res.data.data
         this.coordsSpc = this.house.coords
@@ -185,18 +187,14 @@ export default {
           lng: this.house.coords[1]
         }
 
-        this.allHouse = [{
-          lat: this.house.coords[0],
-          lng: this.house.coords[1],
-          id: this.house._id,
-          title: this.house.title
-        }]
-
         if (this.house.additionalImages.length >= 1) this.house.show = true
         else this.house.show = false
 
         this.house.allImages = []
         this.house.allImages.push(this.house.mainImage)
+
+        this.allHouse.push(this.house)
+        
 
         for (let item of this.house.additionalImages) {
           this.house.allImages.push(item)
@@ -205,40 +203,46 @@ export default {
   },
 
   computed: {
-    allLocations() {
+    allLocations() { 
       return this.allHouse
         .map(h => {
-          if (h.lat && h.lng && h.id) {
+          if (Array.isArray(h.coords) && h.coords.length === 2 && h._id) {
             return {
-              lat: h.lat,
-              lng: h.lng,
-              id: h.id,
-              title: h.title || ''
+              coords: [h.coords[0], h.coords[1]],
+              id: h._id,
+              balloon: h.title || ''
             }
           }
           return null;
         })
         .filter(Boolean)
+    },
+    formattedYandexPoints() {
+      return this.allHouse
+        .filter(h => Array.isArray(h.coords) && h.coords.length === 2 && h._id)
+        .map(h => ({
+          geometry: [h.coords[1], h.coords[0]], // lng, lat
+          properties: {
+            id: h._id,
+            title: h.title || ''
+          }
+        }))
     }
   },
   methods: {
     addToWhishlist() {
-      if (process.client) {
-
+      if (process.client && localStorage.getItem("user")) {
         let id = window.location.href.split('products/')[1]
-
         if (this.alreadyLiked.length == 0) {
           this.alreadyLiked.push(id)
-
-          axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+          axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+            .then(() => {
+            })
         } else {
-
-
           if (this.alreadyLiked.includes(id)) {
-            alert('Уже добавлен')
           } else {
             this.alreadyLiked.push(id)
-            axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+            axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
               .then((res) => {
                 if (process.client) {
                   window.location.reload();
@@ -246,52 +250,61 @@ export default {
               })
           }
         }
+      } else {
+        const localePath = this.$i18n.locale
+        this.$router.push(this.localePath('/register'))
+
       }
+
     },
     checkWhishList() {
-      if (this.likedIsActive) {
-        let id = window.location.href.split('products/')[1]
-        console.log();
-        let newUser = this.user.likedHouses.filter(item => item != id)
-
-        axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: newUser })
-          .then((res) => {
-            axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user,)
-              .then((res) => {
-                if (process.client) {
-                  window.location.reload();
-                }
-              })
-              .catch((err) => {
-              })
-          })
-      } else {
-        if (process.client) {
-
+      if (localStorage.user) {
+        if (this.likedIsActive) {
           let id = window.location.href.split('products/')[1]
+          let newUser = this.user.likedHouses.filter(item => item != id)
 
-          if (this.alreadyLiked.length == 0) {
-            this.alreadyLiked.push(id)
-
-            axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
-              .then((res) => {
-                if (process.client) {
-                  window.location.reload()
-                }
-              })
-          } else {
-
-            if (!this.alreadyLiked.includes(id)) {
-              this.alreadyLiked.push(id)
-              axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+          axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: newUser })
+            .then((res) => {
+              axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user,)
                 .then((res) => {
                   if (process.client) {
                     window.location.reload();
                   }
                 })
+                .catch((err) => {
+                })
+            })
+        } else {
+          if (process.client) {
+
+            let id = window.location.href.split('products/')[1]
+
+            if (this.alreadyLiked.length == 0) {
+              this.alreadyLiked.push(id)
+
+              axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+                .then((res) => {
+                  if (process.client) {
+                    window.location.reload()
+                  }
+                })
+            } else {
+
+              if (!this.alreadyLiked.includes(id)) {
+                this.alreadyLiked.push(id)
+                axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: this.alreadyLiked })
+                  .then((res) => {
+                    if (process.client) {
+                      window.location.reload();
+                    }
+                  })
+              }
             }
           }
         }
+      } else {
+        const localePath = this.$i18n.locale
+        this.$router.push(this.localePath('/register'))
       }
 
     },
@@ -299,7 +312,10 @@ export default {
       if (process.client) {
         navigator.clipboard.writeText(window.location.href)
           .then(() => {
-            alert('Ссылка скопирована в буфер обмена!');
+            this.shareImg = true
+            setTimeout(() => {
+              this.shareImg = false
+            }, 2000)
           })
           .catch(err => {
             console.error('Ошибка копирования:', err);

@@ -10,7 +10,7 @@
     text-decoration: none;
 }
 
-.arrowsBack{
+.arrowsBack {
     margin-bottom: 10px;
 }
 
@@ -786,6 +786,7 @@ body {
 }
 
 #prod {
+    position: relative;
     padding: 0 60px;
     .item {
         display: flex;
@@ -863,6 +864,7 @@ body {
                         font-size: 28px;
                         font-weight: 800;
                         display: flex;
+                        flex-wrap: wrap;
                         align-items: center;
                         gap: 10px;
                         span {
@@ -944,8 +946,8 @@ body {
                 }
             }
             .options {
-                display: grid;
-                grid-template-columns: repeat(6, 1fr);
+                display: flex;
+                flex-wrap: wrap;
                 gap: 5px;
                 .itemOpt {
                     gap: 10px;

@@ -3,11 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
   ssr: false,
-  css: ['~/assets/css/style.css', 'leaflet/dist/leaflet.css'],
-  target: 'static',
   router: {
     base: '/'
   },
+  css: ['~/assets/css/style.css', 'leaflet/dist/leaflet.css'],
+  target: 'static',
   app: {
     head: {
       title: 'Joylash,uz', // default fallback title
@@ -16,12 +16,26 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en',
       },
+      script: [
+        {
+          src: 'https://api-maps.yandex.ru/2.1/?apikey=a82d324e-b1dc-4510-b1f8-782e0913094e&lang=ru_RU',
+          async: true
+        }
+      ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ]
     }
   },
-  modules: ['@nuxtjs/i18n'],
+  modules: ['@nuxtjs/i18n', '@nuxtjs/sitemap'],
+  sitemap: {
+    hostname: 'https://example.com',
+    routes: [
+      '/products/1',
+      '/products/2',
+      // или использовать auto-discovery
+    ]
+  },
   plugins: ['~/plugins/axios.ts'],
   runtimeConfig: {
     public: {
@@ -35,5 +49,15 @@ export default defineNuxtConfig({
       { code: 'uz', name: 'Uzbek', file: 'uz.json' },
       { code: 'ru', name: 'Russia', file: 'ru.json' }
     ]
-  }
-})
+  },
+  // build: {
+  //   transpile: ['leaflet']
+  // },
+
+  // vite: {
+  //   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
+  //   optimizeDeps: {
+  //     include: ['leaflet']
+  //   }
+  // }
+});

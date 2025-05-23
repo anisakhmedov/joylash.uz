@@ -44,7 +44,7 @@ import { useRouter } from 'vue-router';
 export default {
     data() {
         return {
-            api: 'https://joylash-778750a705b4.herokuapp.com/',
+            api: 'https://joylash-uz-4a09707016fe.herokuapp.com/',
             allHouses: [],
             router: useRouter(),
             windowSize: false

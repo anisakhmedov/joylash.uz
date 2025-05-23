@@ -1,7 +1,8 @@
 <template>
     <div id="profile">
         <div class="arrowsBack">
-            <NuxtLink style="padding: 0 15px; display: flex; align-items: center; gap: 10px;" to="#" @click.prevent="$router.back()">
+            <NuxtLink style="padding: 0 15px; display: flex; align-items: center; gap: 10px;" to="#"
+                @click.prevent="$router.back()">
                 <img style="transform: rotate(90deg);" src="/icons/arrow.svg" alt=""> {{ $t('def.backHome') }}
             </NuxtLink>
         </div>
@@ -43,8 +44,10 @@
 
                         <div class="inp">
                             <label>{{ $t('profile.form.phone') }}</label>
-                            <input :value="userInfo.phone == '' ? '' : userInfo.phone" data-inp="phone" name="phone"
-                                type="text" :disabled="btnsActive" :placeholder="$t('profile.formPla.phone')">
+
+                            <input :value="userInfo.phone"
+                                data-inp="phone" name="phone" type="text" :disabled="btnsActive"
+                                :placeholder="$t('profile.formPla.phone')">
                             <label class="err">{{ $t('profile.form.mustFill') }}</label>
                         </div>
 
@@ -87,7 +90,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            api: 'https://joylash-778750a705b4.herokuapp.com/',
+            api: 'https://joylash-uz-4a09707016fe.herokuapp.com/',
             userInfo: '',
             btnsActive: true,
             allCorrect: true,
@@ -100,7 +103,12 @@ export default {
         axios.get(`${this.api}usersJoy/${userId}`)
             .then((res) => {
                 this.userInfo = res.data.data
-
+                
+                if(this.userInfo.phone.split('h')[0] === 'smt'){
+                    this.userInfo.phone = ''
+                } else{
+                    this.userInfo.phone = res.data.data.phone
+                }
             })
         axios.get(`${this.api}houses`)
             .then((res) => {

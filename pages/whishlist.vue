@@ -58,14 +58,14 @@ export default {
             window.innerWidth <= 600 ? this.widthWindow = true : this.widthWindow = false
         }
 
-        await axios.get('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user)
+        await axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user)
             .then((res) => {
                 this.allLiked = res.data.data.likedHouses
                 this.user = res.data.data
             })
             .catch((err) => {
             })
-        await axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+        await axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/houses')
             .then(async (response) => {
                 for (let item of response.data.body) {
                     for (let i of this.allLiked) {
@@ -84,14 +84,11 @@ export default {
     methods: {
         deleteFromUser(param) {
             let newUser = this.user.likedHouses.filter(item => item != param)
-            axios.patch('https://joylash-778750a705b4.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: newUser })
+            axios.patch('https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/' + localStorage.user, { likedHouses: newUser })
                 .then((res) => {
                     if (process.client) {
                         window.location.reload()
                     }
-                })
-                .catch((err) => {
-                    console.log(err);
                 })
         },
         switchOnIDPage(param) {

@@ -135,7 +135,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            api: 'https://joylash-778750a705b4.herokuapp.com/houses',
+            api: 'https://joylash-uz-4a09707016fe.herokuapp.com/houses',
             floorSwitch: true,
             typeOfBuilding: 1,
             qualitySelect: 1,
@@ -194,7 +194,7 @@ export default {
                 this.obj.coords = [lat, lng]
             })
         }
-        axios.get(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`)
+        axios.get(`https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/${localStorage.getItem('user')}`)
             .then((res) => {
                 this.userPluses = res.data.data.codeHouses
             })
@@ -337,7 +337,7 @@ export default {
                     this.resetForm();
                     newAddForUser(res.data._id)
 
-                    axios.patch(`https://joylash-778750a705b4.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
+                    axios.patch(`https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
                         .then((res) => {
                         })
                         .catch((err) => { })

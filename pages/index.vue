@@ -64,9 +64,15 @@
             </div>
             <NuxtLink class="btn orange" :to="$localePath('/allProducts')">{{ $t('mainPage.items.showAll') }}</NuxtLink>
         </div>
+        <!-- <client-only> -->
+            <!-- <YandexMap :coords="[39.6542, 66.9597]" :zoom="12" :points="formattedYandexPoints" /> -->
+            <!-- <Map class="map-def" v-if="isLoaded && allLocations.length" :locations="allLocations" :zoom="12" /> -->
+        <!-- </client-only> -->
+
         <client-only>
-            <Map class="map-def" v-if="isLoaded && allLocations.length" :locations="allLocations" :zoom="12" />
+            <YandexMap v-if="formattedYandexPoints.length" :coords="[39.6542, 66.9597]" :zoom="17" :locations="allLocations" />\оэ.\    уш
         </client-only>
+
 
         <div class="products">
             <div class="_title">
@@ -151,16 +157,27 @@ export default {
                 .map(h => {
                     if (Array.isArray(h.coords) && h.coords.length === 2 && h._id) {
                         return {
-                            lat: h.coords[0],
-                            lng: h.coords[1],
+                            coords: [h.coords[0], h.coords[1]],
                             id: h._id,
-                            title: h.title || ''
+                            balloon: h.title || ''
                         }
                     }
                     return null;
                 })
                 .filter(Boolean)
+        },
+        formattedYandexPoints() {
+            return this.allHouse
+                .filter(h => Array.isArray(h.coords) && h.coords.length === 2 && h._id)
+                .map(h => ({
+                    geometry: [h.coords[1], h.coords[0]], // lng, lat
+                    properties: {
+                        id: h._id,
+                        title: h.title || ''
+                    }
+                }))
         }
+
     },
 
     methods: {
@@ -205,12 +222,13 @@ export default {
     },
     mounted() {
         if (process.client) {
+
             document.querySelector('.carousel-container').scrollLeft = -100
 
             document.querySelector('.carousel-container').scrollTo = 100
             document.addEventListener('click', this.handleClickOutside);
 
-            axios.get('https://joylash-778750a705b4.herokuapp.com/houses')
+            axios.get('https://joylash-uz-4a09707016fe.herokuapp.com/houses')
                 .then(res => {
                     this.allHouse = res.data.body;
                     this.isLoaded = true
@@ -223,6 +241,7 @@ export default {
         document.removeEventListener('click', this.handleClickOutside);
     },
     beforeMount() {
+
     }
 }
 </script>

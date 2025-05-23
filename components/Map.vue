@@ -25,14 +25,26 @@ export default {
   data() {
     return {
       map: null,
-      L: null
+      L: null,
+      markers: []
     }
   },
 
   async mounted() {
     if (process.client) {
-      this.L = await import('leaflet');
+      const L = await import('leaflet');
+      this.L = L;
       await import('leaflet/dist/leaflet.css');
+
+      // 🛠️ Исправление путей к иконкам
+      delete this.L.Icon.Default.prototype._getIconUrl;
+
+      this.L.Icon.Default.mergeOptions({
+        iconRetinaUrl: new URL('leaflet/dist/images/marker-icon-2x.png', import.meta.url).href,
+        iconUrl: new URL('leaflet/dist/images/marker-icon.png', import.meta.url).href,
+        shadowUrl: new URL('leaflet/dist/images/marker-shadow.png', import.meta.url).href,
+      });
+
 
       this.map = this.L.map('map').setView([this.center.lat, this.center.lng], this.zoom);
 
@@ -50,8 +62,11 @@ export default {
         this.map.setView([newCenter.lat, newCenter.lng], this.zoom);
       }
     },
-    locations() {
-      this.addMarkers(); // На случай, если маркеры тоже обновляются
+    locations: {
+      handler() {
+        this.addMarkers();
+      },
+      deep: true
     }
   },
 
@@ -59,12 +74,17 @@ export default {
     addMarkers() {
       if (!this.map || !this.L) return;
 
+      // Удаляем старые маркеры
+      this.markers.forEach(marker => this.map.removeLayer(marker));
+      this.markers = [];
+
       this.locations.forEach(loc => {
         if (loc.lat && loc.lng) {
           const marker = this.L.marker([loc.lat, loc.lng]).addTo(this.map);
           marker.on('click', () => {
             window.location.href = `/products/${loc.id}`;
           });
+          this.markers.push(marker);
         }
       });
     }
