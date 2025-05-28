@@ -6,7 +6,7 @@
             </NuxtLink>
         </div>
         <client-only>
-            <Map :locations="allLocations" style="max-height: 600px;" class="active" :zoom="12" />
+            <YandexMap v-if="formattedYandexPoints.length" :coords="[39.6542, 66.9597]" :zoom="17" :locations="allLocations" />
         </client-only>
 
         <client-only>
@@ -108,15 +108,25 @@ export default {
                 .map(h => {
                     if (Array.isArray(h.coords) && h.coords.length === 2 && h._id) {
                         return {
-                            lat: h.coords[0],
-                            lng: h.coords[1],
+                            coords: [h.coords[0], h.coords[1]],
                             id: h._id,
-                            title: h.title || ''
+                            balloon: h.title || ''
                         }
                     }
                     return null;
                 })
                 .filter(Boolean)
+        },
+        formattedYandexPoints() {
+            return this.allHouse
+                .filter(h => Array.isArray(h.coords) && h.coords.length === 2 && h._id)
+                .map(h => ({
+                    geometry: [h.coords[1], h.coords[0]], // lng, lat
+                    properties: {
+                        id: h._id,
+                        title: h.title || ''
+                    }
+                }))
         }
     },
 

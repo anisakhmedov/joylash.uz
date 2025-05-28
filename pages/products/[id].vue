@@ -8,7 +8,7 @@
     </div>
     <div class="item">
       <div class="left">
-        <img class="mainImg" :src="house.mainImage" alt="">
+        <img class="mainImg" @click="openModal()" :src="house.mainImage" alt="">
         <div class="carousel-prod" v-show="house.show">
           <div class="ar" data-edge="left" @click="dragImages('left')">
             <img class="arrow" data-edge="left" style="transform: rotate(90deg);" src="~/public/icons/arrow.svg" alt="">
@@ -125,6 +125,9 @@
       <NuxtLink :to="'tel:' + house.phoneNumberUser">Позвонить</NuxtLink>
       <NuxtLink :to="house.sms">SMS</NuxtLink>
     </div>
+    <div v-if="showModal" class="modal" @click="closeModal">
+      <img :src="modalImageSrc" class="modal-image" />
+    </div>
   </div>
 </template>
 
@@ -139,6 +142,8 @@ export default {
   data() {
     return {
       house: {},
+      showModal: false,
+      modalImageSrc: '',
       locationObj: null,
       similarHouses: [],
       allHouse: [],
@@ -194,7 +199,7 @@ export default {
         this.house.allImages.push(this.house.mainImage)
 
         this.allHouse.push(this.house)
-        
+
 
         for (let item of this.house.additionalImages) {
           this.house.allImages.push(item)
@@ -203,7 +208,7 @@ export default {
   },
 
   computed: {
-    allLocations() { 
+    allLocations() {
       return this.allHouse
         .map(h => {
           if (Array.isArray(h.coords) && h.coords.length === 2 && h._id) {
@@ -230,6 +235,17 @@ export default {
     }
   },
   methods: {
+    openModal() {
+      this.modalImageSrc = event.target.src;
+      this.showModal = true;
+      if(process.client){
+        document.body.style.overflow = 'hidden'
+      }
+    },
+    closeModal() {
+      document.body.style.overflow = 'auto'
+      this.showModal = false;
+    },
     addToWhishlist() {
       if (process.client && localStorage.getItem("user")) {
         let id = window.location.href.split('products/')[1]
@@ -363,3 +379,24 @@ export default {
   }
 }
 </script>
+
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+.modal-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+</style>

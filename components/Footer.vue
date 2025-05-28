@@ -29,18 +29,13 @@
         </div>
         <div class="social">
             <div class="circle">
-                <NuxtLink to="">
-                    <img src="~/public/icons/X.svg" alt="">
-                </NuxtLink>
+                <img src="~/public/icons/send.svg" alt="">
             </div>
             <div class="circle">
                 <img src="~/public/icons/facebook.svg" alt="">
             </div>
             <div class="circle">
                 <img src="~/public/icons/instagram.svg" alt="">
-            </div>
-            <div class="circle">
-                <img src="~/public/icons/linkedin.svg" alt="">
             </div>
         </div>
     </div>

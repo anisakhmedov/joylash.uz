@@ -70,7 +70,7 @@
         <!-- </client-only> -->
 
         <client-only>
-            <YandexMap v-if="formattedYandexPoints.length" :coords="[39.6542, 66.9597]" :zoom="17" :locations="allLocations" />\оэ.\    уш
+            <YandexMap v-if="formattedYandexPoints.length" :coords="[39.6542, 66.9597]" :zoom="17" :locations="allLocations" />
         </client-only>
 
 
