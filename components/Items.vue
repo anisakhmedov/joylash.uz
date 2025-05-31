@@ -53,7 +53,7 @@ export default {
     mounted() {
         axios.get(this.api + 'houses')
             .then((res) => {
-                this.allHouses = res.data.body
+                this.allHouses = res.data.body.filter(item => item.isModerate == true)
                 for (let item of this.allHouses) item.pluses = item.pluses.splice(0, 4)
             })
             .catch((err) => {
