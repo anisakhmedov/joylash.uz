@@ -12,7 +12,7 @@
                     <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.cate") }}</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink :to="$localePath('/allProducts')">{{ $t("def.header.catalogue") }}</NuxtLink>
+                    <NuxtLink :to="$localePath('/createHouse')">{{ $t("def.header.createHouse") }}</NuxtLink>
                 </li>
                 <li>
                     <span @click="directRoute()">{{ $t("def.header.wishlist") }}</span>

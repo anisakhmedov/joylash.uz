@@ -41,7 +41,7 @@
                 <label for="street" :class="{ active: showErrors && !form.street }"
                     v-show="showErrors && !form.street">{{ $t('create_item.missing_field') }}</label>
 
-                <select v-model="qualitySelect" name="qualitySelect">
+                <select v-model="qualitySelect" name="quality">
                     <option selected value="1">{{ $t('create_item.new') }}</option>
                     <option value="2">{{ $t('create_item.used') }}</option>
                 </select>
@@ -65,7 +65,7 @@
 
                 <input type="number" name="floor" v-model="form.floor" :placeholder="$t('create_item.floor')" />
                 <label for="floor" :class="{ active: showErrors && !form.floor }">{{ $t('create_item.missing_field')
-                    }}</label>
+                }}</label>
 
                 <input type="text" v-model="form.phoneNumberUser" :placeholder="$t('create_item.phone_number')"
                     name="phoneNumberUser">
@@ -115,7 +115,7 @@
                 </div>
                 <input type="text" hidden value="">
             </div>
-            <button>{{ $t('create_item.submit') }}</button>
+            <button id="SendFormDisable">{{ $t('create_item.submit') }}</button>
         </form>
 
         <div class="modalWindowProfile" v-show="isShow">
@@ -128,9 +128,8 @@
     </div>
 </template>
 
-
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
     data() {
@@ -150,7 +149,7 @@ export default {
             },
             map: null,
             marker: null,
-            userInfo: Object,
+            userInfo: {},
             form: {
                 title: '',
                 price: '',
@@ -169,108 +168,146 @@ export default {
             mainImageFile: null,
             additionalImageFiles: [],
             userPluses: []
+        };
+    },
+    created() {
+        if (process.client) {
+            if (!localStorage.user) {
+                this.$router.push('/register')
+            }
         }
     },
-
     mounted() {
         if (process.client) {
-            const { $L } = useNuxtApp()
-
-            this.map = $L.map('map').setView([39.6542, 66.9598], 14) // zoom 14 — ближе
-
-            $L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(this.map)
-
-            this.map.on('click', (e) => {
-                const { lat, lng } = e.latlng
-
-                if (this.marker) {
-                    this.marker.setLatLng([lat, lng])
+            if(!localStorage.user){
+                this.$router.push('/register')
+            }
+            if(!localStorage.reloadEd){
+                localStorage.reloadEd = true
+                window.location.reload()
+            }
+            const waitForYMaps = () => {
+                if (typeof ymaps === 'undefined') {
+                    setTimeout(waitForYMaps, 300)
                 } else {
-                    this.marker = $L.marker([lat, lng]).addTo(this.map)
+                    ymaps.ready(() => {
+                        this.map = new ymaps.Map("map", {
+                            center: [39.6542, 66.9598],
+                            zoom: 14,
+                            controls: [] // ❌ убираем лишние элементы управления
+                        })
+
+                        this.map.events.add('click', (e) => {
+                            const coords = e.get('coords')
+
+                            if (!Array.isArray(coords) || coords.length < 2) return
+
+                            this.obj.coords = coords
+
+                            if (this.marker && this.marker.geometry) {
+                                this.marker.geometry.setCoordinates(coords)
+                            } else {
+                                this.marker = new ymaps.Placemark(
+                                    coords,
+                                    {},
+                                    {
+                                        preset: 'islands#icon',
+                                        iconColor: '#ff0000'
+                                    }
+                                )
+                                console.log('coords:', coords)
+                                this.map.geoObjects.add(this.marker)
+                            }
+                        })
+                    })
                 }
-
-                this.obj.coords = [lat, lng]
-            })
+            }
+            waitForYMaps()
         }
-        axios.get(`https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/${localStorage.getItem('user')}`)
-            .then((res) => {
-                this.userPluses = res.data.data.codeHouses
-            })
-            .catch((err) => {
-            })
-
-
     },
-
+    beforeUnmount(){
+        localStorage.removeItem('reloadEd')
+    },
     methods: {
-        resetForm() {
-            this.form = {
-                title: '',
-                price: '',
-                discription: '',
-                scale: '',
-                roomsNumber: '',
-                typeOfHouse: '',
-                street: '',
-                quality: '',
-                cilingHeight: '',
-                floor: '',
-                phoneNumberUser: '',
-                sms: '',
-            }
-            this.obj = {
-                pluses: [],
-                coords: [],
-                mainImage: null,
-                additionalImages: []
-            }
-            this.typeOfBuilding = 1
-            this.floorSwitch = true
-            this.showErrors = false
-
-            const plusesBlock = document.querySelector('.allpluses')
-            if (plusesBlock) plusesBlock.innerHTML = ''
-
-            if (this.marker) {
-                this.map.removeLayer(this.marker)
-                this.marker = null
-            }
+        triggerFileInput(inputId) {
+            const input = document.getElementById(inputId)
+            if (input) input.click()
         },
         newPluses() {
             if (process.client) {
-                let input = event.target.parentNode.parentNode.querySelector('input[data-langPla]');
-                let text = input.value;
+                const input = event.target.closest('.addPluses').querySelector('input[data-langPla]')
+                const text = input.value.trim()
 
-                if (text.length >= 5) {
-                    let block = document.createElement('div');
-                    let img = document.createElement('img');
-                    let textSpan = document.createElement('span');
+                if (text.length >= 2) {
+                    const block = document.createElement('div')
+                    block.classList.add('pluses')
 
-                    block.classList.add('pluses');
-                    img.src = '/icons/x-circle.svg';
-                    img.style.cursor = 'pointer';
-                    textSpan.innerHTML = text;
+                    const span = document.createElement('span')
+                    span.innerText = text
 
-                    block.append(textSpan, img);
-                    document.querySelector('.allpluses').append(block);
-                    input.value = '';
-
-                    this.obj.pluses.push(text);
+                    const img = document.createElement('img')
+                    img.src = '/icons/x-circle.svg'
+                    img.style.cursor = 'pointer'
 
                     img.onclick = () => {
-                        block.remove();
-                        this.obj.pluses = this.obj.pluses.filter(item => item !== text);
-                    };
+                        block.remove()
+                        this.obj.pluses = this.obj.pluses.filter(p => p !== text)
+                    }
+
+                    block.append(span, img)
+                    document.querySelector('.allpluses').append(block)
+                    input.value = ''
+
+                    this.obj.pluses.push(text)
                 }
             }
         },
+        sendForm() {
+            this.showErrors = true;
+            const isValid = Object.values(this.form).every(value => value !== null && value !== undefined && value.toString().trim() !== '');
+            if (!isValid) return;
 
-        triggerFileInput(inputId) {
-            document.getElementById(inputId).click();
+            const formData = new FormData();
+            Object.entries(this.form).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+
+            formData.append('quality', this.qualitySelect)
+            formData.append('typeOfBuilding', this.typeOfBuilding)
+            formData.append('RentOrSell', this.RentOrSell)
+
+            formData.append('userCreated', localStorage.getItem('user'))
+            formData.append('coords', JSON.stringify(this.obj.coords));
+            formData.append('pluses', JSON.stringify(this.obj.pluses));
+
+            if (this.mainImageFile) {
+                formData.append('mainImage', this.mainImageFile);
+            }
+
+            this.additionalImageFiles.forEach(file => {
+                formData.append('additionalImages', file);
+            });
+
+            if(process.client){
+                document.querySelector('#SendFormDisable').setAttribute('disabled', 'disabled')
+            }
+            
+            axios.post(this.api, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(() => {
+                this.isCorrect = true;
+                this.isShow = true;
+                document.querySelector('#SendFormDisable').removeAttribute('disabled', 'disabled')
+            })
+            .catch(() => {
+                this.isCorrect = false;
+                this.isShow = true;
+                document.querySelector('#SendFormDisable').removeAttribute('disabled', 'disabled')
+                });
         },
-
         handleMainImageChange(event) {
             const file = event.target.files[0];
             if (file) {
@@ -282,7 +319,6 @@ export default {
                 reader.readAsDataURL(file);
             }
         },
-
         handleAdditionalImagesChange(event) {
             const files = Array.from(event.target.files);
             if (files.length > 0) {
@@ -295,59 +331,9 @@ export default {
                     reader.readAsDataURL(file);
                 });
             }
-        },
-
-        removeAdditionalImage(index) {
-            this.obj.additionalImages.splice(index, 1);
-            this.additionalImageFiles.splice(index, 1);
-        },
-
-        sendForm() {
-            this.showErrors = true;
-            const isValid = Object.values(this.form).every(value => value !== null && value !== undefined && value.toString().trim() !== '');
-
-            const formData = new FormData();
-            Object.entries(this.form).forEach(([key, value]) => {
-                formData.append(key, value);
-            });
-
-            formData.append('userCreated', localStorage.getItem('user'))
-            formData.append('quality', this.qualitySelect);
-            formData.append('RentOrSell', this.RentOrSell);
-            formData.append('typeOfBuilding', this.typeOfBuilding);
-            formData.append('coords', JSON.stringify(this.obj.coords));
-            formData.append('pluses', JSON.stringify(this.obj.pluses));
-
-            if (this.mainImageFile) {
-                formData.append('mainImage', this.mainImageFile);
-            }
-
-            this.additionalImageFiles.forEach(file => {
-                formData.append('additionalImages', file);
-            });
-
-            axios.post(this.api, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-                .then(res => {
-                    this.isShow = true;
-                    this.isCorrect = true;
-                    this.resetForm();
-                    newAddForUser(res.data._id)
-
-                    axios.patch(`https://joylash-uz-4a09707016fe.herokuapp.com/usersJoy/${localStorage.getItem('user')}`, { codeHouses: addForPush })
-                        .then((res) => {
-                        })
-                        .catch((err) => { })
-                })
-                .catch(err => {
-                    this.isCorrect = false;
-                    this.isShow = true;
-                });
         }
     }
+
 }
 </script>
 

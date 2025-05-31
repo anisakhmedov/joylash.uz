@@ -29,8 +29,8 @@ const updateLayoutState = () => {
   showMargin.value = !(isHomePage.value || isRegisterPage.value)
 
   if (process.client) {
-    showMenu.value = window.innerWidth <= 600 && !isRegisterPage.value
-    sizeWindow.value = window.innerWidth <= 600 && !route.path.includes('/products')
+    showMenu.value = window.innerWidth <= 700 && !isRegisterPage.value
+    sizeWindow.value = window.innerWidth <= 700 && !route.path.includes('/products')
   }
 }
 

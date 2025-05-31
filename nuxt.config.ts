@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   target: 'static',
   app: {
     head: {
-      title: 'Joylash,uz', // default fallback title
+      title: 'Joylash.uz', // default fallback title
       charset: 'utf-16',
       viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
       htmlAttrs: {
@@ -27,15 +27,7 @@ export default defineNuxtConfig({
       ]
     }
   },
-  modules: ['@nuxtjs/i18n', '@nuxtjs/sitemap'],
-  sitemap: {
-    hostname: 'https://example.com',
-    routes: [
-      '/products/1',
-      '/products/2',
-      // или использовать auto-discovery
-    ]
-  },
+  modules: ['@nuxtjs/i18n'],
   plugins: ['~/plugins/axios.ts'],
   runtimeConfig: {
     public: {
@@ -50,14 +42,4 @@ export default defineNuxtConfig({
       { code: 'ru', name: 'Russia', file: 'ru.json' }
     ]
   },
-  // build: {
-  //   transpile: ['leaflet']
-  // },
-
-  // vite: {
-  //   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
-  //   optimizeDeps: {
-  //     include: ['leaflet']
-  //   }
-  // }
 });

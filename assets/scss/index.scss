@@ -12,6 +12,15 @@
 
 .arrowsBack {
     margin-bottom: 10px;
+    font-size: 20px;
+    display: flex;
+    a {
+        img {
+            height: 14px;
+            margin-right: -5px;
+        }
+        color: black;
+    }
 }
 
 body {
@@ -60,9 +69,13 @@ body {
     position: fixed;
     left: 15px;
     z-index: 10000;
-    * {
+    a,
+    p {
         color: white;
     }
+    // * {
+    //     color: white;
+    // }
     top: 15px;
     right: 15px;
     background-color: #ffa600;
@@ -187,15 +200,15 @@ body {
         justify-content: end;
         gap: 10px;
         margin-top: 70px;
-        .circle{
+        .circle {
             width: 38px;
             height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #EE5B1C;
+            background-color: #ee5b1c;
             border-radius: 50%;
-            img{
+            img {
                 height: 20px;
                 filter: invert(100%);
             }
@@ -470,6 +483,13 @@ body {
         .item {
             width: 500px;
             border: 1px solid #e98800;
+            .info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                // height: calc(100% - 350px);
+                height: calc(100% - 300px);
+            }
         }
         // .item {
         //     // flex: 0 0 calc(25% + 32px);
@@ -1333,8 +1353,13 @@ body {
 
 #createItem {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    .arrowsBack {
+        width: 100%;
+        padding-left: 15px;
+    }
     form {
         width: 40%;
         height: fit-content;

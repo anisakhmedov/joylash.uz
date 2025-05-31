@@ -53,7 +53,7 @@
         "header": {
             "house": "Homepage",
             "cate": "Categories",
-            "catalogue": "Catalogue",
+            "createHouse": "Create",
             "wishlist": "Wishlist"
         }
     },

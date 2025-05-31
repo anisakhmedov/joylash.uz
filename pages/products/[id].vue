@@ -123,7 +123,7 @@
     <Items :houses="similarHouses" />
     <div id="mobileVersion" v-show="widthWindow">
       <NuxtLink :to="'tel:' + house.phoneNumberUser">Позвонить</NuxtLink>
-      <NuxtLink :to="house.sms">SMS</NuxtLink>
+      <a :href="house.sms">SMS</a>
     </div>
     <div v-if="showModal" class="modal" @click="closeModal">
       <img :src="modalImageSrc" class="modal-image" />
@@ -238,7 +238,7 @@ export default {
     openModal() {
       this.modalImageSrc = event.target.src;
       this.showModal = true;
-      if(process.client){
+      if (process.client) {
         document.body.style.overflow = 'hidden'
       }
     },

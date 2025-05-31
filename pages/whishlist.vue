@@ -1,5 +1,11 @@
 <template>
     <div id="whishlistUser">
+        <div class="arrowsBack">
+            <NuxtLink style="padding: 0 15px; display: flex; align-items: center; gap: 10px;" to="#"
+                @click.prevent="$router.back()">
+                <img style="transform: rotate(90deg);" src="/icons/arrow.svg" alt=""> {{ $t('def.backHome') }}
+            </NuxtLink>
+        </div>
         <div class="wrapper" :style="allHouses.length == 0 ? 'padding-top: 200px;' : 'padding-top: 0;'">
             <div class="nav" v-show="allHouses.length == 0">
                 <p class="emptyList">Список пустой! :(</p>
@@ -55,6 +61,9 @@ export default {
     },
     async mounted() {
         if (process.client) {
+            if (!localStorage.user) {
+                this.$router.push('/register')
+            }
             window.innerWidth <= 600 ? this.widthWindow = true : this.widthWindow = false
         }
 

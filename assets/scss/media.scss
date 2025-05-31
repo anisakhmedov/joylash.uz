@@ -37,10 +37,17 @@
     #formFeedback {
         display: none !important;
     }
-    .items-wrapper {
-        grid-template-columns: repeat(3, 1fr);
-        .bg img {
-            height: 200px !important;
+    .carousel {
+        .items-wrapper {
+            grid-template-columns: repeat(3, 1fr);
+            .bg img {
+                height: 200px !important;
+            }
+            .item {
+                .info {
+                    height: calc(100% - 200px) !important;
+                }
+            }
         }
     }
     .carousel-container {
